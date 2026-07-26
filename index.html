@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><rect width="400" height="400" fill="#ECE6D9"/><circle cx="200" cy="150" r="70" fill="none" stroke="#8E2C24" stroke-width="6"/><text x="200" y="290" font-family="Georgia,serif" font-size="46" fill="#23201B" text-anchor="middle">BV</text></svg>
+</template>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ECE6D9; --panel:#F5F0E6; --panel2:#E4DCCB;
+    --ink:#23201B; --ink-soft:#6E6657; --wine:#8E2C24; --wine-deep:#5C1A16;
+    --olive:#5E5A3A; --gold:#B5894A; --line:#D6CCBA;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Hanken Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--wine);color:#F5F0E6;}
+  input,button,textarea{font-family:inherit;}
+  input::placeholder,textarea::placeholder{color:#A89C86;}
+  @keyframes bmcue{0%,100%{transform:translateY(0);opacity:.85}50%{transform:translateY(8px);opacity:.4}}
+  @keyframes bmfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes bmrise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes bmshake{0%,100%{transform:translateX(0)}15%{transform:translateX(-1px)}30%{transform:translateX(1px)}45%{transform:translateX(-.8px)}60%{transform:translateX(.8px)}75%{transform:translateX(-.4px)}}
+  @keyframes bmzoomin{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+  .bm-bottlebox{transition:box-shadow .2s ease, transform .2s ease; cursor:zoom-in;}
+  .bm-bottlebox:hover{animation:bmshake 1.5s ease-out 1 both; box-shadow:0 0 0 2px var(--wine), 0 12px 26px rgba(35,32,27,.16);}
+  @keyframes bmbeat{0%,100%{transform:scale(1)}25%{transform:scale(1.28)}50%{transform:scale(1.04)}75%{transform:scale(1.18)}}
+  .bm-corner{transition:transform .2s ease;}
+  .bm-corner:hover{animation:bmbeat .8s ease-in-out infinite;}
+  .bm-storypage{transform-origin:left center;transition:transform .5s cubic-bezier(.3,.7,.3,1), opacity .3s ease;}
+</style>
+</helmet>
+
+<div style="overflow-x:hidden;">
+
+<!-- NAV -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;background:rgba(236,230,217,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);">
+  <a href="#top" style="display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);">
+    <img src="logos/mark.png" alt="" style="width:42px;height:42px;object-fit:contain;display:block;">
+    <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;letter-spacing:.14em;">BEMVINHOS</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:34px;">
+    <a id="t-nav-histoire" href="#histoire" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Histoire</a>
+    <a id="t-nav-vins" href="#vins" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Vins</a>
+    <a id="t-nav-deg" href="#degustations" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Dégustations</a>
+    <a id="t-nav-contact" href="#contact" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Contact</a>
+    <button id="bm-lang" onClick="{{ toggleLang }}" style="background:none;border:1px solid var(--ink);border-radius:40px;padding:6px 13px;font-size:11px;letter-spacing:.1em;cursor:pointer;color:var(--ink);font-weight:600;">EN</button>
+    <a id="t-cta-commander" href="#commander" style="text-decoration:none;background:var(--wine);color:#F5F0E6;font-size:13px;letter-spacing:.04em;font-weight:600;padding:9px 18px;border-radius:40px;">Commander</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="top" style="position:relative;min-height:100vh;display:flex;overflow:hidden;background:#1a140f;">
+  <img src="images/hero-lounge.png" alt="Salon privé BEMVINHOS" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;">
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(16,11,8,.66) 0%,rgba(16,11,8,.36) 40%,rgba(16,11,8,.06) 74%,rgba(16,11,8,0) 100%);"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,11,8,.34) 0%,rgba(16,11,8,0) 24%,rgba(16,11,8,0) 56%,rgba(16,11,8,.42) 100%);"></div>
+  <div style="position:relative;z-index:3;max-width:1160px;width:100%;margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:120px 40px 96px;">
+    <div style="max-width:610px;">
+      <div id="t-hero-eyebrow" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#E4C49A;margin-bottom:24px;">Agence d'importation privée · SAQ</div>
+      <h1 id="t-hero-tag" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:80px;line-height:.98;letter-spacing:-.01em;margin:0 0 26px;color:#F6F1E8;text-shadow:0 2px 30px rgba(0,0,0,.35);">Des vins qui <span style="font-style:italic;color:#E4C49A;">racontent</span> le Portugal.</h1>
+      <p id="t-hero-sub" style="font-size:18px;line-height:1.62;color:rgba(246,241,232,.86);max-width:470px;margin:0 0 38px;">Des domaines familiaux introuvables à la SAQ, à déboucher chez vous comme au restaurant — avec l'histoire du vigneron qui va avec.</p>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+        <a href="#vins" style="text-decoration:none;background:var(--wine);color:#F6F1E8;font-size:14px;font-weight:600;letter-spacing:.03em;padding:15px 28px;border-radius:40px;box-shadow:0 12px 30px rgba(0,0,0,.32);">Commander une caisse</a>
+        <a id="t-hero-restos" href="#contact" style="text-decoration:none;color:#F6F1E8;font-size:14px;font-weight:600;letter-spacing:.03em;padding:15px 20px;border:1px solid rgba(246,241,232,.5);border-radius:40px;">Pour les restaurants →</a>
+      </div>
+    </div>
+  </div>
+  <div id="bm-cue" style="position:absolute;right:7%;bottom:34px;z-index:4;display:flex;align-items:center;gap:12px;animation:bmcue 2.2s ease-in-out infinite;">
+    <span style="width:1px;height:34px;background:#F6F1E8;opacity:.5;"></span>
+    <span id="t-hero-cue" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,232,.82);">Le Portugal, à la maison</span>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section id="histoire" style="position:relative;background:var(--panel);padding:130px 40px;border-top:1px solid var(--line);">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+    <div>
+      <div id="t-his-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">Notre histoire</div>
+      <h2 id="t-his-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.04;margin:0 0 28px;">De la Lusitanie à votre table, en passant par le Québec.</h2>
+      <p id="t-his-lead" style="font-size:19px;line-height:1.6;color:var(--ink);margin:0 0 20px;">BEMVINHOS — « bem-vindos » et « vinhos ». Bienvenue, et du vin. Tout est dans le nom.</p>
+      <p id="t-his-p1" style="font-size:16px;line-height:1.74;color:var(--ink-soft);margin:0 0 16px;">Je suis Alexandre Santos. Mes parents ont quitté le Portugal pour le Québec sans jamais quitter le Portugal de table : les bouteilles ramenées dans la valise, les histoires de vignerons racontées au souper. J'ai grandi là-dedans.</p>
+      <p id="t-his-p2" style="font-size:16px;line-height:1.74;color:var(--ink-soft);margin:0;">Après des années à la tête de ma propre microbrasserie québécoise — la fermentation, le goût et surtout l'art de raconter ce qu'il y a dans le verre — je rapporte aujourd'hui des domaines familiaux portugais que la SAQ n'offre pas, et l'histoire qui va avec chacun.</p>
+    </div>
+    <div style="position:relative;">
+      <img src="images/histoire-cortem.jpeg" alt="Notre visite au domaine Cortém, 2025" style="display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--line);border-radius:6px;box-shadow:0 18px 40px rgba(35,32,27,.14);">
+      <div id="t-his-caption" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:center;margin-top:14px;">Notre visite au domaine Cortém · 2025</div>
+    </div>
+  </div>
+
+  <div style="max-width:1160px;margin:96px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;">
+    <div style="border-top:2px solid var(--wine);padding-top:18px;">
+      <div id="t-pil1t" style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;margin-bottom:8px;">Hors-SAQ</div>
+      <p id="t-pil1d" style="font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0;">Des cuvées qu'on ne trouve sur aucune tablette du monopole.</p>
+    </div>
+    <div style="border-top:2px solid var(--wine);padding-top:18px;">
+      <div id="t-pil2t" style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;margin-bottom:8px;">Valeur sûre</div>
+      <p id="t-pil2d" style="font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0;">Un rapport qualité-prix pensé pour la carte d'un restaurant comme pour votre table.</p>
+    </div>
+    <div style="border-top:2px solid var(--wine);padding-top:18px;">
+      <div id="t-pil3t" style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;margin-bottom:8px;">Une histoire</div>
+      <p id="t-pil3d" style="font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0;">Chaque bouteille arrive avec le récit du vigneron à transmettre.</p>
+    </div>
+    <div style="border-top:2px solid var(--wine);padding-top:18px;">
+      <div id="t-pil4t" style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;margin-bottom:8px;">Trié main</div>
+      <p id="t-pil4d" style="font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0;">De petits domaines familiaux, goûtés et choisis un à un.</p>
+    </div>
+  </div>
+
+  <div style="max-width:860px;margin:104px auto 0;text-align:center;">
+    <div id="t-his-vision-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:26px;">Le prochain chapitre</div>
+    <p id="t-his-vision" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:26px;line-height:1.46;color:var(--ink);margin:0;text-wrap:balance;">C'est le début d'un nouveau chapitre. Mon rêve : posséder un jour un domaine au Portugal et partager ma vie entre les deux pays que j'aime, le Canada et le Portugal. En soutenant ce projet, vous suivrez mon évolution — d'importateur à producteur, puis à hôte. J'imagine un hôtel-boutique au milieu des vignes, une ferme et des produits frais pour les visiteurs : un séjour à la campagne où le vin se marie à la table, au cœur d'une nature splendide.</p>
+    <div style="width:46px;height:2px;background:var(--wine);margin:30px auto 0;"></div>
+    <div id="t-his-vision-sign" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:18px;">Alexandre Santos</div>
+  </div>
+</section>
+
+<!-- VINS -->
+<section id="vins" style="position:relative;background:var(--bg);padding:130px 40px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:20px;">
+      <div>
+        <div id="t-vin-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Les domaines</div>
+        <h2 id="t-vin-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;max-width:620px;">Trois familles, une même obsession du détail.</h2>
+      </div>
+      <p id="t-vin-lead" style="font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:300px;margin:0;">Photos et fiches officielles des domaines. Prix indicatifs au tarif SAQ — vente par caisse de 6.</p>
+    </div>
+
+    <sc-for list="{{ wineries }}" as="w" hint-placeholder-count="3">
+      <div style="border-top:1px solid var(--line);padding:42px 0;display:grid;grid-template-columns:300px 1fr;gap:48px;">
+        <div>
+          <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.18em;color:var(--wine);margin-bottom:12px;">{{ w.region }}</div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;line-height:1.04;margin:0 0 14px;">{{ w.name }}</h3>
+          <p style="font-size:14px;line-height:1.65;color:var(--ink-soft);margin:0 0 14px;">{{ w.note }}</p>
+          <span style="display:inline-block;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--olive);border:1px solid var(--olive);border-radius:30px;padding:4px 11px;">{{ w.tag }}</span>
+          <sc-if value="{{ w.hasLink }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ w.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:13px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--wine);padding-bottom:2px;width:fit-content;">
+              <span style="font-size:11px;">↗</span><span>{{ w.linkLabel }}</span>
+            </a>
+          </sc-if>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-content:start;">
+          <sc-for list="{{ w.wines }}" as="v" hint-placeholder-count="4">
+            <div style="position:relative;perspective:1500px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 22px 24px;display:flex;flex-direction:column;">
+              <div class="{{ v.boxClass }}" onClick="{{ v.toggleExpand }}" style="height:200px;border-radius:6px;background:radial-gradient(120% 90% at 50% 18%,#F2ECDF,#E2D8C6);display:flex;align-items:center;justify-content:center;margin-bottom:16px;overflow:hidden;position:relative;">
+                <sc-if value="{{ v.hasImg }}" hint-placeholder-val="{{ false }}">
+                  <div role="img" aria-label="{{ v.name }}" style="{{ v.imgBoxStyle }}"></div>
+                </sc-if>
+                <sc-if value="{{ v.noImg }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.12em;color:var(--ink-soft);text-transform:uppercase;">Photo à venir</span>
+                </sc-if>
+                <sc-if value="{{ v.showStockBadge }}" hint-placeholder-val="{{ false }}">
+                  <span style="position:absolute;top:12px;left:12px;z-index:2;font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#F5F0E6;background:{{ v.stockBadgeBg }};padding:5px 9px;border-radius:20px;">{{ v.stockBadge }}</span>
+                </sc-if>
+                <button onClick="{{ v.openStory }}" class="bm-corner" aria-label="Histoire du vin" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);">
+                  <span style="font-size:13px;line-height:1;">❧</span>
+                </button>
+              </div>
+              <div onClick="{{ v.closeStory }}" class="bm-storypage" style="{{ v.flipStyle }}">
+                <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72;margin-bottom:14px;">L'histoire</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;line-height:1.08;margin-bottom:16px;">{{ v.name }}</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;line-height:1.55;flex:1;">{{ v.storyText }}</div>
+                <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-top:18px;">↩ Cliquez pour fermer</div>
+              </div>
+              <sc-if value="{{ v.isExpanded }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ v.toggleExpand }}" style="position:absolute;inset:0;z-index:6;background:var(--panel);border:1px solid var(--wine);border-radius:8px;display:flex;flex-direction:column;padding:20px;cursor:zoom-out;animation:bmzoomin .25s ease;">
+                  <div role="img" aria-label="{{ v.name }}" style="{{ v.bigImgStyle }}"></div>
+                  <div style="text-align:center;margin-top:12px;">
+                    <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.05;">{{ v.name }}</div>
+                    <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.12em;color:var(--wine);white-space:nowrap;margin-top:6px;">{{ v.price }} · SAQ</div>
+                    <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.14em;color:var(--ink-soft);text-transform:uppercase;margin-top:14px;">{{ v.closeHint }}</div>
+                  </div>
+                </div>
+              </sc-if>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;line-height:1.05;">{{ v.name }}</span>
+                <span style="font-family:'Courier Prime',monospace;font-size:13px;color:var(--wine);white-space:nowrap;">{{ v.price }}</span>
+              </div>
+              <sc-if value="{{ v.allInPrice }}" hint-placeholder-val="{{ false }}">
+                <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.08em;color:var(--olive);margin-top:4px;">Prix tout inclus · frais d'agence compris</div>
+              </sc-if>
+              <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;color:var(--gold);margin:6px 0 10px;text-transform:uppercase;">{{ v.metaLine }}</div>
+              <span style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin-bottom:10px;">{{ v.grapes }}</span>
+              <span style="font-size:13px;color:var(--ink);line-height:1.55;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:16px;">{{ v.note }}</span>
+              <sc-if value="{{ v.hasPairing }}" hint-placeholder-val="{{ true }}">
+                <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-soft);"><span style="color:var(--olive);font-weight:600;">Accord ·</span> {{ v.pairing }}</div>
+              </sc-if>
+              <sc-if value="{{ v.canBuy }}" hint-placeholder-val="{{ false }}">
+                <button onClick="{{ v.add }}" style="margin-top:16px;width:100%;border:1px solid {{ v.addBtnBorder }};background:{{ v.addBtnBg }};color:{{ v.addBtnColor }};border-radius:40px;padding:11px 14px;font-size:13px;font-weight:600;letter-spacing:.02em;cursor:{{ v.addBtnCursor }};opacity:{{ v.addBtnOpacity }};display:flex;align-items:center;justify-content:center;gap:7px;">
+                  <span>{{ v.addBtnLabel }}</span>
+                </button>
+                <div style="text-align:center;font-size:11px;color:var(--ink-soft);margin-top:7px;">{{ v.caseHint }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- COMMANDER -->
+<section id="commander" style="position:relative;background:var(--panel);padding:130px 40px;border-top:1px solid var(--line);">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="text-align:center;max-width:640px;margin:0 auto 56px;">
+      <div id="t-cmd-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Commander</div>
+      <h2 id="t-cmd-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.03;margin:0 0 18px;">Deux factures, zéro surprise.</h2>
+      <p id="t-cmd-lead" style="font-size:17px;line-height:1.6;color:var(--ink-soft);margin:0;">Vous payez le vin au prix SAQ à la cueillette, et les frais d'agence en ligne. Tout est détaillé, ligne par ligne.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:start;">
+      <!-- cart -->
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:30px;">
+        <div id="t-cart-title" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px;">Votre panier</div>
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:34px 18px;text-align:center;border:1px dashed var(--line);border-radius:8px;color:var(--ink-soft);font-size:14px;line-height:1.5;">{{ emptyCartText }}</div>
+        </sc-if>
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);">
+            <div style="width:54px;height:72px;border-radius:4px;background:radial-gradient(120% 90% at 50% 20%,#F2ECDF,#E2D8C6);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+              <div role="img" aria-label="{{ l.name }}" style="{{ l.imgStyle }}"></div>
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;">{{ l.name }}</div>
+              <div style="font-size:12.5px;color:var(--ink-soft);">{{ l.winery }} · {{ l.price }} <span style="color:var(--gold);">SAQ</span> · <span data-en="case of 6">caisse de 6</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <button onClick="{{ l.dec }}" style="width:28px;height:28px;border:1px solid var(--line);background:var(--panel);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;color:var(--ink);">−</button>
+              <span style="min-width:60px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;">{{ l.qtyLabel }}</span>
+              <button onClick="{{ l.inc }}" style="width:28px;height:28px;border:1px solid var(--line);background:var(--panel);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;color:var(--ink);">+</button>
+            </div>
+            <div style="width:84px;text-align:right;font-family:'Courier Prime',monospace;font-size:14px;">{{ l.lineTotal }}</div>
+            <button onClick="{{ l.remove }}" title="Retirer" aria-label="Retirer" style="width:26px;height:26px;border:none;background:none;cursor:pointer;color:var(--ink-soft);font-size:17px;line-height:1;flex-shrink:0;">×</button>
+          </div>
+        </sc-for>
+        <div style="display:flex;justify-content:space-between;margin-top:18px;font-size:13px;color:var(--ink-soft);">
+          <span id="t-cart-count">Caisses de 6</span><span style="font-variant-numeric:tabular-nums;">{{ caseCount }} · {{ bottleCount }} <span data-en="bottles">bouteilles</span></span>
+        </div>
+        <div id="t-case-note" style="font-size:12px;color:var(--olive);margin-top:8px;">Vente par caisse de 6 — minimum d'importation SAQ.</div>
+
+        <!-- pickup -->
+        <div style="margin-top:26px;padding-top:24px;border-top:1px dashed var(--line);">
+          <div id="t-pickup-title" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;">Succursale SAQ de cueillette</div>
+          <button onClick="{{ openPicker }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:15px 18px;cursor:pointer;text-align:left;color:var(--ink);">
+            <span style="display:flex;align-items:center;gap:12px;">
+              <span style="width:9px;height:9px;background:var(--wine);transform:rotate(45deg);"></span>
+              <span id="bm-branch-label" style="font-size:15px;font-weight:500;">{{ selectedBranchName }}</span>
+            </span>
+            <span style="font-family:'Courier Prime',monospace;font-size:11px;color:var(--wine);">CHANGER</span>
+          </button>
+        </div>
+
+        <!-- promo code -->
+        <div style="margin-top:22px;padding-top:24px;border-top:1px dashed var(--line);">
+          <div id="t-promo-title" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px;">Code promo · dégustation</div>
+          <sc-if value="{{ promoApplied }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(94,90,58,.1);border:1px solid var(--olive);border-radius:8px;padding:13px 16px;">
+              <span style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--olive);font-weight:600;"><span style="font-size:15px;">✓</span>{{ promoLabel }}</span>
+              <button onClick="{{ clearPromo }}" style="background:none;border:none;cursor:pointer;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;color:var(--ink-soft);">RETIRER</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ promoNotApplied }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;gap:10px;">
+              <input value="{{ promoInput }}" onInput="{{ onPromoInput }}" placeholder="{{ promoPlaceholder }}" style="flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--panel);color:var(--ink);outline:none;text-transform:uppercase;letter-spacing:.06em;" />
+              <button onClick="{{ applyPromo }}" style="flex-shrink:0;background:var(--ink);color:var(--bg);border:none;border-radius:8px;padding:0 20px;font-size:13px;font-weight:600;letter-spacing:.02em;cursor:pointer;">Appliquer</button>
+            </div>
+            <sc-if value="{{ promoInvalid }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12.5px;color:var(--wine);margin-top:9px;">{{ promoMsg }}</div>
+            </sc-if>
+          </sc-if>
+        </div>
+      </div>
+
+      <!-- invoice split -->
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;">
+          <div style="background:var(--ink);color:var(--bg);padding:16px 22px;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;">Facture 1 — <span id="t-f1">BEMVINHOS</span></span>
+            <span id="t-f1tag" style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;background:var(--wine);padding:4px 9px;border-radius:20px;">EN LIGNE</span>
+          </div>
+          <div style="padding:18px 22px;">
+            <sc-if value="{{ hasDiscount }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--olive);font-weight:600;"><span>Rabais · {{ promoCodeStr }}</span><span style="font-variant-numeric:tabular-nums;">{{ discountStr }}</span></div>
+            </sc-if>
+            <div style="display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--ink-soft);"><span id="t-f1-fee">Frais d'agence (selon le vin)</span><span style="font-variant-numeric:tabular-nums;">{{ agencyFeeStr }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--ink-soft);"><span id="t-f1-txn">Frais de transaction (3 %)</span><span style="font-variant-numeric:tabular-nums;">{{ txnStr }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--ink-soft);"><span>TPS (5 %)</span><span style="font-variant-numeric:tabular-nums;">{{ tpsStr }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--ink-soft);border-bottom:1px solid var(--line);"><span>TVQ (9,975 %)</span><span style="font-variant-numeric:tabular-nums;">{{ tvqStr }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:700;padding:14px 0 4px;"><span id="t-f1-total">Payable en ligne</span><span style="font-variant-numeric:tabular-nums;color:var(--wine);">{{ onlineTotalStr }}</span></div>
+            <button onClick="{{ openPayment }}" disabled="{{ cartEmpty }}" style="width:100%;margin-top:14px;background:var(--wine);color:#F5F0E6;border:none;border-radius:8px;padding:15px;font-size:15px;font-weight:600;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;opacity:{{ payBtnOpacity }};">
+              <span style="font-size:13px;">🔒</span><span id="t-pay-btn">Payer les frais d'agence</span>
+            </button>
+            <div style="text-align:center;font-size:12px;line-height:1.45;color:var(--olive);margin-top:11px;">{{ stripeQtyNote }}</div>
+            <div id="t-stripe-note" style="text-align:center;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.08em;color:var(--ink-soft);margin-top:8px;">Paiement sécurisé · Stripe · Visa · Interac · Apple Pay</div>
+          </div>
+        </div>
+
+        <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;">
+          <div style="background:var(--panel2);color:var(--ink);padding:16px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;">Facture 2 — SAQ</span>
+            <span id="t-f2tag" style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;background:var(--gold);color:#fff;padding:4px 9px;border-radius:20px;">À LA CUEILLETTE</span>
+          </div>
+          <div style="padding:18px 22px;">
+            <div style="display:flex;justify-content:space-between;font-size:14px;padding:7px 0;color:var(--ink-soft);"><span id="t-f2-wine">Vins (prix SAQ, taxes incluses)</span><span style="font-variant-numeric:tabular-nums;">{{ subtotalSAQStr }}</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:17px;font-weight:700;padding:10px 0 4px;border-top:1px solid var(--line);margin-top:6px;"><span id="t-f2-total">Payable en succursale</span><span style="font-variant-numeric:tabular-nums;">{{ subtotalSAQStr }}</span></div>
+            <p id="t-f2-note" style="font-size:12.5px;line-height:1.55;color:var(--ink-soft);margin:12px 0 0;">Réglé directement à la SAQ au moment de la cueillette. Nous y déposons votre commande dès réception des frais d'agence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAQ PICKER MODAL -->
+  <sc-if value="{{ pickerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePicker }}" style="position:fixed;inset:0;background:rgba(35,32,27,.55);backdrop-filter:blur(4px);z-index:90;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onClick="{{ stop }}" style="background:var(--bg);border-radius:14px;width:560px;max-width:100%;max-height:82vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);">
+        <div style="padding:24px 26px 16px;border-bottom:1px solid var(--line);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin:0;">Choisir une succursale</h3>
+            <button onClick="{{ closePicker }}" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink-soft);line-height:1;">×</button>
+          </div>
+          <input onInput="{{ onBranchInput }}" placeholder="Rechercher par ville ou succursale…" style="width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:15px;background:var(--panel);color:var(--ink);outline:none;">
+          <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-soft);margin-top:10px;">SUCCURSALES DÉSIGNÉES POUR L'IMPORTATION PRIVÉE</div>
+        </div>
+        <div style="overflow-y:auto;padding:8px 14px 16px;">
+          <sc-for list="{{ branchesFiltered }}" as="b" hint-placeholder-count="6">
+            <button onClick="{{ b.select }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:14px 12px;background:none;border:none;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;color:var(--ink);">
+              <span style="width:8px;height:8px;background:var(--wine);transform:rotate(45deg);flex-shrink:0;"></span>
+              <span style="flex:1;">
+                <span style="display:block;font-size:15px;font-weight:600;">{{ b.city }}</span>
+                <span style="display:block;font-size:12.5px;color:var(--ink-soft);">{{ b.address }}</span>
+              </span>
+              <span style="font-family:'Courier Prime',monospace;font-size:11px;color:var(--wine);">{{ b.numLabel }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- PAYMENT MODAL (Stripe-style) -->
+  <sc-if value="{{ paymentOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closePayment }}" style="position:fixed;inset:0;background:rgba(35,32,27,.55);backdrop-filter:blur(4px);z-index:95;display:flex;align-items:center;justify-content:center;padding:24px;">
+      <div onClick="{{ stop }}" style="background:var(--bg);border-radius:14px;width:430px;max-width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);">
+        <div style="padding:22px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;">Frais d'agence</span>
+          <button onClick="{{ closePayment }}" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink-soft);line-height:1;">×</button>
+        </div>
+        <sc-if value="{{ payNotDone }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:24px 26px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;">
+              <span style="font-size:14px;color:var(--ink-soft);">BEMVINHOS · Facture 1</span>
+              <span style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--wine);">{{ onlineTotalStr }}</span>
+            </div>
+            <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+              <div style="background:rgba(142,44,36,.1);border:1px solid var(--wine);color:var(--wine);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.5;margin-bottom:18px;">{{ payError }}</div>
+            </sc-if>
+            <label style="display:block;font-size:12px;color:var(--ink-soft);margin-bottom:6px;">Courriel</label>
+            <input placeholder="vous@restaurant.ca" style="width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px 8px 0 0;font-size:14px;background:var(--panel);color:var(--ink);outline:none;border-bottom:none;">
+            <label style="display:block;font-size:12px;color:var(--ink-soft);margin:14px 0 6px;">Informations de carte</label>
+            <div style="border:1px solid var(--line);border-radius:8px;overflow:hidden;">
+              <input placeholder="1234 1234 1234 1234" style="width:100%;padding:12px 14px;border:none;border-bottom:1px solid var(--line);font-size:14px;background:var(--panel);color:var(--ink);outline:none;">
+              <div style="display:flex;">
+                <input placeholder="MM / AA" style="flex:1;padding:12px 14px;border:none;border-right:1px solid var(--line);font-size:14px;background:var(--panel);color:var(--ink);outline:none;">
+                <input placeholder="CVC" style="flex:1;padding:12px 14px;border:none;font-size:14px;background:var(--panel);color:var(--ink);outline:none;">
+              </div>
+            </div>
+            <button onClick="{{ confirmPay }}" style="width:100%;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:8px;padding:15px;font-size:15px;font-weight:600;cursor:pointer;">Payer {{ onlineTotalStr }}</button>
+            <div style="text-align:center;font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.06em;color:var(--ink-soft);margin-top:14px;">🔒 Propulsé par Stripe — démo, aucune carte n'est débitée</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ payDone }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:46px 26px;text-align:center;">
+            <div style="width:60px;height:60px;border-radius:50%;background:var(--olive);display:grid;place-items:center;margin:0 auto 20px;color:#fff;font-size:30px;">✓</div>
+            <h3 style="font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:600;margin:0 0 8px;">Paiement reçu</h3>
+            <p style="font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0 0 22px;">Merci. Nous déposons votre commande à la SAQ et vous écrivons dès qu'elle est prête à la cueillette.</p>
+            <button onClick="{{ closePayment }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:8px;padding:13px 28px;font-size:14px;font-weight:600;cursor:pointer;">Fermer</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+<!-- DEGUSTATIONS -->
+<section id="degustations" style="position:relative;background:var(--bg);padding:130px 40px;">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px;">
+      <div>
+        <div id="t-deg-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Dégustations</div>
+        <h2 id="t-deg-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;">Goûtez avant de raconter.</h2>
+      </div>
+      <p id="t-deg-lead" style="font-size:16px;line-height:1.65;color:var(--ink-soft);margin:0;">Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.</p>
+    </div>
+
+    <!-- featured next event -->
+    <div style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;margin-bottom:24px;">
+      <div style="text-align:center;border-right:1px solid rgba(245,240,230,.2);padding-right:36px;">
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">SEPT</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;">18</div>
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;opacity:.7;">2026</div>
+      </div>
+      <div>
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px;">PROCHAIN RENDEZ-VOUS · MONTRÉAL</div>
+        <h3 id="t-feat-title" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin:0 0 8px;">Folgorosa, verticale de la Lusitanie</h3>
+        <p id="t-feat-desc" style="font-size:14.5px;line-height:1.6;color:rgba(245,240,230,.75);margin:0;">Six cuvées, le récit de la famille Folgorosa, planches portugaises. 18 h 30 · Le Mile-End.</p>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;">65 $</div>
+        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">8 places restantes</div>
+        <button onClick="{{ openNotify }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">Réserver</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;">
+      <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
+        <div style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.14em;color:var(--wine);">{{ e.date }}</span>
+            <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:{{ e.badgeColor }};padding:3px 9px;border-radius:20px;">{{ e.badge }}</span>
+          </div>
+          <h3 style="font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;margin:6px 0 0;line-height:1.1;">{{ e.title }}</h3>
+          <p style="font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:0;flex:1;">{{ e.desc }}</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:14px;border-top:1px solid var(--line);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;">{{ e.price }}</span>
+            <span style="font-size:12px;color:var(--ink-soft);">{{ e.city }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- registry -->
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;">
+      <div>
+        <h3 id="t-notify-title" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 0 8px;">Soyez au courant des prochaines dégustations</h3>
+        <p id="t-notify-lead" style="font-size:15px;line-height:1.6;color:var(--ink-soft);margin:0;">Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.</p>
+      </div>
+      <form onSubmit="{{ submitNotify }}" style="display:flex;gap:10px;flex-shrink:0;">
+        <input required="" placeholder="Votre courriel" style="padding:14px 18px;border:1px solid var(--line);border-radius:40px;font-size:15px;background:var(--bg);color:var(--ink);outline:none;min-width:240px;">
+        <button id="t-notify-btn" type="submit" style="background:var(--ink);color:var(--bg);border:none;border-radius:40px;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">M'inscrire</button>
+      </form>
+    </div>
+    <sc-if value="{{ notifyDone }}" hint-placeholder-val="{{ false }}">
+      <div style="text-align:center;margin-top:16px;font-size:14px;color:var(--olive);font-weight:600;">✓ Vous êtes inscrit — à très bientôt autour d'un verre.</div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="position:relative;background:var(--panel);padding:130px 40px;border-top:1px solid var(--line);">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="text-align:center;max-width:600px;margin:0 auto 56px;">
+      <div id="t-con-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Parlons-nous</div>
+      <h2 id="t-con-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;">Un verre, deux chemins.</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:38px;">
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--wine);margin-bottom:14px;">POUR LES RESTAURANTS</div>
+        <h3 id="t-con-r-title" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 0 12px;">Enrichir votre carte</h3>
+        <p id="t-con-r-desc" style="font-size:15px;line-height:1.65;color:var(--ink-soft);margin:0 0 24px;">Des vins hors-SAQ à belle valeur, avec l'histoire à raconter en salle. On passe vous faire goûter.</p>
+        <a id="t-con-r-btn" href="mailto:alex@bemvinhos.com" style="display:inline-block;background:var(--wine);color:#F5F0E6;text-decoration:none;border-radius:40px;padding:13px 26px;font-size:14px;font-weight:600;">Prendre rendez-vous</a>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:38px;">
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--olive);margin-bottom:14px;">POUR LES PARTICULIERS</div>
+        <h3 id="t-con-p-title" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 0 12px;">Dénicher des pépites</h3>
+        <p id="t-con-p-desc" style="font-size:15px;line-height:1.65;color:var(--ink-soft);margin:0 0 24px;">Des bouteilles différentes pour votre cave ou votre table. Importation privée, cueillette à la SAQ.</p>
+        <a id="t-con-p-btn" href="#commander" style="display:inline-block;background:var(--ink);color:var(--bg);text-decoration:none;border-radius:40px;padding:13px 26px;font-size:14px;font-weight:600;">Voir la sélection</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:var(--ink);color:var(--bg);padding:70px 40px 40px;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;align-items:start;">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+        <img src="logos/mark.png" alt="" style="width:42px;height:42px;object-fit:contain;display:block;">
+        <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;letter-spacing:.14em;">BEMVINHOS</span>
+      </div>
+      <p id="t-foot-tag" style="font-size:14px;line-height:1.6;color:rgba(245,240,230,.6);max-width:320px;margin:0;">Importation privée de vins portugais au Québec. Bem-vindos — bienvenue, et du vin.</p>
+    </div>
+    <div>
+      <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:16px;">NAVIGUER</div>
+      <a href="#histoire" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;margin-bottom:10px;">Histoire</a>
+      <a href="#vins" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;margin-bottom:10px;">Vins</a>
+      <a href="#degustations" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;margin-bottom:10px;">Dégustations</a>
+      <a href="#commander" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;">Commander</a>
+    </div>
+    <div>
+      <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:16px;">CONTACT</div>
+      <a href="mailto:alex@bemvinhos.com" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;margin-bottom:10px;">alex@bemvinhos.com</a>
+      <span style="display:block;color:rgba(245,240,230,.6);font-size:14px;margin-bottom:10px;">Montréal, Québec</span>
+      <span style="display:block;color:rgba(245,240,230,.6);font-size:13px;">Permis SAQ d'importation privée</span>
+    </div>
+  </div>
+  <div style="max-width:1160px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(245,240,230,.15);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <span style="font-size:12px;color:rgba(245,240,230,.5);">© 2026 BEMVINHOS. Tous droits réservés.</span>
+    <span id="t-foot-legal" style="font-size:12px;color:rgba(245,240,230,.5);">L'abus d'alcool est dangereux pour la santé. 18 ans et plus.</span>
+  </div>
+</footer>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;palette&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Terracotta &amp; lin&quot;,&quot;Olive &amp; crème&quot;,&quot;Azulejo &amp; pierre&quot;],&quot;default&quot;:&quot;Terracotta &amp; lin&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  // ===========================================================================
+  //  STRIPE PAYMENT
+  //  EXACT-MATCH (recommended): paste your Vercel Checkout endpoint URL here.
+  //  It charges the panier total to the cent, no manual quantity. This WINS
+  //  over the Payment Link below when set.
+  //  e.g. 'https://bemvinhos-stripe.vercel.app/api/create-checkout-session'
+  // ===========================================================================
+  STRIPE_CHECKOUT_URL = 'https://bemvinhos-stripe-dokd.vercel.app/api/create-checkout-session';
+
+  //  Fallback (no code): a Stripe Payment Link. Used only if the Checkout URL
+  //  above is empty. Customer must set the quantity themselves on Stripe.
+  STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_6oUaEX5Naf3W0nHgc3cwg00';
+
+  // ===========================================================================
+  //  WINE SPREADSHEET (optional) — manage wines / prices / stock from a sheet
+  //  instead of editing code. See data/wines.csv for the template + columns.
+  //  Option 1 (auto, needs the site hosted): in Google Sheets do
+  //     File → Share → Publish to web → CSV → copy the link → paste it below.
+  //     The site then loads every wine from your sheet on each visit.
+  //  Option 2: keep the bundled file data/wines.csv up to date (set USE_LOCAL_CSV
+  //     to true). Replace that file on your host to update the wines.
+  //  If both are off/empty, the built-in list below is used.
+  // ===========================================================================
+  WINE_SHEET_CSV_URL = '';
+  USE_LOCAL_CSV = true;
+
+  // Cart: maps a wine id → number of cases (of 6). Starts empty.
+  state = {
+    cart: {},
+    promoInput: '',
+    promoCode: null,
+    storyWine: null,
+    expandedWine: null,
+    pickerOpen: false,
+    branchQuery: '',
+    selectedBranch: null,
+    paymentOpen: false,
+    paying: false,
+    payError: '',
+    payDone: false,
+    notifyDone: false,
+  };
+
+  lang = 'fr';
+
+  // Flat list of every purchasable wine (built from wineriesData), keyed by id.
+  catalogue() {
+    if (this._cat) return this._cat;
+    const flat = [];
+    this.wineriesData.forEach((wn) => wn.wines.forEach((v) => {
+      if (v.id && v.priceNum) flat.push({ ...v, winery: wn.name });
+    }));
+    this._cat = flat;
+    return flat;
+  }
+  findWine(id) { return this.catalogue().find((w) => w.id === id); }
+
+  // ===========================================================================
+  //  PROMO CODES — discount on the AGENCY FEE (Facture 1). The wine price at the
+  //  SAQ never changes. Give these out at tastings. Edit / add codes here.
+  //  { pct: 15 }  = 15% off the agency fee.   { amount: 10 } = 10 $ off the fee.
+  //  (Codes are case-insensitive. Also mirrored in the Stripe function so the
+  //   charged amount matches — update both places if you change them.)
+  // ===========================================================================
+  PROMO_CODES = {
+    'DEGUSTATION': { pct: 15, label: 'Dégustation — 15 %' },
+    'MERCI10': { pct: 10, label: 'Merci — 10 %' },
+    'AMI25': { pct: 25, label: 'Ami·e — 25 %' },
+  };
+  lookupPromo(raw) {
+    const key = (raw || '').trim().toUpperCase();
+    return this.PROMO_CODES[key] ? { code: key, ...this.PROMO_CODES[key] } : null;
+  }
+  applyPromo = () => {
+    const p = this.lookupPromo(this.state.promoInput);
+    this.setState({ promoCode: p ? p.code : 'INVALID' });
+  };
+  clearPromo = () => this.setState({ promoCode: null, promoInput: '' });
+
+  // Available cases for a wine. null/undefined stock = unlimited (no cap).
+  stockFor(id) {
+    const w = this.findWine(id);
+    const s = w ? w.stockCases : undefined;
+    return (s === null || s === undefined) ? Infinity : s;
+  }
+  addToCart = (id) => {
+    this.setState((s) => {
+      const cart = { ...s.cart };
+      const max = this.stockFor(id);
+      const v = Math.min((cart[id] || 0) + 1, max);
+      if (v <= 0) delete cart[id]; else cart[id] = v;
+      return { cart };
+    });
+  };
+  setCases = (id, n) => {
+    this.setState((s) => {
+      const cart = { ...s.cart };
+      const v = Math.min(n, this.stockFor(id));
+      if (v <= 0) delete cart[id]; else cart[id] = v;
+      return { cart };
+    });
+  };
+
+  // ---------- data ----------
+  _unusedCartWines = [
+    { name: 'Folgorosa Branco', winery: 'Quinta da Folgorosa', price: 19.95, img: 'wines/folgorosa-white.png' },
+    { name: 'Folgorosa Tinto', winery: 'Quinta da Folgorosa', price: 21.50, img: 'wines/folgorosa-red.png' },
+    { name: 'Cortém Tinto', winery: 'Cortém', price: 24.95, img: 'wines/cortem-red.png' },
+  ];
+
+  // ===========================================================================
+  //  WINE CATALOGUE  — edit here to add / change / remove wines in the future.
+  //  Each winery: { name, region, tag, note, wines: [ ... ] }
+  //  Each wine:   { name, vintage, grapes, alc, note, pairing, price, img,
+  //                 hasImg, noImg }   (set img:'' + hasImg:false for "à venir")
+  //
+  //  STOCK CONTROL — set  stockCases:  on each wine to how many CASES OF 6 are
+  //  available at the SAQ. The site stops customers from ordering past it:
+  //     stockCases: 0     → "Rupture de stock", cannot be ordered
+  //     stockCases: 5     → up to 5 cases; "Plus que N caisses" when ≤ 3 left
+  //     stockCases: null  → no limit (hide stock, always orderable)
+  //  Just change these numbers whenever the SAQ inventory changes.
+  // ===========================================================================
+  wineriesData = [
+    {
+      name: 'Quinta da Folgorosa', region: 'IGP LISBOA · TORRES VEDRAS', tag: 'Domaine familial · depuis 1711',
+      link: 'https://lindeborgwines.com/quinta-folgorosa/', linkLabel: 'lindeborgwines.com',
+      note: "Au cœur de Torres Vedras, une quinta familiale qui marie cépages portugais et vinification précise en cuve inox.",
+      wines: [
+        { id: 'folg-branco', name: 'Folgorosa Branco', vintage: '2021', grapes: 'Arinto 50% · Viosinho 30% · Viognier 20%', alc: '12,5 %', note: 'Jaune pâle, agrumes frais, mangue et ananas. Vif et fruité, belle acidité.', pairing: 'Poissons et salades', price: '19,95 $', priceNum: 19.95, stockCases: 18, img: 'wines/folgorosa-white.png', hasImg: true, noImg: false },
+        { id: 'folg-tinto', name: 'Folgorosa Tinto', vintage: '2018', grapes: 'Touriga Nacional 50% · Aragonez 40% · Alicante Bouschet 10%', alc: '13,5 %', note: 'Pourpre, cerise et prune. Tannins souples et longue finale.', pairing: 'Viandes rouges, fromages affinés', price: '21,50 $', priceNum: 21.50, stockCases: 12, img: 'wines/folgorosa-red.png', hasImg: true, noImg: false },
+        { id: 'folg-alvarinho', name: 'Folgorosa Alvarinho', vintage: '2024', grapes: 'Alvarinho 100%', alc: '12,5 %', note: 'Jaune pâle, fruits tropicaux et agrumes. Frais, équilibré, beau volume.', pairing: 'Poisson, viande blanche, fromages relevés', price: '26,95 $', priceNum: 26.95, stockCases: 2, img: 'wines/folgorosa-alvarinho.png', hasImg: true, noImg: false },
+        { id: 'folg-castelao', name: 'Folgorosa Castelão', vintage: '2021', grapes: 'Castelão 100%', alc: '13,0 %', note: 'Rouge rubis éclatant. Arômes délicats de fraises, mûres, cannelle et notes terreuses. Tannins élégants et soyeux, longue finale.', pairing: 'Poissons gras et viandes confites', price: '23,50 $', priceNum: 23.50, stockCases: 8, img: 'wines/folgorosa-castelao.png', hasImg: true, noImg: false },
+      ],
+    },
+    {
+      name: 'Cortém', region: 'IGP LISBOA · BIO', tag: 'Vinhos orgânicos · 2004',
+      link: 'https://lindeborgwines.com/vale-de-cortem/', linkLabel: 'lindeborgwines.com',
+      note: "Domaine certifié biologique, vinifié sans bois ni additifs, avec de longs élevages en cuve inox.",
+      wines: [
+        { id: 'cortem-tinto', name: 'Cortém Tinto', vintage: '2018', grapes: 'Touriga Nacional 60% · Cabernet Sauvignon 30% · Syrah 10%', alc: '14,8 %', note: 'Rouge grenat, riche et corsé, belle acidité. 3 ans en cuve, sans bois ni additifs.', pairing: 'Fromages et pâtés', price: '24,95 $', priceNum: 24.95, stockCases: 20, img: 'wines/cortem-red.png', hasImg: true, noImg: false },
+        { id: 'cortem-orange', name: 'Cortém Blanc', vintage: '2018', grapes: 'Sauvignon Blanc 60% · Viognier 40%', alc: '14,8 %', note: 'Jaune doré, fleurs blanches et citron. Macération pelliculaire, 24 mois, sans bois.', pairing: 'Fromages et pâtés', price: '27,95 $', priceNum: 27.95, stockCases: 0, img: 'wines/cortem-orange.png', hasImg: true, noImg: false },
+      ],
+    },
+    {
+      name: 'Vinha dos 9', region: 'IG MINHO · BARCELOS', tag: 'Quinta de Agrelo · famille depuis 300 ans',
+      link: 'https://vinhados9.pt', linkLabel: 'vinhados9.pt',
+      note: "Domaine familial de la vallée de la Neiva, nommé d'après les 9 cousins de la Quinta de Agrelo. Vignes en culture sèche, tradition et amitié.",
+      wines: [
+        { id: 'vd9-branco', name: 'Vinha dos 9 Branco', vintage: '2025', grapes: 'Alvarinho · Chardonnay · Gewurztraminer', alc: '12,5 %', note: 'Robe jaune citron, nez de fruits frais et fleurs. Vif, sec et désaltérant — un blanc du Minho plein d\u2019énergie.', pairing: 'Apéritif, poissons, fruits de mer', price: '26,95 $', priceNum: 26.95, saqCaseNum: 26.95 * 6, feeCaseNum: 0, allInPrice: true, img: 'wines/vinhados9-branco-photo.png', photo: true, hasImg: true, noImg: false },
+        { id: 'vd9-rose', name: 'Vinha dos 9 Rosé', vintage: '2021', grapes: 'Touriga Nacional 33% · Syrah 33% · Pinot Noir 33%', alc: '12,0 %', note: 'Vinho Regional Minho, vin tranquille. Robe rosé éclatante, sucre résiduel < 1,5 g/L — sec et vif.', pairing: 'Apéritif, cuisine estivale', price: '26,95 $', priceNum: 26.95, saqCaseNum: 26.95 * 6, feeCaseNum: 0, allInPrice: true, img: 'wines/vinhados9-rose.png', hasImg: true, noImg: false },
+        { id: 'vd9-brut', name: 'Vinha dos 9 Mousseux Brut', vintage: '', grapes: '50% Alvarinho · 50% Chardonnay', alc: '12,5 %', note: 'Méthode classique, 18 mois sur lattes. Bulles fines, robe jaune citron, nez de fruits mûrs, bouche fraîche et élégante.', pairing: 'Apéritif, célébrations, sushis', price: '43,95 $', priceNum: 43.95, saqCaseNum: 43.95 * 6, feeCaseNum: 0, allInPrice: true, img: 'wines/vinhados9-brut-photo.png', photo: true, hasImg: true, noImg: false },
+        { id: 'vd9-rose-brut', name: 'Vinha dos 9 Mousseux Rosé Brut', vintage: '', grapes: 'Pinot Noir · Syrah · Touriga Nacional', alc: '12 %', note: 'Méthode classique, 18 mois. Robe saumon aux bulles fines, nez de fruits rouges, bouche vive et sèche.', pairing: 'Apéritif, charcuteries, saumon', price: '43,95 $', priceNum: 43.95, saqCaseNum: 43.95 * 6, feeCaseNum: 0, allInPrice: true, img: 'wines/vinhados9-rose-brut.png', hasImg: true, noImg: false },
+        { id: 'vd9-rose-meiseco', name: 'Vinha dos 9 Mousseux Rosé Demi-Sec', vintage: '', grapes: 'Pinot Noir · Syrah · Touriga Nacional', alc: '12 %', note: 'Méthode classique, 18 mois. Robe saumon, bulles fines et constantes, fruits rouges, finale d\u2019une douceur équilibrée. Servir à 4–6 °C.', pairing: 'Desserts aux fruits, fromages doux', price: '43,95 $', priceNum: 43.95, saqCaseNum: 43.95 * 6, feeCaseNum: 0, allInPrice: true, img: 'wines/vinhados9-rose-meiseco.png', hasImg: true, noImg: false },
+      ],
+    },
+  ];
+
+  // Official SAQ designated private-import branches — loaded from data/saq-branches.json
+  branches = [];
+
+  // ---------- i18n ----------
+  dict = {
+    'ttl': { fr: 'Document', en: 'Document' },
+    't-nav-histoire': { fr: 'Histoire', en: 'Story' },
+    't-nav-vins': { fr: 'Vins', en: 'Wines' },
+    't-nav-deg': { fr: 'Dégustations', en: 'Tastings' },
+    't-nav-contact': { fr: 'Contact', en: 'Contact' },
+    't-cta-commander': { fr: 'Commander', en: 'Order' },
+    't-hero-eyebrow': { fr: "Agence d'importation privée · SAQ", en: 'Private import agency · SAQ' },
+    't-hero-sub': { fr: "Des domaines familiaux introuvables à la SAQ, à déboucher chez vous comme au restaurant — avec l'histoire du vigneron qui va avec.", en: "Family estates you won't find at the SAQ — to uncork at home or at the restaurant, with the winemaker's story that comes with each one." },
+    't-hero-restos': { fr: 'Pour les restaurants →', en: 'For restaurants →' },
+    't-hero-cue': { fr: 'Le Portugal, à la maison', en: 'Portugal, at home' },
+    't-his-eye': { fr: 'Notre histoire', en: 'Our story' },
+    't-his-title': { fr: 'De la Lusitanie à votre table, en passant par le Québec.', en: 'From Lusitania to your table, by way of Québec.' },
+    't-his-lead': { fr: "BEMVINHOS — « bem-vindos » et « vinhos ». Bienvenue, et du vin. Tout est dans le nom.", en: 'BEMVINHOS — "bem-vindos" and "vinhos." Welcome, and wine. It\u2019s all in the name.' },
+    't-his-p1': { fr: "Je suis Alexandre Santos. Mes parents ont quitté le Portugal pour le Québec sans jamais quitter le Portugal de table : les bouteilles ramenées dans la valise, les histoires de vignerons racontées au souper. J'ai grandi là-dedans.", en: 'I\u2019m Alexandre Santos. My parents left Portugal for Québec but never left the Portuguese table behind: bottles carried home in the suitcase, winemaker stories told over dinner. I grew up in it.' },
+    't-his-p2': { fr: "Après des années à la tête de ma propre microbrasserie québécoise — la fermentation, le goût et surtout l'art de raconter ce qu'il y a dans le verre — je rapporte aujourd'hui des domaines familiaux portugais que la SAQ n'offre pas, et l'histoire qui va avec chacun.", en: 'After years owning my own Québec microbrewery — fermentation, taste and above all the craft of telling what\u2019s in the glass — I now bring in Portuguese family estates the SAQ doesn\u2019t carry, and the story behind each one.' },
+    't-his-caption': { fr: 'Notre visite au domaine Cortém · 2025', en: 'Our visit to the Cortém vineyard · 2025' },
+    't-his-vision-eye': { fr: 'Le prochain chapitre', en: 'The next chapter' },
+    't-his-vision': { fr: "C'est le début d'un nouveau chapitre. Mon rêve : posséder un jour un domaine au Portugal et partager ma vie entre les deux pays que j'aime, le Canada et le Portugal. En soutenant ce projet, vous suivrez mon évolution — d'importateur à producteur, puis à hôte. J'imagine un hôtel-boutique au milieu des vignes, une ferme et des produits frais pour les visiteurs : un séjour à la campagne où le vin se marie à la table, au cœur d'une nature splendide.", en: "This is the start of a new chapter. My dream is to one day own a vineyard in Portugal and split my life between the two countries I love — Canada and Portugal. By supporting this project, you'll follow my journey from importer to producer to host. I picture a boutique hotel among the vines, a farm and fresh food for visitors: a rural escape where wine meets the table, in the heart of beautiful countryside." },
+    't-his-vision-sign': { fr: 'Alexandre Santos', en: 'Alexandre Santos' },
+    't-pil1t': { fr: 'Hors-SAQ', en: 'Off-SAQ' }, 't-pil1d': { fr: "Des cuvées qu'on ne trouve sur aucune tablette du monopole.", en: 'Bottlings found on no shelf of the monopoly.' },
+    't-pil2t': { fr: 'Valeur sûre', en: 'Real value' }, 't-pil2d': { fr: "Un rapport qualité-prix pensé pour la carte d'un restaurant comme pour votre table.", en: "Quality-to-price built for a restaurant list and your table alike." },
+    't-pil3t': { fr: 'Une histoire', en: 'A story' }, 't-pil3d': { fr: "Chaque bouteille arrive avec le récit du vigneron à transmettre.", en: 'Every bottle arrives with the winemaker\u2019s story to pass on.' },
+    't-pil4t': { fr: 'Trié main', en: 'Hand-picked' }, 't-pil4d': { fr: "De petits domaines familiaux, goûtés et choisis un à un.", en: 'Small family estates, tasted and chosen one by one.' },
+    't-vin-eye': { fr: 'Les domaines', en: 'The estates' },
+    't-vin-title': { fr: "Trois familles, une même obsession du détail.", en: 'Three families, one shared obsession with detail.' },
+    't-vin-lead': { fr: 'Photos et fiches officielles des domaines. Prix indicatifs au tarif SAQ — vente par caisse de 6.', en: 'Official estate photos and tech sheets. Indicative SAQ prices — sold by the case of 6.' },
+    't-cmd-eye': { fr: 'Commander', en: 'Order' },
+    't-cmd-title': { fr: 'Deux factures, zéro surprise.', en: 'Two invoices, zero surprises.' },
+    't-cmd-lead': { fr: "Vous payez le vin au prix SAQ à la cueillette, et les frais d'agence en ligne. Tout est détaillé, ligne par ligne.", en: 'You pay for the wine at SAQ price on pickup, and the agency fee online. Everything is itemized, line by line.' },
+    't-cart-title': { fr: 'Votre panier', en: 'Your cart' },
+    't-cart-count': { fr: 'Caisses de 6', en: 'Cases of 6' },
+    't-case-note': { fr: "Vente par caisse de 6 — minimum d'importation SAQ.", en: 'Sold by the case of 6 — SAQ private-import minimum.' },
+    't-pickup-title': { fr: 'Succursale SAQ de cueillette', en: 'SAQ pickup branch' },
+    't-promo-title': { fr: 'Code promo · dégustation', en: 'Promo code · tasting' },
+    't-f1tag': { fr: 'EN LIGNE', en: 'ONLINE' },
+    't-f1-fee': { fr: "Frais d'agence (selon le vin)", en: 'Agency fee (varies by wine)' },
+    't-f1-txn': { fr: 'Frais de transaction (3 %)', en: 'Transaction fee (3%)' },
+    't-f1-total': { fr: 'Payable en ligne', en: 'Payable online' },
+    't-pay-btn': { fr: "Payer les frais d'agence", en: 'Pay the agency fee' },
+    't-stripe-note': { fr: 'Paiement sécurisé · Stripe · Visa · Interac · Apple Pay', en: 'Secure payment · Stripe · Visa · Interac · Apple Pay' },
+    't-f2tag': { fr: 'À LA CUEILLETTE', en: 'AT PICKUP' },
+    't-f2-wine': { fr: 'Vins (prix SAQ, taxes incluses)', en: 'Wines (SAQ price, taxes incl.)' },
+    't-f2-total': { fr: 'Payable en succursale', en: 'Payable in branch' },
+    't-f2-note': { fr: 'Réglé directement à la SAQ au moment de la cueillette. Nous y déposons votre commande dès réception des frais d\u2019agence.', en: 'Paid directly to the SAQ at pickup. We place your order there as soon as the agency fee is received.' },
+    't-deg-eye': { fr: 'Dégustations', en: 'Tastings' },
+    't-deg-title': { fr: 'Goûtez avant de raconter.', en: 'Taste before you tell.' },
+    't-deg-lead': { fr: "Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.", en: 'Intimate evenings where we open the bottles and the winemaker\u2019s notebook. For restaurateurs and gem-hunting enthusiasts alike.' },
+    't-feat-title': { fr: 'Folgorosa, verticale de la Lusitanie', en: 'Folgorosa, a Lusitania vertical' },
+    't-feat-desc': { fr: 'Six cuvées, le récit de la famille Folgorosa, planches portugaises. 18 h 30 · Le Mile-End.', en: 'Six cuvées, the Folgorosa family story, Portuguese boards. 6:30 PM · Le Mile-End.' },
+    't-feat-spots': { fr: '8 places restantes', en: '8 spots left' },
+    't-notify-title': { fr: 'Soyez au courant des prochaines dégustations', en: 'Be first to know about upcoming tastings' },
+    't-notify-lead': { fr: "Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.", en: 'Join the registry. We write you first the moment a date opens, before any public announcement.' },
+    't-notify-btn': { fr: "M'inscrire", en: 'Sign me up' },
+    't-con-eye': { fr: 'Parlons-nous', en: 'Let\u2019s talk' },
+    't-con-title': { fr: 'Un verre, deux chemins.', en: 'One glass, two paths.' },
+    't-con-r-title': { fr: 'Enrichir votre carte', en: 'Enrich your wine list' },
+    't-con-r-desc': { fr: "Des vins hors-SAQ à belle valeur, avec l'histoire à raconter en salle. On passe vous faire goûter.", en: 'Great-value off-SAQ wines with a story to tell on the floor. We\u2019ll come by for a tasting.' },
+    't-con-r-btn': { fr: 'Prendre rendez-vous', en: 'Book a meeting' },
+    't-con-p-title': { fr: 'Dénicher des pépites', en: 'Hunt for gems' },
+    't-con-p-desc': { fr: "Des bouteilles différentes pour votre cave ou votre table. Importation privée, cueillette à la SAQ.", en: 'Different bottles for your cellar or your table. Private import, pickup at the SAQ.' },
+    't-con-p-btn': { fr: 'Voir la sélection', en: 'See the selection' },
+    't-foot-tag': { fr: 'Importation privée de vins portugais au Québec. Bem-vindos — bienvenue, et du vin.', en: 'Private import of Portuguese wines in Québec. Bem-vindos — welcome, and wine.' },
+    't-foot-legal': { fr: "L'abus d'alcool est dangereux pour la santé. 18 ans et plus.", en: 'Please drink responsibly. 18+.' },
+  };
+
+  // ---------- lifecycle ----------
+  componentDidMount() {
+    this.applyLang();
+    this.applyPalette();
+    fetch('data/saq-branches.json')
+      .then((r) => r.json())
+      .then((list) => { this.branches = list; this.forceUpdate(); })
+      .catch(() => {});
+    this.loadWineSheet();
+  }
+
+  // ---------- wine spreadsheet loader ----------
+  loadWineSheet() {
+    const url = this.WINE_SHEET_CSV_URL || (this.USE_LOCAL_CSV ? 'data/wines.csv' : '');
+    if (!url) return;
+    fetch(url)
+      .then((r) => { if (!r.ok) throw new Error('http'); return r.text(); })
+      .then((txt) => {
+        const data = this.wineriesFromCsv(txt);
+        if (data && data.length) { this.wineriesData = data; this._cat = null; this.forceUpdate(); }
+      })
+      .catch(() => { /* keep built-in list */ });
+  }
+
+  parseCsv(text) {
+    text = String(text).replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+    const rows = []; let row = [], field = '', inQ = false, i = 0;
+    while (i < text.length) {
+      const c = text[i];
+      if (inQ) {
+        if (c === '"') { if (text[i + 1] === '"') { field += '"'; i += 2; continue; } inQ = false; i++; continue; }
+        field += c; i++; continue;
+      }
+      if (c === '"') { inQ = true; i++; continue; }
+      if (c === ',') { row.push(field); field = ''; i++; continue; }
+      if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; i++; continue; }
+      field += c; i++;
+    }
+    if (field.length || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  wineriesFromCsv(text) {
+    const rows = this.parseCsv(text).filter((r) => r.some((c) => String(c).trim() !== ''));
+    if (rows.length < 2) return null;
+    const H = rows[0].map((h) => String(h).trim().toLowerCase());
+    const col = (names) => { for (const n of names) { const k = H.indexOf(n); if (k >= 0) return k; } return -1; };
+    const ci = {
+      winery: col(['winery', 'vignoble', 'domaine']),
+      region: col(['region', 'région']),
+      tag: col(['winery tag', 'tag']),
+      wnote: col(['winery note', 'note du domaine']),
+      wlink: col(['winery link', 'lien', 'link']),
+      name: col(['wine', 'vin', 'name', 'nom']),
+      vintage: col(['vintage', 'millésime', 'millesime']),
+      grapes: col(['grapes', 'cépages', 'cepages']),
+      alc: col(['alcohol', 'alcool', 'alc']),
+      price: col(['price per bottle', 'price', 'prix']),
+      saqCase: col(['saq price per case', 'price caisse (6qty) to pay at saq', 'saq case']),
+      feeCase: col(['agency fee per case', 'agent fees caisse (6qty)', 'agency fee']),
+      stock: col(['stock (cases)', 'stock', 'inventaire']),
+      note: col(['tasting note', 'note', 'tasting notes']),
+      pairing: col(['pairing', 'accord', 'accords']),
+      image: col(['image', 'photo', 'image file']),
+      style: col(['image style', 'style']),
+      story: col(['story', 'histoire']),
+    };
+    if (ci.winery < 0 || ci.name < 0) return null;
+    const get = (r, k) => (k >= 0 && k < r.length ? String(r[k]).trim() : '');
+    const slug = (s) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    const order = [], map = {}, idseen = {};
+    for (let k = 1; k < rows.length; k++) {
+      const r = rows[k];
+      const wn = get(r, ci.winery), nm = get(r, ci.name);
+      if (!wn || !nm) continue;
+      if (!map[wn]) { map[wn] = { name: wn, region: '', tag: '', note: '', link: '', linkLabel: '', wines: [] }; order.push(wn); }
+      const W = map[wn];
+      if (!W.region && get(r, ci.region)) W.region = get(r, ci.region);
+      if (!W.tag && get(r, ci.tag)) W.tag = get(r, ci.tag);
+      if (!W.note && get(r, ci.wnote)) W.note = get(r, ci.wnote);
+      if (!W.link && get(r, ci.wlink)) { W.link = get(r, ci.wlink); W.linkLabel = W.link.replace(/^https?:\/\//, '').replace(/\/$/, ''); }
+      const money = (s) => { const n = parseFloat(String(s).replace(/[^0-9.,]/g, '').replace(',', '.')); return isNaN(n) ? null : n; };
+      const priceStr = get(r, ci.price);
+      const priceNum = money(priceStr);
+      const saqCaseNum = money(get(r, ci.saqCase));
+      const feeCaseNum = money(get(r, ci.feeCase));
+      const stockStr = get(r, ci.stock);
+      const stockCases = stockStr === '' ? null : (isNaN(parseInt(stockStr, 10)) ? null : parseInt(stockStr, 10));
+      let img = get(r, ci.image);
+      if (img && img.indexOf('/') < 0) img = 'wines/' + img;
+      let id = slug(wn + '-' + nm); if (idseen[id]) id = id + '-' + k; idseen[id] = 1;
+      W.wines.push({
+        id, name: nm, vintage: get(r, ci.vintage), grapes: get(r, ci.grapes), alc: get(r, ci.alc),
+        note: get(r, ci.note), pairing: get(r, ci.pairing),
+        price: priceStr || 'Prix à venir', priceNum, saqCaseNum, feeCaseNum, stockCases,
+        img, photo: get(r, ci.style).toLowerCase() === 'photo', hasImg: !!img, noImg: !img,
+        story: get(r, ci.story),
+      });
+    }
+    return order.map((w) => map[w]);
+  }
+  componentDidUpdate() {
+    if (this.lang === 'en') this.applyLang();
+    this.applyPalette();
+  }
+
+  applyPalette() {
+    const sets = {
+      'Terracotta & lin': { '--bg': '#ECE6D9', '--panel': '#F5F0E6', '--panel2': '#E4DCCB', '--ink': '#23201B', '--ink-soft': '#6E6657', '--wine': '#8E2C24', '--wine-deep': '#5C1A16', '--olive': '#5E5A3A', '--gold': '#B5894A', '--line': '#D6CCBA' },
+      'Olive & crème': { '--bg': '#ECEADD', '--panel': '#F4F1E6', '--panel2': '#E0DEC9', '--ink': '#222318', '--ink-soft': '#63634F', '--wine': '#5C6A38', '--wine-deep': '#3C4622', '--olive': '#8E2C24', '--gold': '#BC9A4A', '--line': '#D3D0BC' },
+      'Azulejo & pierre': { '--bg': '#E9E8E3', '--panel': '#F3F2EC', '--panel2': '#DEDDD3', '--ink': '#1F2530', '--ink-soft': '#5C6470', '--wine': '#2F5C84', '--wine-deep': '#1C3A57', '--olive': '#6E6A4A', '--gold': '#C19A3E', '--line': '#D2D0C6' },
+    };
+    const v = sets[this.props.palette] || sets['Terracotta & lin'];
+    const root = document.documentElement.style;
+    Object.keys(v).forEach((k) => root.setProperty(k, v[k]));
+  }
+  applyLang() {
+    const d = this.dict;
+    // The TEMPLATE is the single source of truth for French. Snapshot it once,
+    // so French text always reflects the markup (no separate-dict drift) and
+    // toggling EN→FR restores exactly what's on the page.
+    if (!this._frSnap) {
+      this._frSnap = {};
+      Object.keys(d).forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) this._frSnap[id] = el.textContent;
+      });
+    }
+    Object.keys(d).forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = this.lang === 'en' ? d[id].en : (this._frSnap[id] != null ? this._frSnap[id] : d[id].fr);
+    });
+    const btn = document.getElementById('bm-lang');
+    if (btn) btn.textContent = this.lang === 'fr' ? 'EN' : 'FR';
+  }
+
+  toggleLang = () => {
+    this.lang = this.lang === 'fr' ? 'en' : 'fr';
+    this.applyLang();
+  };
+
+  // ---------- Stripe Checkout (Route B) ----------
+  startCheckout() {
+    if (this.state.paying) return;
+    const cart = this.state.cart;
+    const items = this.catalogue()
+      .filter((w) => (cart[w.id] || 0) > 0)
+      .map((w) => ({
+        id: w.id, name: w.name, winery: w.winery, cases: cart[w.id],
+        feeCents: Math.round((w.feeCaseNum != null ? w.feeCaseNum : 21.00) * 100),
+      }));
+    const bottles = items.reduce((a, it) => a + it.cases, 0) * 6;
+    if (!bottles) return;
+    this.setState({ paying: true, payError: '' });
+    const sb = this.state.selectedBranch;
+    const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID') ? this.state.promoCode : null;
+    const payload = {
+      bottles,
+      items,
+      promoCode: promo,
+      branch: sb ? { num: sb.num, city: sb.city, address: sb.address } : null,
+      lang: this.lang,
+    };
+    fetch(this.STRIPE_CHECKOUT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data && data.url) { window.location.href = data.url; }
+        else { throw new Error(data && data.error ? data.error : 'no_url'); }
+      })
+      .catch(() => {
+        this.setState({
+          paying: false,
+          paymentOpen: true,
+          payError: this.lang === 'en'
+            ? 'Payment could not start. Please try again or contact us.'
+            : "Le paiement n'a pas pu démarrer. Réessayez ou écrivez-nous.",
+        });
+      });
+  }
+
+  // ---------- cart math ----------
+  money(n) { return n.toFixed(2).replace('.', ',') + ' $'; }
+
+  renderVals() {
+    // --- Agency fee: PER-WINE, from the "Agency fee per case" column ---------
+    // Each wine carries its own frais d'agence per case (higher for pricier /
+    // harder-to-sell wines). Taxes + Stripe fee are added on top of that base.
+    const TXN_RATE = 0.03;          // Stripe transaction fee
+    const TPS_RATE = 0.05;          // GST / TPS
+    const TVQ_RATE = 0.09975;       // QST / TVQ
+    const DEFAULT_FEE_CASE = 21.00; // fallback if a wine has no fee set
+    const saqCaseOf = (w) => (w.saqCaseNum != null ? w.saqCaseNum : (w.priceNum != null ? w.priceNum * 6 : 0));
+    const feeCaseOf = (w) => (w.feeCaseNum != null ? w.feeCaseNum : DEFAULT_FEE_CASE);
+    // ------------------------------------------------------------------------
+    const cart = this.state.cart;
+    const caseWord = this.lang === 'en' ? (n) => (n > 1 ? n + ' cases' : n + ' case') : (n) => (n > 1 ? n + ' caisses' : n + ' caisse');
+
+    // Build cart lines from the catalogue, in catalogue order, for whatever is in the cart.
+    const lines = this.catalogue()
+      .filter((w) => (cart[w.id] || 0) > 0)
+      .map((w) => {
+        const n = cart[w.id];
+        return {
+          id: w.id, name: w.name, winery: w.winery, img: w.img, price: w.price, qty: n,
+          imgStyle: "width:100%;height:88%;background-image:url('" + w.img + "');background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 6px 10px rgba(35,32,27,.25));",
+          qtyLabel: caseWord(n),
+          lineTotal: this.money(saqCaseOf(w) * n),
+          inc: () => this.setCases(w.id, n + 1),
+          dec: () => this.setCases(w.id, n - 1),
+          remove: () => this.setCases(w.id, 0),
+        };
+      });
+
+    const caseCount = lines.reduce((a, l) => a + l.qty, 0);
+    const bottles = caseCount * 6;
+    let subtotal = 0, feeBase = 0;
+    this.catalogue().forEach((w) => {
+      const n = cart[w.id] || 0; if (!n) return;
+      subtotal += saqCaseOf(w) * n;
+      feeBase += feeCaseOf(w) * n;
+    });
+    // Promo code: discount applied to the agency fee (taxes recompute on the
+    // discounted fee). The wine price at the SAQ is never affected.
+    const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID')
+      ? this.lookupPromo(this.state.promoCode) : null;
+    let discount = 0;
+    if (promo) discount = promo.pct ? feeBase * (promo.pct / 100) : Math.min(promo.amount || 0, feeBase);
+    const fee = Math.max(0, feeBase - discount);
+    const txn = fee * TXN_RATE;
+    const tps = fee * TPS_RATE;
+    const tvq = fee * TVQ_RATE;
+    const online = fee + txn + tps + tvq;
+    const cartEmpty = caseCount === 0;
+    this._caseCount = caseCount;
+
+    // enrich catalogue with display fields + add-to-cart state
+    const addLabel = this.lang === 'en' ? 'Add a case' : 'Ajouter une caisse';
+    const inCartLabel = (n) => this.lang === 'en'
+      ? '✓ In cart · ' + n + (n > 1 ? ' cases' : ' case')
+      : '✓ Au panier · ' + n + (n > 1 ? ' caisses' : ' caisse');
+    const wineries = this.wineriesData.map((wn) => ({
+      ...wn,
+      hasLink: !!wn.link,
+      wines: wn.wines.map((v) => {
+        const n = (v.id && cart[v.id]) || 0;
+        const stock = (v.stockCases === null || v.stockCases === undefined) ? null : v.stockCases;
+        const soldOut = stock === 0;
+        const atMax = stock !== null && n >= stock;
+        const lowStock = stock !== null && stock > 0 && stock <= 3;
+        const addDisabled = soldOut || atMax;
+        const en = this.lang === 'en';
+        return {
+          ...v,
+          metaLine: [v.vintage, v.alc ? v.alc + ' alc.' : ''].filter(Boolean).join(' · '),
+          hasPairing: !!v.pairing,
+          canBuy: !!(v.id && v.priceNum),
+          storyText: v.story || (this.lang === 'en' ? 'Story coming soon (TBC)' : 'Histoire à venir (TBC)'),
+          storyOpen: !!(v.id && this.state.storyWine === v.id),
+          flipStyle: "position:absolute;inset:0;z-index:9;background:linear-gradient(158deg,var(--wine),var(--wine-deep));color:#F5EFE6;border-radius:8px;padding:26px 24px;display:flex;flex-direction:column;cursor:pointer;overflow:auto;transform:rotateY(" + ((v.id && this.state.storyWine === v.id) ? '0deg' : '108deg') + ");opacity:" + ((v.id && this.state.storyWine === v.id) ? '1' : '0') + ";pointer-events:" + ((v.id && this.state.storyWine === v.id) ? 'auto' : 'none') + ";",
+          openStory: (e) => { if (e) e.stopPropagation(); this.setState({ storyWine: v.id }); },
+          closeStory: (e) => { if (e) e.stopPropagation(); this.setState({ storyWine: null }); },
+          soldOut,
+          showStockBadge: soldOut || lowStock,
+          stockBadge: soldOut ? (en ? 'Sold out' : 'Rupture de stock')
+            : (lowStock ? (en ? ('Only ' + stock + ' left') : ('Plus que ' + stock + ' caisse' + (stock > 1 ? 's' : ''))) : ''),
+          stockBadgeBg: soldOut ? '#8a8275' : 'var(--wine)',
+          addDisabled,
+          addBtnOpacity: addDisabled ? '0.5' : '1',
+          addBtnCursor: addDisabled ? 'not-allowed' : 'pointer',
+          imgBoxStyle: v.img ? (v.photo
+            ? "position:absolute;inset:0;width:100%;height:100%;background-image:url('" + v.img + "');background-size:cover;background-position:center;"
+            : "width:100%;height:100%;background-image:url('" + v.img + "');background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 14px 22px rgba(35,32,27,.28));") : '',
+          boxClass: v.hasImg ? 'bm-bottlebox' : '',
+          isExpanded: !!(v.id && this.state.expandedWine === v.id),
+          toggleExpand: v.hasImg ? () => this.setState((s) => ({ expandedWine: s.expandedWine === v.id ? null : v.id })) : () => {},
+          bigImgStyle: v.img ? (v.photo
+            ? "flex:1;width:100%;min-height:0;border-radius:5px;background-image:url('" + v.img + "');background-size:cover;background-position:center;"
+            : "flex:1;width:100%;min-height:0;background-image:url('" + v.img + "');background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 20px 32px rgba(35,32,27,.32));") : '',
+          closeHint: this.lang === 'en' ? 'Click to close' : 'Cliquez pour fermer',
+          inCart: n > 0,
+          addBtnLabel: soldOut ? (en ? 'Unavailable' : 'Indisponible')
+            : (atMax ? (en ? '✓ Max in cart · ' + n : '✓ Max au panier · ' + n)
+            : (n > 0 ? inCartLabel(n) : addLabel)),
+          addBtnBg: soldOut ? 'var(--panel2)' : (n > 0 ? 'var(--wine)' : 'transparent'),
+          addBtnColor: soldOut ? 'var(--ink-soft)' : (n > 0 ? '#F5F0E6' : 'var(--wine)'),
+          addBtnBorder: soldOut ? 'var(--line)' : 'var(--wine)',
+          caseHint: this.lang === 'en' ? '1 case = 6 bottles' : '1 caisse = 6 bouteilles',
+          add: (v.id && !addDisabled) ? () => this.addToCart(v.id) : () => {},
+        };
+      }),
+    }));
+
+    const q = (this.state.branchQuery || '').toLowerCase();
+    const branchesAll = this.branches
+      .filter((b) => !q || b.city.toLowerCase().includes(q) || b.address.toLowerCase().includes(q) || String(b.num).includes(q))
+      .map((b) => ({ ...b, numLabel: '#' + b.num, select: () => this.setState({ selectedBranch: b, pickerOpen: false }) }));
+    const branchesFiltered = branchesAll.slice(0, 60);
+    const branchCount = this.branches.length;
+
+    const sb = this.state.selectedBranch;
+
+    const events = [
+      { date: '02 OCT', title: 'Cortém bio & fromages', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", price: '60 $', city: 'Québec', badge: 'Nouveau', badgeColor: 'var(--olive)' },
+      { date: '23 OCT', title: 'Alvarinho sur le pouce', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', price: '40 $', city: 'Laval', badge: '4 places', badgeColor: 'var(--wine)' },
+      { date: '13 NOV', title: 'Soirée vignerons', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', price: '85 $', city: 'Montréal', badge: 'Complet', badgeColor: '#8a8275' },
+    ];
+
+    return {
+      lines,
+      cartEmpty,
+      cartHasItems: !cartEmpty,
+      payBtnOpacity: cartEmpty ? 0.45 : 1,
+      emptyCartText: this.lang === 'en' ? 'Your cart is empty — add wines from the selection above.' : 'Votre panier est vide — ajoutez des vins depuis la sélection ci-dessus.',
+      bottleCount: bottles,
+      caseCount,
+      payBtnLabel: (this.lang === 'en' ? 'Pay the agency fee' : "Payer les frais d'agence"),
+      stripeQtyNote: (this.lang === 'en'
+        ? 'The exact amount is calculated automatically at checkout.'
+        : 'Le montant exact est calculé automatiquement au paiement.'),
+      subtotalSAQStr: this.money(subtotal),
+      agencyFeeStr: this.money(fee),
+      txnStr: this.money(txn),
+      // promo
+      promoInput: this.state.promoInput,
+      onPromoInput: (e) => this.setState({ promoInput: e.target.value }),
+      applyPromo: this.applyPromo,
+      clearPromo: this.clearPromo,
+      promoApplied: !!promo,
+      promoNotApplied: !promo,
+      promoInvalid: this.state.promoCode === 'INVALID',
+      promoLabel: promo ? promo.label : '',
+      promoCodeStr: promo ? promo.code : '',
+      discountStr: '– ' + this.money(discount),
+      hasDiscount: discount > 0,
+      promoMsg: this.lang === 'en' ? 'Invalid or expired code.' : 'Code invalide ou expiré.',
+      promoPlaceholder: this.lang === 'en' ? 'Promo code' : 'Code promo',
+      tpsStr: this.money(tps),
+      tvqStr: this.money(tvq),
+      onlineTotalStr: this.money(online),
+      wineries,
+      events,
+      branchesFiltered,
+      branchCount,
+      selectedBranchName: sb ? (sb.address + ', ' + sb.city) : (this.lang === 'en' ? 'Select a branch' : 'Sélectionner une succursale'),
+      pickerOpen: this.state.pickerOpen,
+      paymentOpen: this.state.paymentOpen,
+      payDone: this.state.payDone,
+      payNotDone: !this.state.payDone,
+      notifyDone: this.state.notifyDone,
+
+      openPicker: () => this.setState({ pickerOpen: true }),
+      closePicker: () => this.setState({ pickerOpen: false }),
+      onBranchInput: (e) => this.setState({ branchQuery: e.target.value }),
+      openPayment: () => {
+        if (cartEmpty) return;
+        // Exact-match: serverless Checkout Session (charges the panier total to the cent).
+        if (this.STRIPE_CHECKOUT_URL) { this.startCheckout(); return; }
+        // Fallback: a Stripe Payment Link — customer sets the quantity on Stripe.
+        if (this.STRIPE_PAYMENT_LINK) {
+          const w = window.open(this.STRIPE_PAYMENT_LINK, '_blank', 'noopener');
+          if (!w) window.location.href = this.STRIPE_PAYMENT_LINK; // fallback if popups blocked
+          return;
+        }
+        // Otherwise, open the local demo modal (no real charge).
+        this.setState({ paymentOpen: true, payDone: false, payError: '' });
+      },
+      closePayment: () => this.setState({ paymentOpen: false, paying: false, payError: '' }),
+      confirmPay: () => this.setState({ payDone: true }),
+      paying: this.state.paying,
+      payError: this.state.payError,
+      hasError: !!this.state.payError,
+      openNotify: () => { const el = document.getElementById('t-notify-title'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); },
+      submitNotify: (e) => { e.preventDefault(); this.setState({ notifyDone: true }); },
+      toggleLang: this.toggleLang,
+      stop: (e) => e.stopPropagation(),
+    };
+  }
+}
+</script>
+</body>
+</html>
