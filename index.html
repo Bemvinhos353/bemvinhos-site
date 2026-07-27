@@ -37,6 +37,15 @@
   .bm-corner{transition:transform .2s ease;}
   .bm-corner:hover{animation:bmbeat .8s ease-in-out infinite;}
   .bm-storypage{transform-origin:left center;transition:transform .5s cubic-bezier(.3,.7,.3,1), opacity .3s ease;}
+  @media (max-width:760px){
+    nav[style*="position:fixed"]{ padding:12px 16px !important; }
+    nav[style*="position:fixed"] > div{ gap:10px !important; }
+    nav[style*="position:fixed"] a[href="#histoire"], nav[style*="position:fixed"] a[href="#vins"],
+    nav[style*="position:fixed"] a[href="#degustations"], nav[style*="position:fixed"] a[href="#contact"]{ display:none !important; }
+    section{ padding-left:20px !important; padding-right:20px !important; }
+    .bm-winerow{ grid-template-columns:1fr !important; }
+    .bm-winegrid{ grid-template-columns:1fr !important; }
+  }
 </style>
 </helmet>
 
@@ -104,7 +113,7 @@
 
 <!-- HISTOIRE -->
 <section id="histoire" style="position:relative;background:var(--panel);padding:130px 40px;border-top:1px solid var(--line);">
-  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:80px;align-items:center;">
     <div>
       <div id="t-his-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;">Notre histoire</div>
       <h2 id="t-his-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.04;margin:0 0 28px;">De la Lusitanie à votre table, en passant par le Québec.</h2>
@@ -118,7 +127,7 @@
     </div>
   </div>
 
-  <div style="max-width:1160px;margin:96px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;">
+  <div style="max-width:1160px;margin:96px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:28px;">
     <div style="border-top:2px solid var(--wine);padding-top:18px;">
       <div id="t-pil1t" style="font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;margin-bottom:8px;">Hors-SAQ</div>
       <p id="t-pil1d" style="font-size:14px;line-height:1.6;color:var(--ink-soft);margin:0;">Des cuvées qu'on ne trouve sur aucune tablette du monopole.</p>
@@ -157,7 +166,7 @@
     </div>
 
     <sc-for list="{{ wineries }}" as="w" hint-placeholder-count="3">
-      <div style="border-top:1px solid var(--line);padding:42px 0;display:grid;grid-template-columns:300px 1fr;gap:48px;">
+      <div class="bm-winerow" style="border-top:1px solid var(--line);padding:42px 0;display:grid;grid-template-columns:300px 1fr;gap:48px;">
         <div>
           <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.18em;color:var(--wine);margin-bottom:12px;">{{ w.region }}</div>
           <h3 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:34px;line-height:1.04;margin:0 0 14px;">{{ w.name }}</h3>
@@ -169,7 +178,7 @@
             </a>
           </sc-if>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-content:start;">
+        <div class="bm-winegrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-content:start;">
           <sc-for list="{{ w.wines }}" as="v" hint-placeholder-count="4">
             <div style="position:relative;perspective:1500px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px 22px 24px;display:flex;flex-direction:column;">
               <div class="{{ v.boxClass }}" onClick="{{ v.toggleExpand }}" style="height:200px;border-radius:6px;background:radial-gradient(120% 90% at 50% 18%,#F2ECDF,#E2D8C6);display:flex;align-items:center;justify-content:center;margin-bottom:16px;overflow:hidden;position:relative;">
@@ -238,7 +247,7 @@
       <p id="t-cmd-lead" style="font-size:17px;line-height:1.6;color:var(--ink-soft);margin:0;">Vous payez le vin au prix SAQ à la cueillette, et les frais d'agence en ligne. Tout est détaillé, ligne par ligne.</p>
     </div>
 
-    <div style="display:grid;grid-template-columns:1.15fr .85fr;gap:32px;align-items:start;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;align-items:start;">
       <!-- cart -->
       <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:30px;">
         <div id="t-cart-title" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:20px;">Votre panier</div>
@@ -419,7 +428,7 @@
 <!-- DEGUSTATIONS -->
 <section id="degustations" style="position:relative;background:var(--bg);padding:130px 40px;">
   <div style="max-width:1160px;margin:0 auto;">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:60px;align-items:end;margin-bottom:56px;">
       <div>
         <div id="t-deg-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Dégustations</div>
         <h2 id="t-deg-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;">Goûtez avant de raconter.</h2>
@@ -446,7 +455,7 @@
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:48px;">
       <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
         <div style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px;display:flex;flex-direction:column;gap:10px;">
           <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -487,7 +496,7 @@
       <div id="t-con-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Parlons-nous</div>
       <h2 id="t-con-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;">Un verre, deux chemins.</h2>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
       <div style="background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:38px;">
         <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--wine);margin-bottom:14px;">POUR LES RESTAURANTS</div>
         <h3 id="t-con-r-title" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 0 12px;">Enrichir votre carte</h3>
@@ -506,7 +515,7 @@
 
 <!-- FOOTER -->
 <footer style="background:var(--ink);color:var(--bg);padding:70px 40px 40px;">
-  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px;align-items:start;">
+  <div style="max-width:1160px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;align-items:start;">
     <div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
         <img src="logos/mark.png" alt="" style="width:42px;height:42px;object-fit:contain;display:block;">
@@ -701,7 +710,7 @@ class Component extends DCLogic {
         { id: 'vd9-branco', name: 'Vinha dos 9 Branco', vintage: '2025', grapes: 'Alvarinho · Chardonnay · Gewurztraminer', alc: '12,5 %', note: 'Robe jaune citron, nez de fruits frais et fleurs. Vif, sec et désaltérant — un blanc du Minho plein d\u2019énergie.', noteEn: 'Lemon-yellow color, fresh fruit and floral nose. Crisp, dry and thirst-quenching — an energetic Minho white.', pairing: 'Apéritif, poissons, fruits de mer', pairingEn: 'Aperitif, fish, seafood', price: '26,95 $', priceNum: 26.95, saqCaseNum: 139.50, feeCaseNum: 22.20, stockCases: 8, img: 'wines/vinhados9-branco-photo.png', photo: true, hasImg: true, noImg: false, story: "À Barcelos, la Quinta de Agrelo appartient à la même famille depuis 300 ans. Neuf cousins — les « 9 » — y perpétuent la vigne en culture sèche, dans la vallée de la Neiva.", storyEn: "In Barcelos, Quinta de Agrelo has belonged to the same family for 300 years. Nine cousins — the '9' — carry on dry-farmed viticulture in the Neiva valley." },
         { id: 'vd9-rose', name: 'Vinha dos 9 Rosé', vintage: '2021', grapes: 'Touriga Nacional 33% · Syrah 33% · Pinot Noir 33%', alc: '12,0 %', note: 'Vinho Regional Minho, vin tranquille. Robe rosé éclatante, sucre résiduel < 1,5 g/L — sec et vif.', noteEn: 'Vinho Regional Minho, a still wine. Bright rosé hue, residual sugar under 1.5 g/L — dry and lively.', pairing: 'Apéritif, cuisine estivale', pairingEn: 'Aperitif, summer fare', price: '26,95 $', priceNum: 26.95, saqCaseNum: 139.50, feeCaseNum: 22.20, stockCases: 8, img: 'wines/vinhados9-rose.png', hasImg: true, noImg: false, story: "Cépages français plantés dans le Minho depuis les années 1980, à la Quinta de Agrelo : ce rosé tranquille des « 9 » cousins tranche par sa fraîcheur atlantique.", storyEn: "French grapes planted in the Minho since the 1980s at Quinta de Agrelo: this still rosé from the '9' cousins stands out for its Atlantic freshness." },
         { id: 'vd9-brut', name: 'Vinha dos 9 Mousseux Brut', vintage: '', grapes: '50% Alvarinho · 50% Chardonnay', alc: '12,5 %', note: 'Méthode classique, 18 mois sur lattes. Bulles fines, robe jaune citron, nez de fruits mûrs, bouche fraîche et élégante.', noteEn: 'Traditional method, 18 months on lees. Fine bubbles, lemon-yellow color, ripe-fruit nose, fresh and elegant palate.', pairing: 'Apéritif, célébrations, sushis', pairingEn: 'Aperitif, celebrations, sushi', price: '43,95 $', priceNum: 43.95, boxSize: 3, saqCaseNum: 112.50, feeCaseNum: 19.35, stockCases: 12, img: 'wines/vinhados9-brut-photo.png', photo: true, hasImg: true, noImg: false, story: "Vinha dos 9, ce sont neuf cousins et 300 ans de tradition à Barcelos. Ce mousseux méthode classique repose 18 mois sur lattes avant dégorgement.", storyEn: "Vinha dos 9 is nine cousins and 300 years of tradition in Barcelos. This traditional-method sparkling wine rests 18 months on lees before disgorgement." },
-        { id: 'vd9-rose-brut', name: 'Vinha dos 9 Mousseux Rosé Brut', vintage: '', grapes: 'Pinot Noir · Syrah · Touriga Nacional', alc: '12 %', note: 'Méthode classique, 18 mois. Robe saumon aux bulles fines, nez de fruits rouges, bouche vive et sèche.', noteEn: 'Traditional method, 18 months. Salmon hue with fine bubbles, red-fruit nose, lively and dry palate.', pairing: 'Apéritif, charcuteries, saumon', pairingEn: 'Aperitif, charcuterie, salmon', price: '43,95 $', priceNum: 43.95, boxSize: 3, saqCaseNum: 112.50, feeCaseNum: 19.35, stockCases: 12, img: 'wines/vinhados9-rose-brut.png', hasImg: true, noImg: false, story: "Des vignes en culture sèche de la Quinta de Agrelo naît ce rosé de méthode classique, hommage des neuf cousins à leur vallée de la Neiva.", storyEn: "Born of the dry-farmed vines of Quinta de Agrelo, this traditional-method rosé is the nine cousins' tribute to their Neiva valley." },
+        { id: 'vd9-rose-brut', name: 'Vinha dos 9 Mousseux Rosé Brut', vintage: '', grapes: 'Pinot Noir · Syrah · Touriga Nacional', alc: '12 %', note: 'Méthode classique, 18 mois. Robe saumon aux bulles fines, nez de fruits rouges, bouche vive et sèche.', noteEn: 'Traditional method, 18 months. Salmon hue with fine bubbles, red-fruit nose, lively and dry palate.', pairing: 'Apéritif, charcuteries, saumon', pairingEn: 'Aperitif, charcuterie, salmon', price: '43,95 $', priceNum: 43.95, boxSize: 3, saqCaseNum: 112.50, feeCaseNum: 19.35, stockCases: 12, img: 'wines/vinhados9-rose-brut-photo.jpg', photo: true, hasImg: true, noImg: false, story: "Des vignes en culture sèche de la Quinta de Agrelo naît ce rosé de méthode classique, hommage des neuf cousins à leur vallée de la Neiva.", storyEn: "Born of the dry-farmed vines of Quinta de Agrelo, this traditional-method rosé is the nine cousins' tribute to their Neiva valley." },
         { id: 'vd9-rose-meiseco', name: 'Vinha dos 9 Mousseux Rosé Demi-Sec', vintage: '', grapes: 'Pinot Noir · Syrah · Touriga Nacional', alc: '12 %', note: 'Méthode classique, 18 mois. Robe saumon, bulles fines et constantes, fruits rouges, finale d\u2019une douceur équilibrée. Servir à 4–6 °C.', noteEn: 'Traditional method, 18 months. Salmon hue, fine and steady bubbles, red fruit, a finish of balanced sweetness. Serve at 4–6 °C.', pairing: 'Desserts aux fruits, fromages doux', pairingEn: 'Fruit desserts, mild cheeses', price: '43,95 $', priceNum: 43.95, boxSize: 3, saqCaseNum: 112.50, feeCaseNum: 19.35, stockCases: 12, img: 'wines/vinhados9-rose-meiseco.png', hasImg: true, noImg: false, story: "Version tendre du mousseux rosé des « 9 », demi-sec et festif, né des mêmes vignes familiales de Barcelos vieilles de trois siècles.", storyEn: "A softer take on the '9' rosé sparkling wine, off-dry and festive, born of the same three-century-old family vines in Barcelos." },
       ],
     },
