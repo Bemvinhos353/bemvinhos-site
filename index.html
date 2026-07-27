@@ -40,6 +40,28 @@
 </style>
 </helmet>
 
+<sc-if value="{{ ageGateOpen }}" hint-placeholder-val="{{ true }}">
+  <div style="position:fixed;inset:0;z-index:200;background:radial-gradient(140% 100% at 50% 0%,#2b241c,#141110 65%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px;">
+    <div style="width:48px;height:48px;display:grid;place-items:center;border:1.5px solid #E4C49A;border-radius:50%;margin-bottom:22px;">
+      <span style="width:13px;height:13px;background:var(--wine);transform:rotate(45deg);"></span>
+    </div>
+    <div style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#E4C49A;margin-bottom:14px;">BEMVINHOS</div>
+    <h1 id="t-age-q" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(24px,3.4vw,34px);line-height:1.35;color:#F6F1E8;max-width:640px;margin:0 0 34px;">Avez-vous l'âge légal pour consommer de l'alcool dans votre province de résidence ?</h1>
+    <div style="display:flex;gap:16px;">
+      <button onClick="{{ ageYes }}" style="background:var(--wine);color:#F6F1E8;border:none;border-radius:6px;padding:14px 40px;font-size:14px;font-weight:700;letter-spacing:.08em;cursor:pointer;">OUI</button>
+      <button onClick="{{ ageNo }}" style="background:transparent;color:#F6F1E8;border:1px solid rgba(246,241,232,.5);border-radius:6px;padding:14px 40px;font-size:14px;font-weight:700;letter-spacing:.08em;cursor:pointer;">NON</button>
+    </div>
+    <sc-if value="{{ ageDenied }}" hint-placeholder-val="{{ false }}">
+      <p id="t-age-denied" style="font-size:13.5px;color:rgba(246,241,232,.75);max-width:420px;margin-top:26px;">Vous devez avoir l'âge légal pour consommer de l'alcool afin d'accéder à ce site.</p>
+    </sc-if>
+    <div style="margin-top:38px;display:flex;align-items:center;gap:14px;font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;">
+      <button onClick="{{ ageSetFr }}" style="background:none;border:none;cursor:pointer;color:{{ ageFrColor }};">FRANÇAIS</button>
+      <span style="color:rgba(246,241,232,.3);">|</span>
+      <button onClick="{{ ageSetEn }}" style="background:none;border:none;cursor:pointer;color:{{ ageEnColor }};">ENGLISH</button>
+    </div>
+  </div>
+</sc-if>
+
 <div style="overflow-x:hidden;">
 
 <!-- NAV -->
@@ -257,6 +279,9 @@
             </span>
             <span style="font-family:'Courier Prime',monospace;font-size:11px;color:var(--wine);">CHANGER</span>
           </button>
+          <sc-if value="{{ hasDefaultBranchNote }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:11.5px;color:var(--ink-soft);margin-top:8px;line-height:1.4;">{{ defaultBranchHint }}</div>
+          </sc-if>
         </div>
 
         <!-- promo code -->
@@ -542,6 +567,8 @@ class Component extends DCLogic {
 
   // Cart: maps a wine id → number of cases (of 6). Starts empty.
   state = {
+    ageGateOpen: true,
+    ageDenied: false,
     cart: {},
     promoInput: '',
     promoCode: null,
@@ -587,6 +614,11 @@ class Component extends DCLogic {
     const key = (raw || '').trim().toUpperCase();
     return this.PROMO_CODES[key] ? { code: key, ...this.PROMO_CODES[key] } : null;
   }
+  ageYes = () => { try { localStorage.setItem('bm_age_ok', '1'); } catch (e) {} this.setState({ ageGateOpen: false, ageDenied: false }); };
+  ageNo = () => this.setState({ ageDenied: true });
+  ageSetFr = () => { this.lang = 'fr'; this.applyLang(); this.forceUpdate(); };
+  ageSetEn = () => { this.lang = 'en'; this.applyLang(); this.forceUpdate(); };
+
   applyPromo = () => {
     const p = this.lookupPromo(this.state.promoInput);
     this.setState({ promoCode: p ? p.code : 'INVALID' });
@@ -676,6 +708,9 @@ class Component extends DCLogic {
   ];
 
   // Official SAQ designated private-import branches — loaded from data/saq-branches.json
+  // Used when the customer doesn't pick a branch — order defaults here.
+  DEFAULT_BRANCH = { num: 'CD', address: '1947 Rue des Futailles', city: 'Montréal, QC H1N 3P1' };
+
   branches = [];
 
   // ---------- i18n ----------
@@ -736,6 +771,8 @@ class Component extends DCLogic {
     't-notify-title': { fr: 'Soyez au courant des prochaines dégustations', en: 'Be first to know about upcoming tastings' },
     't-notify-lead': { fr: "Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.", en: 'Join the registry. We write you first the moment a date opens, before any public announcement.' },
     't-notify-btn': { fr: "M'inscrire", en: 'Sign me up' },
+    't-age-q': { fr: "Avez-vous l'âge légal pour consommer de l'alcool dans votre province de résidence ?", en: 'Are you of legal drinking age in your province of residence?' },
+    't-age-denied': { fr: "Vous devez avoir l'âge légal pour consommer de l'alcool afin d'accéder à ce site.", en: 'You must be of legal drinking age to access this site.' },
     't-con-eye': { fr: 'Parlons-nous', en: 'Let\u2019s talk' },
     't-con-title': { fr: 'Un verre, deux chemins.', en: 'One glass, two paths.' },
     't-con-r-title': { fr: 'Enrichir votre carte', en: 'Enrich your wine list' },
@@ -750,6 +787,9 @@ class Component extends DCLogic {
 
   // ---------- lifecycle ----------
   componentDidMount() {
+    try {
+      if (localStorage.getItem('bm_age_ok') === '1') this.setState({ ageGateOpen: false });
+    } catch (e) {}
     this.applyLang();
     this.applyPalette();
     fetch('data/saq-branches.json')
@@ -916,7 +956,7 @@ class Component extends DCLogic {
     const bottles = items.reduce((a, it) => a + it.cases, 0) * 6;
     if (!bottles) return;
     this.setState({ paying: true, payError: '' });
-    const sb = this.state.selectedBranch;
+    const sb = this.state.selectedBranch || this.DEFAULT_BRANCH;
     const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID') ? this.state.promoCode : null;
     const payload = {
       bottles,
@@ -1079,6 +1119,7 @@ class Component extends DCLogic {
     const branchCount = this.branches.length;
 
     const sb = this.state.selectedBranch;
+    const effectiveBranch = sb || this.DEFAULT_BRANCH;
 
     const events = [
       { date: '02 OCT', title: 'Cortém bio & fromages', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", price: '60 $', city: 'Québec', badge: 'Nouveau', badgeColor: 'var(--olive)' },
@@ -1122,7 +1163,13 @@ class Component extends DCLogic {
       events,
       branchesFiltered,
       branchCount,
-      selectedBranchName: sb ? (sb.address + ', ' + sb.city) : (this.lang === 'en' ? 'Select a branch' : 'Sélectionner une succursale'),
+      selectedBranchName: sb ? (sb.address + ', ' + sb.city) : (this.lang === 'en'
+        ? 'No branch selected — will default to: ' + this.DEFAULT_BRANCH.address + ', ' + this.DEFAULT_BRANCH.city
+        : 'Aucune succursale choisie — par défaut : ' + this.DEFAULT_BRANCH.address + ', ' + this.DEFAULT_BRANCH.city),
+      hasDefaultBranchNote: !sb,
+      defaultBranchHint: this.lang === 'en'
+        ? 'No branch chosen? Your order goes to the SAQ Distribution Centre by default: 1947 Rue des Futailles, Montréal, QC H1N 3P1.'
+        : 'Aucune succursale choisie ? Votre commande sera dirigée par défaut au Centre de distribution SAQ : 1947 Rue des Futailles, Montréal, QC H1N 3P1.',
       pickerOpen: this.state.pickerOpen,
       paymentOpen: this.state.paymentOpen,
       payDone: this.state.payDone,
@@ -1154,6 +1201,14 @@ class Component extends DCLogic {
       submitNotify: (e) => { e.preventDefault(); this.setState({ notifyDone: true }); },
       toggleLang: this.toggleLang,
       stop: (e) => e.stopPropagation(),
+      ageGateOpen: this.state.ageGateOpen,
+      ageDenied: this.state.ageDenied,
+      ageYes: this.ageYes,
+      ageNo: this.ageNo,
+      ageSetFr: this.ageSetFr,
+      ageSetEn: this.ageSetEn,
+      ageFrColor: this.lang === 'fr' ? '#F6F1E8' : 'rgba(246,241,232,.5)',
+      ageEnColor: this.lang === 'en' ? '#F6F1E8' : 'rgba(246,241,232,.5)',
     };
   }
 }
