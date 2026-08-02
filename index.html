@@ -40,8 +40,7 @@
   @media (max-width:760px){
     nav[style*="position:fixed"]{ padding:12px 16px !important; }
     nav[style*="position:fixed"] > div{ gap:10px !important; }
-    nav[style*="position:fixed"] a[href="#histoire"], nav[style*="position:fixed"] a[href="#vins"],
-    nav[style*="position:fixed"] a[href="#degustations"], nav[style*="position:fixed"] a[href="#contact"]{ display:none !important; }
+    .bm-navlink{ display:none !important; }
     section{ padding-left:20px !important; padding-right:20px !important; }
     .bm-winerow{ grid-template-columns:1fr !important; }
     .bm-winegrid{ grid-template-columns:1fr !important; }
@@ -80,10 +79,10 @@
     <span style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;letter-spacing:.14em;">BEMVINHOS</span>
   </a>
   <div style="display:flex;align-items:center;gap:34px;">
-    <a id="t-nav-histoire" href="#histoire" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Histoire</a>
-    <a id="t-nav-vins" href="#vins" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Vins</a>
-    <a id="t-nav-deg" href="#degustations" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Dégustations</a>
-    <a id="t-nav-contact" href="#contact" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Contact</a>
+    <a id="t-nav-histoire" class="bm-navlink" href="#histoire" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Histoire</a>
+    <a id="t-nav-vins" class="bm-navlink" href="#vins" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Vins</a>
+    <a id="t-nav-deg" class="bm-navlink" href="#degustations" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Dégustations</a>
+    <a id="t-nav-contact" class="bm-navlink" href="#contact" style="text-decoration:none;color:var(--ink);font-size:13px;letter-spacing:.05em;font-weight:500;">Contact</a>
     <button id="bm-lang" onClick="{{ toggleLang }}" style="background:none;border:1px solid var(--ink);border-radius:40px;padding:6px 13px;font-size:11px;letter-spacing:.1em;cursor:pointer;color:var(--ink);font-weight:600;">EN</button>
     <a id="t-cta-commander" href="#commander" style="text-decoration:none;background:var(--wine);color:#F5F0E6;font-size:13px;letter-spacing:.04em;font-weight:600;padding:9px 18px;border-radius:40px;">Commander</a>
   </div>
@@ -255,21 +254,25 @@
           <div style="padding:34px 18px;text-align:center;border:1px dashed var(--line);border-radius:8px;color:var(--ink-soft);font-size:14px;line-height:1.5;">{{ emptyCartText }}</div>
         </sc-if>
         <sc-for list="{{ lines }}" as="l" hint-placeholder-count="3">
-          <div style="display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);">
+          <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);">
             <div style="width:54px;height:72px;border-radius:4px;background:radial-gradient(120% 90% at 50% 20%,#F2ECDF,#E2D8C6);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
               <div role="img" aria-label="{{ l.name }}" style="{{ l.imgStyle }}"></div>
             </div>
-            <div style="flex:1;min-width:0;">
+            <div style="flex:1;min-width:160px;">
               <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;">{{ l.name }}</div>
               <div style="font-size:12.5px;color:var(--ink-soft);">{{ l.winery }} · {{ l.price }} · {{ l.caseSizeNote }}</div>
             </div>
-            <div style="display:flex;align-items:center;gap:10px;">
-              <button onClick="{{ l.dec }}" style="width:28px;height:28px;border:1px solid var(--line);background:var(--panel);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;color:var(--ink);">−</button>
-              <span style="min-width:60px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;">{{ l.qtyLabel }}</span>
-              <button onClick="{{ l.inc }}" style="width:28px;height:28px;border:1px solid var(--line);background:var(--panel);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;color:var(--ink);">+</button>
+            <div style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button onClick="{{ l.dec }}" style="width:28px;height:28px;border:1px solid var(--line);background:var(--panel);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;color:var(--ink);">−</button>
+                <span style="min-width:60px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;">{{ l.qtyLabel }}</span>
+                <button onClick="{{ l.inc }}" style="width:28px;height:28px;border:1px solid var(--line);background:var(--panel);border-radius:50%;cursor:pointer;font-size:16px;line-height:1;color:var(--ink);">+</button>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <div style="text-align:right;font-family:'Courier Prime',monospace;font-size:14px;">{{ l.lineTotal }}</div>
+                <button onClick="{{ l.remove }}" title="Retirer" aria-label="Retirer" style="width:26px;height:26px;border:none;background:none;cursor:pointer;color:var(--ink-soft);font-size:17px;line-height:1;flex-shrink:0;">×</button>
+              </div>
             </div>
-            <div style="width:84px;text-align:right;font-family:'Courier Prime',monospace;font-size:14px;">{{ l.lineTotal }}</div>
-            <button onClick="{{ l.remove }}" title="Retirer" aria-label="Retirer" style="width:26px;height:26px;border:none;background:none;cursor:pointer;color:var(--ink-soft);font-size:17px;line-height:1;flex-shrink:0;">×</button>
           </div>
         </sc-for>
         <div style="display:flex;justify-content:space-between;margin-top:18px;font-size:13px;color:var(--ink-soft);">
@@ -450,8 +453,8 @@
       </div>
       <div style="text-align:center;">
         <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;">65 $</div>
-        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">8 places restantes</div>
-        <button onClick="{{ openNotify }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">Réserver</button>
+        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">15 places restantes</div>
+        <button onClick="{{ reserveFeatured }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">{{ reserveLabel }}</button>
       </div>
     </div>
 
@@ -468,23 +471,27 @@
             <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;">{{ e.price }}</span>
             <span style="font-size:12px;color:var(--ink-soft);">{{ e.city }}</span>
           </div>
+          <button onClick="{{ e.reserve }}" disabled="{{ e.soldOut }}" style="width:100%;border:1px solid var(--wine);background:{{ e.reserveBg }};color:{{ e.reserveColor }};border-radius:40px;padding:10px 14px;font-size:13px;font-weight:600;cursor:{{ e.reserveCursor }};opacity:{{ e.reserveOpacity }};margin-top:4px;">{{ e.reserveLabel }}</button>
         </div>
       </sc-for>
     </div>
 
     <!-- registry -->
-    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;">
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:40px;align-items:center;">
       <div>
         <h3 id="t-notify-title" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 0 8px;">Soyez au courant des prochaines dégustations</h3>
         <p id="t-notify-lead" style="font-size:15px;line-height:1.6;color:var(--ink-soft);margin:0;">Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.</p>
+        <sc-if value="{{ hasReserveTag }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:12px;display:inline-flex;align-items:center;gap:8px;background:rgba(94,90,58,.12);color:var(--olive);border-radius:20px;padding:6px 14px;font-size:12.5px;font-weight:600;">{{ reserveTagLabel }}<button onClick="{{ clearReserveTag }}" style="background:none;border:none;cursor:pointer;color:var(--olive);font-size:14px;">×</button></div>
+        </sc-if>
       </div>
       <form onSubmit="{{ submitNotify }}" style="display:flex;gap:10px;flex-shrink:0;">
-        <input required="" placeholder="Votre courriel" style="padding:14px 18px;border:1px solid var(--line);border-radius:40px;font-size:15px;background:var(--bg);color:var(--ink);outline:none;min-width:240px;">
-        <button id="t-notify-btn" type="submit" style="background:var(--ink);color:var(--bg);border:none;border-radius:40px;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">M'inscrire</button>
+        <input id="bm-notify-email" required="" placeholder="{{ notifyPlaceholder }}" style="padding:14px 18px;border:1px solid var(--line);border-radius:40px;font-size:15px;background:var(--bg);color:var(--ink);outline:none;min-width:240px;">
+        <button id="t-notify-btn" type="submit" style="background:var(--ink);color:var(--bg);border:none;border-radius:40px;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">{{ notifyBtnLabel }}</button>
       </form>
     </div>
     <sc-if value="{{ notifyDone }}" hint-placeholder-val="{{ false }}">
-      <div style="text-align:center;margin-top:16px;font-size:14px;color:var(--olive);font-weight:600;">✓ Vous êtes inscrit — à très bientôt autour d'un verre.</div>
+      <div style="text-align:center;margin-top:16px;font-size:14px;color:var(--olive);font-weight:600;">{{ notifyDoneMsg }}</div>
     </sc-if>
   </div>
 </section>
@@ -501,7 +508,7 @@
         <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--wine);margin-bottom:14px;">POUR LES RESTAURANTS</div>
         <h3 id="t-con-r-title" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;margin:0 0 12px;">Enrichir votre carte</h3>
         <p id="t-con-r-desc" style="font-size:15px;line-height:1.65;color:var(--ink-soft);margin:0 0 24px;">Des vins hors-SAQ à belle valeur, avec l'histoire à raconter en salle. On passe vous faire goûter.</p>
-        <a id="t-con-r-btn" href="mailto:alex@bemvinhos.com" style="display:inline-block;background:var(--wine);color:#F5F0E6;text-decoration:none;border-radius:40px;padding:13px 26px;font-size:14px;font-weight:600;">Prendre rendez-vous</a>
+        <a id="t-con-r-btn" href="mailto:asantos@bemvinhos.com" style="display:inline-block;background:var(--wine);color:#F5F0E6;text-decoration:none;border-radius:40px;padding:13px 26px;font-size:14px;font-weight:600;">Prendre rendez-vous</a>
       </div>
       <div style="background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:38px;">
         <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--olive);margin-bottom:14px;">POUR LES PARTICULIERS</div>
@@ -532,7 +539,7 @@
     </div>
     <div>
       <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:16px;">CONTACT</div>
-      <a href="mailto:alex@bemvinhos.com" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;margin-bottom:10px;">alex@bemvinhos.com</a>
+      <a href="mailto:asantos@bemvinhos.com" style="display:block;color:rgba(245,240,230,.8);text-decoration:none;font-size:14px;margin-bottom:10px;">asantos@bemvinhos.com</a>
       <span style="display:block;color:rgba(245,240,230,.6);font-size:14px;margin-bottom:10px;">Montréal, Québec</span>
       <span style="display:block;color:rgba(245,240,230,.6);font-size:13px;">Permis SAQ d'importation privée</span>
     </div>
@@ -560,6 +567,14 @@ class Component extends DCLogic {
   //  Fallback (no code): a Stripe Payment Link. Used only if the Checkout URL
   //  above is empty. Customer must set the quantity themselves on Stripe.
   STRIPE_PAYMENT_LINK = 'https://buy.stripe.com/test_6oUaEX5Naf3W0nHgc3cwg00';
+
+  // ===========================================================================
+  //  TASTINGS SIGN-UP — paste your Formspree endpoint here (Formspree dashboard
+  //  → your form → "Integration" → the URL like https://formspree.io/f/xxxxxxx).
+  //  Each submission includes the email AND which tasting was selected (if any).
+  //  Leave empty to just show a local confirmation (no email is actually sent).
+  // ===========================================================================
+  FORMSPREE_URL = 'https://formspree.io/f/xykrqakl';
 
   // ===========================================================================
   //  WINE SPREADSHEET (optional) — manage wines / prices / stock from a sheet
@@ -591,6 +606,7 @@ class Component extends DCLogic {
     payError: '',
     payDone: false,
     notifyDone: false,
+    reserveTag: '',
   };
 
   lang = 'fr';
@@ -627,6 +643,12 @@ class Component extends DCLogic {
   ageNo = () => this.setState({ ageDenied: true });
   ageSetFr = () => { this.lang = 'fr'; this.applyLang(); this.forceUpdate(); };
   ageSetEn = () => { this.lang = 'en'; this.applyLang(); this.forceUpdate(); };
+
+  reserveTasting = (title) => {
+    this.setState({ reserveTag: title });
+    const el = document.getElementById('t-notify-title');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
 
   applyPromo = () => {
     const p = this.lookupPromo(this.state.promoInput);
@@ -776,7 +798,7 @@ class Component extends DCLogic {
     't-deg-lead': { fr: "Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.", en: 'Intimate evenings where we open the bottles and the winemaker\u2019s notebook. For restaurateurs and gem-hunting enthusiasts alike.' },
     't-feat-title': { fr: 'Folgorosa, verticale de la Lusitanie', en: 'Folgorosa, a Lusitania vertical' },
     't-feat-desc': { fr: 'Six cuvées, le récit de la famille Folgorosa, planches portugaises. 18 h 30 · Le Mile-End.', en: 'Six cuvées, the Folgorosa family story, Portuguese boards. 6:30 PM · Le Mile-End.' },
-    't-feat-spots': { fr: '8 places restantes', en: '8 spots left' },
+    't-feat-spots': { fr: '15 places restantes', en: '15 spots left' },
     't-notify-title': { fr: 'Soyez au courant des prochaines dégustations', en: 'Be first to know about upcoming tastings' },
     't-notify-lead': { fr: "Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.", en: 'Join the registry. We write you first the moment a date opens, before any public announcement.' },
     't-notify-btn': { fr: "M'inscrire", en: 'Sign me up' },
@@ -1131,10 +1153,20 @@ class Component extends DCLogic {
     const effectiveBranch = sb || this.DEFAULT_BRANCH;
 
     const events = [
-      { date: '02 OCT', title: 'Cortém bio & fromages', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", price: '60 $', city: 'Québec', badge: 'Nouveau', badgeColor: 'var(--olive)' },
-      { date: '23 OCT', title: 'Alvarinho sur le pouce', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', price: '40 $', city: 'Laval', badge: '4 places', badgeColor: 'var(--wine)' },
-      { date: '13 NOV', title: 'Soirée vignerons', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', price: '85 $', city: 'Montréal', badge: 'Complet', badgeColor: '#8a8275' },
-    ];
+      { date: '02 OCT', title: 'Cortém bio & fromages', titleEn: 'Cortém organic & cheeses', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", descEn: 'The organic reds and whites of Setúbal paired with a board of Québec cheeses.', price: '60 $', city: 'Québec', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--olive)', soldOut: false },
+      { date: '23 OCT', title: 'Alvarinho sur le pouce', titleEn: 'Alvarinho on the go', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', descEn: 'A discovery workshop on Portuguese whites. Aperitif format, one hour.', price: '40 $', city: 'Laval', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--wine)', soldOut: false },
+      { date: '13 NOV', title: 'Soirée vignerons', titleEn: 'Winemakers\u2019 evening', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', descEn: 'All three estates together. A grand tour of Portugal in twelve glasses.', price: '85 $', city: 'Montréal', badge: this.lang === 'en' ? 'Sold out' : 'Complet', badgeColor: '#8a8275', soldOut: true },
+    ].map((ev) => ({
+      ...ev,
+      title: this.lang === 'en' ? ev.titleEn : ev.title,
+      desc: this.lang === 'en' ? ev.descEn : ev.desc,
+      reserveLabel: ev.soldOut ? (this.lang === 'en' ? 'Sold out' : 'Complet') : (this.lang === 'en' ? 'Reserve' : 'Réserver'),
+      reserveBg: ev.soldOut ? 'var(--panel2)' : 'transparent',
+      reserveColor: ev.soldOut ? 'var(--ink-soft)' : 'var(--wine)',
+      reserveCursor: ev.soldOut ? 'not-allowed' : 'pointer',
+      reserveOpacity: ev.soldOut ? '0.6' : '1',
+      reserve: ev.soldOut ? (() => {}) : (() => this.reserveTasting(this.lang === 'en' ? ev.titleEn : ev.title)),
+    }));
 
     return {
       lines,
@@ -1206,8 +1238,27 @@ class Component extends DCLogic {
       paying: this.state.paying,
       payError: this.state.payError,
       hasError: !!this.state.payError,
-      openNotify: () => { const el = document.getElementById('t-notify-title'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' }); },
-      submitNotify: (e) => { e.preventDefault(); this.setState({ notifyDone: true }); },
+      reserveFeatured: () => this.reserveTasting(this.lang === 'en' ? 'Folgorosa, a Lusitania vertical — Sept 18' : 'Folgorosa, verticale de la Lusitanie — 18 sept.'),
+      reserveLabel: this.lang === 'en' ? 'Reserve' : 'Réserver',
+      hasReserveTag: !!this.state.reserveTag,
+      reserveTagLabel: (this.lang === 'en' ? 'Selected: ' : 'Sélectionné : ') + this.state.reserveTag,
+      clearReserveTag: () => this.setState({ reserveTag: '' }),
+      notifyPlaceholder: this.lang === 'en' ? 'Your email' : 'Votre courriel',
+      notifyBtnLabel: this.lang === 'en' ? 'Sign me up' : "M'inscrire",
+      notifyDoneMsg: this.lang === 'en' ? '✓ You are registered — see you soon over a glass.' : '✓ Vous êtes inscrit — à très bientôt autour d\u2019un verre.',
+      submitNotify: (e) => {
+        e.preventDefault();
+        const email = document.getElementById('bm-notify-email').value;
+        const tag = this.state.reserveTag;
+        if (this.FORMSPREE_URL) {
+          fetch(this.FORMSPREE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ email, tasting: tag || 'Registre général', lang: this.lang }),
+          }).catch(() => {});
+        }
+        this.setState({ notifyDone: true, reserveTag: '' });
+      },
       toggleLang: this.toggleLang,
       stop: (e) => e.stopPropagation(),
       ageGateOpen: this.state.ageGateOpen,
