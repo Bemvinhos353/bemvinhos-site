@@ -634,10 +634,23 @@ class Component extends DCLogic {
     'DEGUSTATION': { pct: 15, label: 'Dégustation — 15 %' },
     'MERCI10': { pct: 10, label: 'Merci — 10 %' },
     'AMI25': { pct: 25, label: 'Ami·e — 25 %' },
+    // One-time code (95 % off the agency fee). Marked oneTime: once it has been
+    // used on a device it can't be applied again there.
+    'VIP95': { pct: 95, label: 'VIP — 95 %', oneTime: true },
   };
   lookupPromo(raw) {
     const key = (raw || '').trim().toUpperCase();
     return this.PROMO_CODES[key] ? { code: key, ...this.PROMO_CODES[key] } : null;
+  }
+  promoUsed(code) {
+    try { return (localStorage.getItem('bm_promo_used') || '').split(',').includes(code); } catch (e) { return false; }
+  }
+  markPromoUsed(code) {
+    try {
+      const list = (localStorage.getItem('bm_promo_used') || '').split(',').filter(Boolean);
+      if (!list.includes(code)) list.push(code);
+      localStorage.setItem('bm_promo_used', list.join(','));
+    } catch (e) {}
   }
   ageYes = () => { try { localStorage.setItem('bm_age_ok', '1'); } catch (e) {} this.setState({ ageGateOpen: false, ageDenied: false }); };
   ageNo = () => this.setState({ ageDenied: true });
@@ -652,6 +665,7 @@ class Component extends DCLogic {
 
   applyPromo = () => {
     const p = this.lookupPromo(this.state.promoInput);
+    if (p && p.oneTime && this.promoUsed(p.code)) { this.setState({ promoCode: 'USED' }); return; }
     this.setState({ promoCode: p ? p.code : 'INVALID' });
   };
   clearPromo = () => this.setState({ promoCode: null, promoInput: '' });
@@ -988,7 +1002,8 @@ class Component extends DCLogic {
     if (!bottles) return;
     this.setState({ paying: true, payError: '' });
     const sb = this.state.selectedBranch || this.DEFAULT_BRANCH;
-    const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID') ? this.state.promoCode : null;
+    const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID' && this.state.promoCode !== 'USED') ? this.state.promoCode : null;
+    if (promo) { const p = this.lookupPromo(promo); if (p && p.oneTime) this.markPromoUsed(promo); }
     const payload = {
       bottles,
       items,
@@ -1063,7 +1078,7 @@ class Component extends DCLogic {
     });
     // Promo code: discount applied to the agency fee (taxes recompute on the
     // discounted fee). The wine price at the SAQ is never affected.
-    const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID')
+    const promo = (this.state.promoCode && this.state.promoCode !== 'INVALID' && this.state.promoCode !== 'USED')
       ? this.lookupPromo(this.state.promoCode) : null;
     let discount = 0;
     if (promo) discount = promo.pct ? feeBase * (promo.pct / 100) : Math.min(promo.amount || 0, feeBase);
@@ -1190,12 +1205,14 @@ class Component extends DCLogic {
       clearPromo: this.clearPromo,
       promoApplied: !!promo,
       promoNotApplied: !promo,
-      promoInvalid: this.state.promoCode === 'INVALID',
+      promoInvalid: this.state.promoCode === 'INVALID' || this.state.promoCode === 'USED',
       promoLabel: promo ? promo.label : '',
       promoCodeStr: promo ? promo.code : '',
       discountStr: '– ' + this.money(discount),
       hasDiscount: discount > 0,
-      promoMsg: this.lang === 'en' ? 'Invalid or expired code.' : 'Code invalide ou expiré.',
+      promoMsg: this.state.promoCode === 'USED'
+        ? (this.lang === 'en' ? 'This code has already been used.' : 'Ce code a déjà été utilisé.')
+        : (this.lang === 'en' ? 'Invalid or expired code.' : 'Code invalide ou expiré.'),
       promoPlaceholder: this.lang === 'en' ? 'Promo code' : 'Code promo',
       tpsStr: this.money(tps),
       tvqStr: this.money(tvq),
