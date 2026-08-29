@@ -1157,9 +1157,11 @@ class Component extends DCLogic {
       }),
     }));
 
-    const q = (this.state.branchQuery || '').toLowerCase();
+    // Accent-insensitive search: "Montre" matches "Montréal", "Quebec" matches "Québec".
+    const fold = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const q = fold(this.state.branchQuery);
     const branchesAll = this.branches
-      .filter((b) => !q || b.city.toLowerCase().includes(q) || b.address.toLowerCase().includes(q) || String(b.num).includes(q))
+      .filter((b) => !q || fold(b.city).includes(q) || fold(b.address).includes(q) || String(b.num).includes(q))
       .map((b) => ({ ...b, numLabel: '#' + b.num, select: () => this.setState({ selectedBranch: b, pickerOpen: false }) }));
     const branchesFiltered = branchesAll.slice(0, 60);
     const branchCount = this.branches.length;
