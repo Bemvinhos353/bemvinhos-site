@@ -445,17 +445,18 @@
     <!-- featured next event -->
     <div style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;margin-bottom:24px;">
       <div style="text-align:center;border-right:1px solid rgba(245,240,230,.2);padding-right:36px;">
-        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">SEPT</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;">18</div>
+        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">OCT</div>
+        <div id="t-feat-day" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;line-height:1.1;white-space:pre-line;">mi-
+octobre</div>
         <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;opacity:.7;">2026</div>
       </div>
       <div>
-        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px;">PROCHAIN RENDEZ-VOUS · MONTRÉAL</div>
+        <div id="t-feat-eye" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px;">PROCHAIN RENDEZ-VOUS · PORTO MAR, MONTRÉAL</div>
         <h3 id="t-feat-title" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin:0 0 8px;">Folgorosa, verticale de la Lusitanie</h3>
-        <p id="t-feat-desc" style="font-size:14.5px;line-height:1.6;color:rgba(245,240,230,.75);margin:0;">Six cuvées, le récit de la famille Folgorosa, planches portugaises. 18 h 30 · Le Mile-End.</p>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(245,240,230,.75);margin:0;"><span id="t-feat-desc">Six cuvées, le récit de la famille Folgorosa, planches portugaises. Chez</span> <a href="https://www.quaiouest.ca/" target="_blank" rel="noopener" style="color:var(--gold);">Porto Mar</a> <span id="t-feat-desc2">· date exacte à confirmer.</span></p>
       </div>
       <div style="text-align:center;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;">65 $</div>
+        <div id="t-feat-price" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;">Prix à confirmer</div>
         <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">15 places restantes</div>
         <button onClick="{{ reserveFeatured }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">{{ reserveLabel }}</button>
       </div>
@@ -471,7 +472,7 @@
           <h3 style="font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;margin:6px 0 0;line-height:1.1;">{{ e.title }}</h3>
           <p style="font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:0;flex:1;">{{ e.desc }}</p>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:14px;border-top:1px solid var(--line);">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;">{{ e.price }}</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;">{{ e.price }}</span>
             <span style="font-size:12px;color:var(--ink-soft);">{{ e.city }}</span>
           </div>
           <button onClick="{{ e.reserve }}" disabled="{{ e.soldOut }}" style="width:100%;border:1px solid var(--wine);background:{{ e.reserveBg }};color:{{ e.reserveColor }};border-radius:40px;padding:10px 14px;font-size:13px;font-weight:600;cursor:{{ e.reserveCursor }};opacity:{{ e.reserveOpacity }};margin-top:4px;">{{ e.reserveLabel }}</button>
@@ -814,7 +815,11 @@ class Component extends DCLogic {
     't-deg-title': { fr: 'Goûtez avant de raconter.', en: 'Taste before you tell.' },
     't-deg-lead': { fr: "Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.", en: 'Intimate evenings where we open the bottles and the winemaker\u2019s notebook. For restaurateurs and gem-hunting enthusiasts alike.' },
     't-feat-title': { fr: 'Folgorosa, verticale de la Lusitanie', en: 'Folgorosa, a Lusitania vertical' },
-    't-feat-desc': { fr: 'Six cuvées, le récit de la famille Folgorosa, planches portugaises. 18 h 30 · Le Mile-End.', en: 'Six cuvées, the Folgorosa family story, Portuguese boards. 6:30 PM · Le Mile-End.' },
+    't-feat-eye': { fr: 'PROCHAIN RENDEZ-VOUS · PORTO MAR, MONTRÉAL', en: 'NEXT GATHERING · PORTO MAR, MONTRÉAL' },
+    't-feat-price': { fr: 'Prix à confirmer', en: 'Price TBD' },
+    't-feat-day': { fr: 'mi-\noctobre', en: 'mid-\nOctober' },
+    't-feat-desc': { fr: 'Six cuvées, le récit de la famille Folgorosa, planches portugaises. Chez', en: 'Six cuvées, the Folgorosa family story, Portuguese boards. At' },
+    't-feat-desc2': { fr: '· date exacte à confirmer.', en: '· exact date to be confirmed.' },
     't-feat-spots': { fr: '15 places restantes', en: '15 spots left' },
     't-notify-title': { fr: 'Soyez au courant des prochaines dégustations', en: 'Be first to know about upcoming tastings' },
     't-notify-lead': { fr: "Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.", en: 'Join the registry. We write you first the moment a date opens, before any public announcement.' },
@@ -1175,9 +1180,9 @@ class Component extends DCLogic {
     const effectiveBranch = sb || this.DEFAULT_BRANCH;
 
     const events = [
-      { date: '02 OCT', title: 'Cortém bio & fromages', titleEn: 'Cortém organic & cheeses', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", descEn: 'The organic reds and whites of Setúbal paired with a board of Québec cheeses.', price: '60 $', city: 'Québec', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--olive)', soldOut: false },
-      { date: '23 OCT', title: 'Alvarinho sur le pouce', titleEn: 'Alvarinho on the go', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', descEn: 'A discovery workshop on Portuguese whites. Aperitif format, one hour.', price: '40 $', city: 'Laval', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--wine)', soldOut: false },
-      { date: '13 NOV', title: 'Soirée vignerons', titleEn: 'Winemakers\u2019 evening', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', descEn: 'All three estates together. A grand tour of Portugal in twelve glasses.', price: '85 $', city: 'Montréal', badge: this.lang === 'en' ? 'Sold out' : 'Complet', badgeColor: '#8a8275', soldOut: true },
+      { date: this.lang === 'en' ? 'EARLY NOV' : 'DÉBUT NOV', title: 'Cortém bio & fromages', titleEn: 'Cortém organic & cheeses', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", descEn: 'The organic reds and whites of Setúbal paired with a board of Québec cheeses.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Québec', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--olive)', soldOut: false },
+      { date: this.lang === 'en' ? 'LATE NOV' : 'FIN NOV', title: 'Alvarinho sur le pouce', titleEn: 'Alvarinho on the go', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', descEn: 'A discovery workshop on Portuguese whites. Aperitif format, one hour.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Laval', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--wine)', soldOut: false },
+      { date: this.lang === 'en' ? 'DECEMBER' : 'DÉCEMBRE', title: 'Soirée vignerons', titleEn: 'Winemakers\u2019 evening', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', descEn: 'All three estates together. A grand tour of Portugal in twelve glasses.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Montréal', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--olive)', soldOut: false },
     ].map((ev) => ({
       ...ev,
       title: this.lang === 'en' ? ev.titleEn : ev.title,
@@ -1262,7 +1267,7 @@ class Component extends DCLogic {
       paying: this.state.paying,
       payError: this.state.payError,
       hasError: !!this.state.payError,
-      reserveFeatured: () => this.reserveTasting(this.lang === 'en' ? 'Folgorosa, a Lusitania vertical — Sept 18' : 'Folgorosa, verticale de la Lusitanie — 18 sept.'),
+      reserveFeatured: () => this.reserveTasting(this.lang === 'en' ? 'Folgorosa, a Lusitania vertical — mid-October, Porto Mar' : 'Folgorosa, verticale de la Lusitanie — mi-octobre, Porto Mar'),
       reserveLabel: this.lang === 'en' ? 'Reserve' : 'Réserver',
       hasReserveTag: !!this.state.reserveTag,
       reserveTagLabel: (this.lang === 'en' ? 'Selected: ' : 'Sélectionné : ') + this.state.reserveTag,
