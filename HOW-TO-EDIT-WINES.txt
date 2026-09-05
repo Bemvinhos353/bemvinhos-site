@@ -1,0 +1,72 @@
+HOW TO MANAGE YOUR WINES FROM A SPREADSHEET
+============================================
+
+The file  wines.csv  is your wine list. Open it in Google Sheets and it becomes
+your control panel: prices, inventory, tasting notes, new wines — all from one
+place. No code.
+
+--------------------------------------------------------------------
+OPEN IT IN GOOGLE SHEETS
+--------------------------------------------------------------------
+1. Go to sheets.google.com → blank spreadsheet.
+2. File → Import → Upload → choose wines.csv → "Replace spreadsheet" → Import.
+   (Or just drag wines.csv into Google Drive and open it.)
+You'll see one row per wine, with these columns:
+
+  Winery        The producer (e.g. Quinta da Folgorosa). Repeat it on each of
+                that producer's wine rows.
+  Region        Shown under the producer name (e.g. IGP LISBOA · TORRES VEDRAS).
+                Only needs to be filled on the producer's FIRST row.
+  Winery tag    Small pill under the name (e.g. "Domaine familial · depuis 1711").
+  Winery note   The paragraph about the producer. First row only.
+  Winery link   The producer's website (optional). First row only.
+  Wine          The wine's name (e.g. Folgorosa Branco).
+  Vintage       Year (e.g. 2021) — can be blank.
+  Grapes        e.g. Alvarinho 100%
+  Alcohol       e.g. 12,5 %
+  Price         SAQ price per bottle, e.g. 19,95 $.  Leave BLANK for "Prix à venir".
+  Stock (cases) INVENTORY — how many cases of 6 you have. See rules below.
+  Tasting note  The italic description on the card.
+  Pairing       Food pairing (optional).
+  Image         Picture file name (e.g. wines/folgorosa-white.png). See images note.
+  Image style   "bottle" for a cut-out bottle, or "photo" for a full photo.
+
+--------------------------------------------------------------------
+INVENTORY RULES (the "Stock (cases)" column)
+--------------------------------------------------------------------
+  0            → shows "Rupture de stock", customers CANNOT order it.
+  a number     → that many cases can be ordered; shows "Plus que N caisses"
+                 when 3 or fewer are left.
+  (blank)      → no limit shown, always orderable.
+Remember: 1 case = 6 bottles. If the SAQ shows 48 bottles, enter 8.
+
+--------------------------------------------------------------------
+TO ADD A NEW WINE
+--------------------------------------------------------------------
+Add a new row. Fill the Winery (same spelling as its siblings to group it),
+the Wine name, Price, Stock, etc. For the picture, see below.
+
+--------------------------------------------------------------------
+ABOUT PICTURES
+--------------------------------------------------------------------
+The spreadsheet can't hold the image itself — just its file name. For a brand
+NEW wine, send me the bottle photo and I'll add the image file; you then put its
+file name in the Image column. Price / stock / text changes need no image work.
+
+--------------------------------------------------------------------
+HOW YOUR CHANGES REACH THE WEBSITE — TWO WAYS
+--------------------------------------------------------------------
+WAY 1 — Send me the file (works today)
+  In Google Sheets: File → Download → Comma-separated values (.csv).
+  Send me that file. I drop it in and the site updates. Done.
+
+WAY 2 — Automatic, once the site is hosted (no more sending files)
+  In Google Sheets: File → Share → Publish to web → choose the sheet →
+  "Comma-separated values (.csv)" → Publish → copy the link.
+  Give me that link once; I paste it into the site. From then on, every time
+  you edit the sheet, the website updates by itself within a minute. You never
+  send a file again.
+
+--------------------------------------------------------------------
+That's it. Prices and inventory are now yours to change anytime.
+Questions on any column? Ask me.
