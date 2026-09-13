@@ -11,6 +11,7 @@
 <body>
 <x-dc>
 <helmet>
+<script src="./image-slot.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Hanken+Grotesk:wght@300;400;500;600;700&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet">
@@ -29,6 +30,7 @@
   @keyframes bmcue{0%,100%{transform:translateY(0);opacity:.85}50%{transform:translateY(8px);opacity:.4}}
   @keyframes bmfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   @keyframes bmrise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes bmvine{0%,100%{opacity:.42;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
   @keyframes bmshake{0%,100%{transform:translateX(0)}15%{transform:translateX(-1px)}30%{transform:translateX(1px)}45%{transform:translateX(-.8px)}60%{transform:translateX(.8px)}75%{transform:translateX(-.4px)}}
   @keyframes bmzoomin{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
   .bm-bottlebox{transition:box-shadow .2s ease, transform .2s ease; cursor:zoom-in;}
@@ -151,6 +153,151 @@
     <div style="width:46px;height:2px;background:var(--wine);margin:30px auto 0;"></div>
     <div id="t-his-vision-sign" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:18px;">Alexandre Santos</div>
   </div>
+
+  <!-- hidden gallery toggle -->
+  <div style="max-width:1160px;margin:56px auto 0;display:flex;flex-direction:column;align-items:center;">
+    <button onClick="{{ toggleGallery }}" aria-label="Voir mes visites" style="background:none;border:none;cursor:pointer;padding:8px 18px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <svg width="34" height="30" viewBox="0 0 34 30" fill="none" style="animation:bmvine 2.6s ease-in-out infinite;">
+        <path d="M17 3c-3.4 1.6-5.6 4.4-5.6 7.6 0 2.4 1.5 4 3.6 4 1.8 0 3-1.1 3-2.6 0-1.3-.9-2.2-2-2.2" stroke="var(--olive)" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M17 3c3.4 1.6 5.6 4.4 5.6 7.6" stroke="var(--olive)" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="12.2" cy="17.4" r="2.5" fill="var(--wine)"/>
+        <circle cx="17" cy="19.6" r="2.5" fill="var(--wine)"/>
+        <circle cx="21.8" cy="17.4" r="2.5" fill="var(--wine)"/>
+        <circle cx="17" cy="24.4" r="2.3" fill="var(--wine-deep)"/>
+      </svg>
+      <svg width="20" height="9" viewBox="0 0 20 9" fill="none" style="animation:bmcue 1.9s ease-in-out infinite;">
+        <path d="M2 2l8 5 8-5" stroke="var(--wine)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- gallery -->
+  <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1160px;margin:34px auto 0;animation:bmrise .5s ease-out both;">
+      <div id="t-gal-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:12px;">Mes visites aux domaines</div>
+      <p id="t-gal-lead" style="text-align:center;font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:560px;margin:0 auto 44px;">Chaque rangée, un domaine. Les vignes, les chais et les familles derrière chaque bouteille.</p>
+
+      <!-- Folgorosa -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:16px;">
+        <div style="position:relative;perspective:1200px;min-height:190px;">
+          <div style="background:var(--wine);color:#F5EFE6;border-radius:6px;padding:22px 20px;display:flex;flex-direction:column;justify-content:center;height:100%;min-height:190px;">
+          <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.18em;opacity:.75;margin-bottom:10px;">TORRES VEDRAS</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.1;margin-bottom:10px;">Quinta da Folgorosa</div>
+          <p id="t-gal-folg" style="font-size:13px;line-height:1.55;margin:0;opacity:.92;">Une quinta qui cultive la vigne depuis 1711. On a marché les parcelles battues par l'air de l'Atlantique avant de goûter en cuve, à même l'inox.</p>
+          </div>
+          <button onClick="{{ gal.folgW.openStory }}" class="bm-corner" aria-label="Infos et visites" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--panel);color:var(--wine);border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.22);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.folgW.closeStory }}" style="{{ gal.folgW.flipStyle }}"><div class="t-galw-eye" style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:8px;">Visites &amp; contact</div><div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;line-height:1.15;margin-bottom:10px;">Quinta da Folgorosa</div><div style="font-size:12.5px;line-height:1.6;flex:1;"><a href="https://lindeborgwines.com/quinta-folgorosa/" target="_blank" rel="noopener" style="color:#F5EFE6;text-decoration:underline;" class="t-galw-site">Site web du domaine</a><br><span class="t-galw-contact">Contact pour visites : à compléter.</span></div><div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:10px;" class="t-close">↩ Cliquez pour fermer</div></div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-folg-1" shape="rounded" radius="6" placeholder="Photo — Folgorosa"></image-slot>
+          <button onClick="{{ gal.folg1.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.folg1.closeStory }}" style="{{ gal.folg1.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Folgorosa</div>
+            <div id="t-galph-folg1" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-folg-2" shape="rounded" radius="6" placeholder="Photo — Folgorosa"></image-slot>
+          <button onClick="{{ gal.folg2.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.folg2.closeStory }}" style="{{ gal.folg2.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Folgorosa</div>
+            <div id="t-galph-folg2" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-folg-3" shape="rounded" radius="6" placeholder="Photo — Folgorosa"></image-slot>
+          <button onClick="{{ gal.folg3.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.folg3.closeStory }}" style="{{ gal.folg3.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Folgorosa</div>
+            <div id="t-galph-folg3" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cortém -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:16px;">
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-cortem-1" shape="rounded" radius="6" placeholder="Photo — Cortém"></image-slot>
+          <button onClick="{{ gal.cortem1.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.cortem1.closeStory }}" style="{{ gal.cortem1.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Cortém</div>
+            <div id="t-galph-cortem1" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;">
+          <div style="background:var(--olive);color:#F5EFE6;border-radius:6px;padding:22px 20px;display:flex;flex-direction:column;justify-content:center;height:100%;min-height:190px;">
+          <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.18em;opacity:.75;margin-bottom:10px;">CALDAS DA RAINHA · BIO</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.1;margin-bottom:10px;">Cortém</div>
+          <p id="t-gal-cortem" style="font-size:13px;line-height:1.55;margin:0;opacity:.92;">Certifié biologique depuis 2004. Ni bois ni additifs : des cuves d'inox, trois ans de patience, et un vigneron qui explique chaque geste.</p>
+          </div>
+          <button onClick="{{ gal.cortemW.openStory }}" class="bm-corner" aria-label="Infos et visites" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--panel);color:var(--wine);border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.22);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.cortemW.closeStory }}" style="{{ gal.cortemW.flipStyle }}"><div class="t-galw-eye" style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:8px;">Visites &amp; contact</div><div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;line-height:1.15;margin-bottom:10px;">Cortém</div><div style="font-size:12.5px;line-height:1.6;flex:1;"><a href="https://lindeborgwines.com/vale-de-cortem/" target="_blank" rel="noopener" style="color:#F5EFE6;text-decoration:underline;" class="t-galw-site">Site web du domaine</a><br><span class="t-galw-contact">Contact pour visites : à compléter.</span></div><div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:10px;" class="t-close">↩ Cliquez pour fermer</div></div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-cortem-2" shape="rounded" radius="6" placeholder="Photo — Cortém"></image-slot>
+          <button onClick="{{ gal.cortem2.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.cortem2.closeStory }}" style="{{ gal.cortem2.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Cortém</div>
+            <div id="t-galph-cortem2" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-cortem-3" shape="rounded" radius="6" placeholder="Photo — Cortém"></image-slot>
+          <button onClick="{{ gal.cortem3.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.cortem3.closeStory }}" style="{{ gal.cortem3.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Cortém</div>
+            <div id="t-galph-cortem3" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vinha dos 9 -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;">
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-vd9-1" shape="rounded" radius="6" placeholder="Photo — Vinha dos 9"></image-slot>
+          <button onClick="{{ gal.vd91.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.vd91.closeStory }}" style="{{ gal.vd91.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Vinha dos 9</div>
+            <div id="t-galph-vd91" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-vd9-2" shape="rounded" radius="6" placeholder="Photo — Vinha dos 9"></image-slot>
+          <button onClick="{{ gal.vd92.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.vd92.closeStory }}" style="{{ gal.vd92.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Vinha dos 9</div>
+            <div id="t-galph-vd92" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;">
+          <div style="background:var(--ink);color:#F5EFE6;border-radius:6px;padding:22px 20px;display:flex;flex-direction:column;justify-content:center;height:100%;min-height:190px;">
+          <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.18em;opacity:.75;margin-bottom:10px;">BARCELOS · MINHO</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1.1;margin-bottom:10px;">Vinha dos 9</div>
+          <p id="t-gal-vd9" style="font-size:13px;line-height:1.55;margin:0;opacity:.92;">La Quinta de Agrelo, même famille depuis 300 ans. Neuf cousins, des vignes en culture sèche et une table où l'on ne compte plus les verres.</p>
+          </div>
+          <button onClick="{{ gal.vd9W.openStory }}" class="bm-corner" aria-label="Infos et visites" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--panel);color:var(--wine);border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.22);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.vd9W.closeStory }}" style="{{ gal.vd9W.flipStyle }}"><div class="t-galw-eye" style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:8px;">Visites &amp; contact</div><div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;line-height:1.15;margin-bottom:10px;">Vinha dos 9</div><div style="font-size:12.5px;line-height:1.6;flex:1;"><a href="https://vinhados9.pt" target="_blank" rel="noopener" style="color:#F5EFE6;text-decoration:underline;" class="t-galw-site">Site web du domaine</a><br><span class="t-galw-contact">Contact pour visites : à compléter.</span></div><div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:10px;" class="t-close">↩ Cliquez pour fermer</div></div>
+        </div>
+        <div style="position:relative;perspective:1200px;min-height:190px;border-radius:6px;">
+          <image-slot id="gal-vd9-3" shape="rounded" radius="6" placeholder="Photo — Vinha dos 9"></image-slot>
+          <button onClick="{{ gal.vd93.openStory }}" class="bm-corner" aria-label="Description de la photo" style="position:absolute;bottom:0;right:0;z-index:4;width:32px;height:32px;border:none;cursor:pointer;background:var(--wine);color:#F5EFE6;border-radius:12px 0 6px 0;display:flex;align-items:center;justify-content:center;box-shadow:-2px -2px 8px rgba(35,32,27,.16);"><span style="font-size:13px;line-height:1;">❧</span></button>
+          <div onClick="{{ gal.vd93.closeStory }}" style="{{ gal.vd93.flipStyle }}">
+            <div style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;opacity:.72;margin-bottom:10px;">Vinha dos 9</div>
+            <div id="t-galph-vd93" style="font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;line-height:1.5;flex:1;">Décrivez cette photo — le lieu, le moment, les personnes.</div>
+            <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:12px;" class="t-close">↩ Cliquez pour fermer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
 </section>
 
 <!-- VINS -->
@@ -161,7 +308,7 @@
         <div id="t-vin-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Les domaines</div>
         <h2 id="t-vin-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;max-width:620px;">Trois familles, une même obsession du détail.</h2>
       </div>
-      <p id="t-vin-lead" style="font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:300px;margin:0;">Photos et fiches officielles des domaines. Prix par bouteille indicatif, taxes en sus — inclut le prix SAQ de la bouteille et les frais d'agence. Vente par caisse de 6 (ou de 3 pour les mousseux Vinha dos 9).</p>
+      <p id="t-vin-lead" style="font-size:15px;line-height:1.6;color:var(--ink-soft);max-width:300px;margin:0;">Photos et fiches officielles des domaines. Prix par bouteille indicatif, taxes sur frais d'agence en sus — inclut le prix SAQ de la bouteille et les frais d'agence. Vente par caisse de 6 (ou de 3 pour les mousseux Vinha dos 9).</p>
     </div>
 
     <sc-for list="{{ wineries }}" as="w" hint-placeholder-count="3">
@@ -175,6 +322,19 @@
             <a href="{{ w.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:13px;color:var(--wine);text-decoration:none;border-bottom:1px solid var(--wine);padding-bottom:2px;width:fit-content;">
               <span style="font-size:11px;">↗</span><span>{{ w.linkLabel }}</span>
             </a>
+          </sc-if>
+          <sc-if value="{{ w.hasMap }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:22px;display:flex;align-items:flex-start;gap:12px;">
+              <svg width="62" height="124" viewBox="0 0 100 200" fill="none" style="flex-shrink:0;">
+                <path d="M20.4 17.8 L30.4 8.4 L41.6 3.0 L48.5 21.1 L64.7 21.1 L69.4 16.4 L85.4 17.7 L93.1 36.1 L80.4 46.0 L80.1 74.3 L75.6 79.5 L74.5 96.5 L62.7 99.4 L73.6 120.7 L66.0 143.8 L75.5 154.2 L71.7 163.7 L61.6 176.7 L63.8 188.1 L52.8 197.0 L38.3 192.2 L24.2 196.0 L28.3 169.0 L25.8 147.6 L13.5 144.3 L6.9 131.0 L9.1 107.9 L20.0 94.9 L22.0 80.4 L27.8 58.8 L27.2 43.4 L21.6 30.2 L20.4 17.8 Z" fill="var(--panel2)" stroke="var(--ink-soft)" stroke-width="1.6" stroke-linejoin="round"/>
+                <circle cx="{{ w.mapX }}" cy="{{ w.mapY }}" r="12" fill="var(--wine)" opacity="0.18"/>
+                <circle cx="{{ w.mapX }}" cy="{{ w.mapY }}" r="5.5" fill="var(--wine)" stroke="var(--panel)" stroke-width="1.8"/>
+              </svg>
+              <div style="padding-top:4px;">
+                <div class="t-map-eye" style="font-family:'Courier Prime',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;">Portugal</div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;line-height:1.2;color:var(--ink);">{{ w.mapPlace }}</div>
+              </div>
+            </div>
           </sc-if>
         </div>
         <div class="bm-winegrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-content:start;">
@@ -282,7 +442,7 @@
           <span id="t-cart-count">Caisses</span><span style="font-variant-numeric:tabular-nums;">{{ caseCount }} · {{ bottleCount }} <span data-en="bottles">bouteilles</span></span>
         </div>
         <div id="t-case-note" style="font-size:12px;color:var(--olive);margin-top:8px;">Vente par caisse de 6, ou de 3 pour les mousseux Vinha dos 9 — minimum d'importation SAQ.</div>
-        <div id="t-tax-note" style="font-size:11.5px;color:var(--ink-soft);margin-top:4px;font-style:italic;">Taxes non incluses dans les totaux ci-dessus.</div>
+        <div id="t-tax-note" style="font-size:11.5px;color:var(--ink-soft);margin-top:4px;font-style:italic;">Taxes sur les frais d'agence non incluses dans les totaux ci-dessus.</div>
 
         <!-- pickup -->
         <div style="margin-top:26px;padding-top:24px;border-top:1px dashed var(--line);">
@@ -457,7 +617,7 @@ octobre</div>
       </div>
       <div style="text-align:center;">
         <div id="t-feat-price" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;">Prix à confirmer</div>
-        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">15 places restantes</div>
+        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">18 places restantes</div>
         <button onClick="{{ reserveFeatured }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">{{ reserveLabel }}</button>
       </div>
     </div>
@@ -496,6 +656,87 @@ octobre</div>
     </div>
     <sc-if value="{{ notifyDone }}" hint-placeholder-val="{{ false }}">
       <div style="text-align:center;margin-top:16px;font-size:14px;color:var(--olive);font-weight:600;">{{ notifyDoneMsg }}</div>
+    </sc-if>
+  </div>
+</section>
+
+<!-- AVIS / REVIEWS -->
+<section id="avis" style="position:relative;background:var(--bg);padding:120px 40px;border-top:1px solid var(--line);">
+  <div style="max-width:1160px;margin:0 auto;">
+    <div style="text-align:center;max-width:620px;margin:0 auto 56px;">
+      <div id="t-av-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Ce qu'on en dit</div>
+      <h2 id="t-av-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:52px;line-height:1.03;margin:0;">Des verres partagés, des mots gardés.</h2>
+    </div>
+
+    <!-- hidden reviews toggle -->
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <button onClick="{{ toggleReviews }}" aria-label="Voir les avis" style="background:none;border:none;cursor:pointer;padding:8px 18px;display:flex;flex-direction:column;align-items:center;gap:4px;">
+        <svg width="34" height="30" viewBox="0 0 34 30" fill="none" style="animation:bmvine 2.6s ease-in-out infinite;">
+          <path d="M17 3c-3.4 1.6-5.6 4.4-5.6 7.6 0 2.4 1.5 4 3.6 4 1.8 0 3-1.1 3-2.6 0-1.3-.9-2.2-2-2.2" stroke="var(--olive)" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M17 3c3.4 1.6 5.6 4.4 5.6 7.6" stroke="var(--olive)" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="12.2" cy="17.4" r="2.5" fill="var(--wine)"/>
+          <circle cx="17" cy="19.6" r="2.5" fill="var(--wine)"/>
+          <circle cx="21.8" cy="17.4" r="2.5" fill="var(--wine)"/>
+          <circle cx="17" cy="24.4" r="2.3" fill="var(--wine-deep)"/>
+        </svg>
+        <span id="t-av-toggle" style="font-family:'Courier Prime',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);">Voir les avis</span>
+        <svg width="20" height="9" viewBox="0 0 20 9" fill="none" style="animation:bmcue 1.9s ease-in-out infinite;transform:rotate({{ reviewsArrowDeg }}deg);">
+          <path d="M2 2l8 5 8-5" stroke="var(--wine)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <sc-if value="{{ reviewsOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="animation:bmrise .5s ease-out both;margin-top:40px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:44px;">
+      <!-- particuliers -->
+      <div>
+        <div id="t-av-part" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--olive);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:24px;">Particuliers</div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <figure style="margin:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px 24px;">
+            <blockquote id="t-av-q1" style="margin:0 0 16px;font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;line-height:1.5;color:var(--ink);">« Première fois que je commandais du vin d'importation privée : le processus a été simple et rassurant. Le vin est arrivé dans une belle boîte et il est délicieux. Ça valait vraiment le prix. »</blockquote>
+            <figcaption style="font-family:'Courier Prime',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);">Patricia · <span class="t-av-cap-part">Cliente particulière</span></figcaption>
+          </figure>
+        </div>
+      </div>
+      <!-- restaurants -->
+      <div>
+        <div id="t-av-resto" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--wine);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:24px;">Restaurants</div>
+        <div style="background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:26px 24px;">
+          <div id="t-av-soon" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;line-height:1.5;color:var(--ink-soft);">Les premiers avis de restaurateurs arrivent bientôt. Vous nous avez reçus pour une dégustation ? Partagez votre expérience ci-dessous.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- leave a review -->
+    <div style="margin-top:48px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:36px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:start;">
+        <div>
+          <h3 id="t-av-form-title" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin:0 0 10px;">Laissez-nous un mot</h3>
+          <p id="t-av-form-lead" style="font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin:0;">Votre avis nous est envoyé par courriel. Nous le publions sur le site seulement avec votre accord.</p>
+        </div>
+        <form onSubmit="{{ submitReview }}" style="display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <input id="bm-rev-name" required placeholder="{{ revNamePh }}" style="flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink);outline:none;" />
+            <input id="bm-rev-email" required type="email" placeholder="{{ revEmailPh }}" style="flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink);outline:none;" />
+          </div>
+          <select id="bm-rev-type" style="padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink);outline:none;">
+            <option value="Particulier">{{ revOptPart }}</option>
+            <option value="Restaurant">{{ revOptResto }}</option>
+          </select>
+          <textarea id="bm-rev-text" required rows="4" placeholder="{{ revTextPh }}" style="padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--bg);color:var(--ink);outline:none;resize:vertical;font-family:inherit;"></textarea>
+          <label style="display:flex;align-items:flex-start;gap:9px;font-size:12.5px;line-height:1.5;color:var(--ink-soft);cursor:pointer;">
+            <input id="bm-rev-consent" type="checkbox" style="margin-top:3px;accent-color:var(--wine);" />
+            <span>{{ revConsent }}</span>
+          </label>
+          <button type="submit" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:14px 26px;font-size:14px;font-weight:600;cursor:pointer;align-self:flex-start;">{{ revBtn }}</button>
+        </form>
+      </div>
+      <sc-if value="{{ reviewDone }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:18px;text-align:center;font-size:14px;color:var(--olive);font-weight:600;">{{ revDoneMsg }}</div>
+      </sc-if>
+    </div>
+    </div>
     </sc-if>
   </div>
 </section>
@@ -601,6 +842,8 @@ class Component extends DCLogic {
     promoInput: '',
     promoCode: null,
     storyWine: null,
+    galleryOpen: false,
+    galStory: null,
     expandedWine: null,
     pickerOpen: false,
     branchQuery: '',
@@ -611,6 +854,8 @@ class Component extends DCLogic {
     payDone: false,
     notifyDone: false,
     reserveTag: '',
+    reviewDone: false,
+    reviewsOpen: false,
   };
 
   lang = 'fr';
@@ -737,7 +982,7 @@ class Component extends DCLogic {
       note: "Domaine certifié biologique, vinifié sans bois ni additifs, avec de longs élevages en cuve inox.",
       noteEn: "Certified organic estate, vinified with no oak or additives, with long stainless-steel aging.",
       wines: [
-        { id: 'cortem-tinto', name: 'Cortém Tinto', vintage: '2018', grapes: 'Touriga Nacional 60% · Cabernet Sauvignon 30% · Syrah 10%', alc: '14,8 %', note: 'Rouge grenat, riche et corsé, belle acidité. 3 ans en cuve, sans bois ni additifs.', noteEn: 'Garnet red, rich and full-bodied, lovely acidity. 3 years in tank, no oak or additives.', pairing: 'Fromages et pâtés', pairingEn: 'Cheeses and pâtés', price: '31,40 $', priceNum: 31.40, saqCaseNum: 158.40, feeCaseNum: 30.00, stockCases: 10, img: 'wines/cortem-red.png', hasImg: true, noImg: false, story: "Vale de Cortém, domaine certifié biologique depuis 2004, travaille sans bois ni additifs. Ce rouge s'élève trois ans en cuve avant sa mise — une expression pure de Palmela.", storyEn: "Vale de Cortém, a certified organic estate since 2004, works without oak or additives. This red ages three years in tank before bottling — a pure expression of Palmela." },
+        { id: 'cortem-tinto', name: 'Cortém Tinto', vintage: '2018', grapes: 'Touriga Nacional 60% · Cabernet Sauvignon 30% · Syrah 10%', alc: '14,8 %', note: 'Rouge grenat, riche et corsé, belle acidité. 3 ans en cuve, sans bois ni additifs.', noteEn: 'Garnet red, rich and full-bodied, lovely acidity. 3 years in tank, no oak or additives.', pairing: 'Fromages et pâtés', pairingEn: 'Cheeses and pâtés', price: '31,40 $', priceNum: 31.40, saqCaseNum: 158.40, feeCaseNum: 30.00, stockCases: 10, img: 'wines/cortem-red.png', hasImg: true, noImg: false, story: "Vale de Cortém, domaine certifié biologique depuis 2004, travaille sans bois ni additifs. Ce rouge s'élève trois ans en cuve avant sa mise — une expression pure de Caldas da Rainha.", storyEn: "Vale de Cortém, a certified organic estate since 2004, works without oak or additives. This red ages three years in tank before bottling — a pure expression of Caldas da Rainha." },
         { id: 'cortem-orange', name: 'Cortém Blanc', vintage: '2018', grapes: 'Sauvignon Blanc 60% · Viognier 40%', alc: '14,8 %', note: 'Jaune doré, fleurs blanches et citron. Macération pelliculaire, 24 mois, sans bois.', noteEn: 'Golden yellow, white flowers and lemon. Skin-contact maceration, 24 months, no oak.', pairing: 'Fromages et pâtés', pairingEn: 'Cheeses and pâtés', price: '31,40 $', priceNum: 31.40, saqCaseNum: 158.40, feeCaseNum: 30.00, stockCases: 10, img: 'wines/cortem-orange.png', hasImg: true, noImg: false, story: "Macéré 24 mois sur peaux et sans bois, ce blanc bio incarne l'audace de Vale de Cortém : un vin de contact, texturé et lumineux.", storyEn: "Macerated on skins for 24 months with no oak, this organic white embodies Vale de Cortém's boldness: a skin-contact wine, textured and luminous." },
       ],
     },
@@ -783,6 +1028,20 @@ class Component extends DCLogic {
     't-his-p2': { fr: "Depuis mon plus jeune âge, à faire du vin maison avec mon père, jusqu'à devenir copropriétaire d'une microbrasserie pendant plus de 5 ans — la fermentation, le goût et surtout l'art de raconter ce qu'il y a dans le verre — je rapporte aujourd'hui des domaines familiaux portugais que la SAQ n'offre pas, et l'histoire qui va avec chacun.", en: 'From a young age, making homemade wine with my father, to becoming co-owner of a microbrewery for over 5 years — fermentation, taste and above all the craft of telling what\u2019s in the glass — I now bring in Portuguese family estates the SAQ doesn\u2019t carry, and the story behind each one.' },
     't-his-caption': { fr: 'Notre visite au domaine Cortém · 2025', en: 'Our visit to the Cortém vineyard · 2025' },
     't-his-vision-eye': { fr: 'Le prochain chapitre', en: 'The next chapter' },
+    't-galph-folg1': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-folg2': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-folg3': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-cortem1': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-cortem2': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-cortem3': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-vd91': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-vd92': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-galph-vd93': { fr: "Décrivez cette photo — le lieu, le moment, les personnes.", en: 'Describe this photo — the place, the moment, the people.' },
+    't-gal-eye': { fr: 'Mes visites aux domaines', en: 'My visits to the estates' },
+    't-gal-lead': { fr: 'Chaque rangée, un domaine. Les vignes, les chais et les familles derrière chaque bouteille.', en: 'One row per estate. The vines, the cellars and the families behind every bottle.' },
+    't-gal-folg': { fr: "Une quinta qui cultive la vigne depuis 1711. On a marché les parcelles battues par l'air de l'Atlantique avant de goûter en cuve, à même l'inox.", en: 'A quinta growing vines since 1711. We walked the parcels beaten by Atlantic air before tasting straight from the steel tanks.' },
+    't-gal-cortem': { fr: "Certifié biologique depuis 2004. Ni bois ni additifs : des cuves d'inox, trois ans de patience, et un vigneron qui explique chaque geste.", en: 'Certified organic since 2004. No oak, no additives: steel tanks, three years of patience, and a winemaker who explains every gesture.' },
+    't-gal-vd9': { fr: "La Quinta de Agrelo, même famille depuis 300 ans. Neuf cousins, des vignes en culture sèche et une table où l'on ne compte plus les verres.", en: 'Quinta de Agrelo, the same family for 300 years. Nine cousins, dry-farmed vines, and a table where nobody counts the glasses.' },
     't-his-vision': { fr: "C'est le début d'un nouveau chapitre. Mon rêve : posséder un jour un domaine au Portugal et partager ma vie entre les deux pays que j'aime, le Canada et le Portugal. En soutenant ce projet, vous suivrez mon évolution — d'importateur à producteur, puis à hôte. J'imagine un hôtel-boutique au milieu des vignes, une ferme et des produits frais pour les visiteurs : un séjour à la campagne où le vin se marie à la table, au cœur d'une nature splendide.", en: "This is the start of a new chapter. My dream is to one day own a vineyard in Portugal and split my life between the two countries I love — Canada and Portugal. By supporting this project, you'll follow my journey from importer to producer to host. I picture a boutique hotel among the vines, a farm and fresh food for visitors: a rural escape where wine meets the table, in the heart of beautiful countryside." },
     't-his-vision-sign': { fr: 'Alexandre Santos', en: 'Alexandre Santos' },
     't-pil1t': { fr: 'Hors-SAQ', en: 'Off-SAQ' }, 't-pil1d': { fr: "Des cuvées qu'on ne trouve sur aucune tablette du monopole.", en: 'Bottlings found on no shelf of the monopoly.' },
@@ -791,14 +1050,14 @@ class Component extends DCLogic {
     't-pil4t': { fr: 'Trié main', en: 'Hand-picked' }, 't-pil4d': { fr: "De petits domaines familiaux, goûtés et choisis un à un.", en: 'Small family estates, tasted and chosen one by one.' },
     't-vin-eye': { fr: 'Les domaines', en: 'The estates' },
     't-vin-title': { fr: "Trois familles, une même obsession du détail.", en: 'Three families, one shared obsession with detail.' },
-    't-vin-lead': { fr: "Photos et fiches officielles des domaines. Prix par bouteille indicatif, taxes en sus — inclut le prix SAQ de la bouteille et les frais d'agence. Vente par caisse de 6 (ou de 3 pour les mousseux Vinha dos 9).", en: 'Official estate photos and tech sheets. Indicative price per bottle, before tax — includes the SAQ bottle price and the agency fee. Sold by the case of 6 (or 3 for Vinha dos 9 sparkling wines).' },
+    't-vin-lead': { fr: "Photos et fiches officielles des domaines. Prix par bouteille indicatif, taxes sur frais d'agence en sus — inclut le prix SAQ de la bouteille et les frais d'agence. Vente par caisse de 6 (ou de 3 pour les mousseux Vinha dos 9).", en: 'Official estate photos and tech sheets. Indicative price per bottle, taxes on agency fees extra — includes the SAQ bottle price and the agency fee. Sold by the case of 6 (or 3 for Vinha dos 9 sparkling wines).' },
     't-cmd-eye': { fr: 'Commander', en: 'Order' },
     't-cmd-title': { fr: 'Deux factures, zéro surprise.', en: 'Two invoices, zero surprises.' },
     't-cmd-lead': { fr: "Vous payez le vin au prix SAQ à la cueillette, et les frais d'agence en ligne. Tout est détaillé, ligne par ligne.", en: 'You pay for the wine at SAQ price on pickup, and the agency fee online. Everything is itemized, line by line.' },
     't-cart-title': { fr: 'Votre panier', en: 'Your cart' },
     't-cart-count': { fr: 'Caisses', en: 'Cases' },
     't-case-note': { fr: "Vente par caisse de 6, ou de 3 pour les mousseux Vinha dos 9 — minimum d'importation SAQ.", en: 'Sold by the case of 6, or 3 for Vinha dos 9 sparkling wines — SAQ private-import minimum.' },
-    't-tax-note': { fr: 'Taxes non incluses dans les totaux ci-dessus.', en: 'Taxes not included in the totals above.' },
+    't-tax-note': { fr: "Taxes sur les frais d'agence non incluses dans les totaux ci-dessus.", en: 'Taxes on agency fees not included in the totals above.' },
     't-pickup-title': { fr: 'Succursale SAQ de cueillette', en: 'SAQ pickup branch' },
     't-promo-title': { fr: 'Code promo · dégustation', en: 'Promo code · tasting' },
     't-f1tag': { fr: 'EN LIGNE', en: 'ONLINE' },
@@ -820,12 +1079,21 @@ class Component extends DCLogic {
     't-feat-day': { fr: 'mi-\noctobre', en: 'mid-\nOctober' },
     't-feat-desc': { fr: 'Six cuvées, le récit de la famille Folgorosa, planches portugaises. Chez', en: 'Six cuvées, the Folgorosa family story, Portuguese boards. At' },
     't-feat-desc2': { fr: '· date exacte à confirmer.', en: '· exact date to be confirmed.' },
-    't-feat-spots': { fr: '15 places restantes', en: '15 spots left' },
+    't-feat-spots': { fr: '18 places restantes', en: '18 spots left' },
     't-notify-title': { fr: 'Soyez au courant des prochaines dégustations', en: 'Be first to know about upcoming tastings' },
     't-notify-lead': { fr: "Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.", en: 'Join the registry. We write you first the moment a date opens, before any public announcement.' },
     't-notify-btn': { fr: "M'inscrire", en: 'Sign me up' },
     't-age-q': { fr: "Avez-vous l'âge légal pour consommer de l'alcool dans votre province de résidence ?", en: 'Are you of legal drinking age in your province of residence?' },
     't-age-denied': { fr: "Vous devez avoir l'âge légal pour consommer de l'alcool afin d'accéder à ce site.", en: 'You must be of legal drinking age to access this site.' },
+    't-av-eye': { fr: "Ce qu'on en dit", en: 'What they say' },
+    't-av-title': { fr: 'Des verres partagés, des mots gardés.', en: 'Glasses shared, words kept.' },
+    't-av-part': { fr: 'Particuliers', en: 'Individuals' },
+    't-av-resto': { fr: 'Restaurants', en: 'Restaurants' },
+    't-av-q1': { fr: "« Première fois que je commandais du vin d'importation privée : le processus a été simple et rassurant. Le vin est arrivé dans une belle boîte et il est délicieux. Ça valait vraiment le prix. »", en: '"First time ordering privately imported wine: the process was easy and trustworthy. The wine came in a beautiful box and tastes amazing. Well worth the price."' },
+    't-av-soon': { fr: 'Les premiers avis de restaurateurs arrivent bientôt. Vous nous avez reçus pour une dégustation ? Partagez votre expérience ci-dessous.', en: 'The first restaurant reviews are coming soon. Hosted us for a tasting? Share your experience below.' },
+    't-av-toggle': { fr: 'Voir les avis', en: 'See the reviews' },
+    't-av-form-title': { fr: 'Laissez-nous un mot', en: 'Leave us a word' },
+    't-av-form-lead': { fr: 'Votre avis nous est envoyé par courriel. Nous le publions sur le site seulement avec votre accord.', en: 'Your review is emailed to us. We publish it on the site only with your consent.' },
     't-con-eye': { fr: 'Parlons-nous', en: 'Let\u2019s talk' },
     't-con-title': { fr: 'Un verre, deux chemins.', en: 'One glass, two paths.' },
     't-con-r-title': { fr: 'Enrichir votre carte', en: 'Enrich your wine list' },
@@ -983,9 +1251,31 @@ class Component extends DCLogic {
       if (!el) return;
       el.innerHTML = this.lang === 'en' ? d[id].en : (this._frSnap[id] != null ? this._frSnap[id] : d[id].fr);
     });
+    // Class-based strings that repeat across the gallery flip pages.
+    const cd = this.classDict;
+    if (!this._frSnapC) {
+      this._frSnapC = {};
+      Object.keys(cd).forEach((cls) => {
+        const el = document.querySelector('.' + cls);
+        if (el) this._frSnapC[cls] = el.innerHTML;
+      });
+    }
+    Object.keys(cd).forEach((cls) => {
+      document.querySelectorAll('.' + cls).forEach((el) => {
+        el.innerHTML = this.lang === 'en' ? cd[cls].en : (this._frSnapC[cls] != null ? this._frSnapC[cls] : cd[cls].fr);
+      });
+    });
     const btn = document.getElementById('bm-lang');
     if (btn) btn.textContent = this.lang === 'fr' ? 'EN' : 'FR';
   }
+
+  classDict = {
+    't-close': { fr: '↩ Cliquez pour fermer', en: '↩ Click to close' },
+    't-av-cap-part': { fr: 'Cliente particulière', en: 'Individual customer' },
+    't-galw-eye': { fr: 'Visites &amp; contact', en: 'Visits &amp; contact' },
+    't-galw-site': { fr: 'Site web du domaine', en: 'Estate website' },
+    't-galw-contact': { fr: 'Contact pour visites : à compléter.', en: 'Contact for visits: to be completed.' },
+  };
 
   toggleLang = () => {
     const next = this.lang === 'fr' ? 'en' : 'fr';
@@ -1103,11 +1393,20 @@ class Component extends DCLogic {
     const inCartLabel = (n) => this.lang === 'en'
       ? '✓ In cart · ' + n + (n > 1 ? ' cases' : ' case')
       : '✓ Au panier · ' + n + (n > 1 ? ' caisses' : ' caisse');
+    const MAP_PINS = {
+      'Quinta da Folgorosa': { x: 14.2, y: 118.6, place: 'Torres Vedras' },
+      'Cortém': { x: 17.5, y: 107.6, place: 'Caldas da Rainha' },
+      'Vinha dos 9': { x: 31.8, y: 30.7, place: 'Barcelos · Minho' },
+    };
     const wineries = this.wineriesData.map((wn) => ({
       ...wn,
       tag: (this.lang === 'en' && wn.tagEn) ? wn.tagEn : wn.tag,
       note: (this.lang === 'en' && wn.noteEn) ? wn.noteEn : wn.note,
       hasLink: !!wn.link,
+      hasMap: !!MAP_PINS[wn.name],
+      mapX: MAP_PINS[wn.name] ? MAP_PINS[wn.name].x : 0,
+      mapY: MAP_PINS[wn.name] ? MAP_PINS[wn.name].y : 0,
+      mapPlace: MAP_PINS[wn.name] ? MAP_PINS[wn.name].place : '',
       wines: wn.wines.map((v) => {
         const n = (v.id && cart[v.id]) || 0;
         const stock = (v.stockCases === null || v.stockCases === undefined) ? null : v.stockCases;
@@ -1180,9 +1479,9 @@ class Component extends DCLogic {
     const effectiveBranch = sb || this.DEFAULT_BRANCH;
 
     const events = [
-      { date: this.lang === 'en' ? 'EARLY NOV' : 'DÉBUT NOV', title: 'Cortém bio & fromages', titleEn: 'Cortém organic & cheeses', desc: "Les rouges et blancs bio de Setúbal en accord avec une planche de fromages québécois.", descEn: 'The organic reds and whites of Setúbal paired with a board of Québec cheeses.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Québec', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--olive)', soldOut: false },
-      { date: this.lang === 'en' ? 'LATE NOV' : 'FIN NOV', title: 'Alvarinho sur le pouce', titleEn: 'Alvarinho on the go', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', descEn: 'A discovery workshop on Portuguese whites. Aperitif format, one hour.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Laval', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--wine)', soldOut: false },
-      { date: this.lang === 'en' ? 'DECEMBER' : 'DÉCEMBRE', title: 'Soirée vignerons', titleEn: 'Winemakers\u2019 evening', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', descEn: 'All three estates together. A grand tour of Portugal in twelve glasses.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Montréal', badge: this.lang === 'en' ? '15 spots left' : '15 places', badgeColor: 'var(--olive)', soldOut: false },
+      { date: this.lang === 'en' ? 'EARLY NOV' : 'DÉBUT NOV', title: 'Cortém bio & fromages', titleEn: 'Cortém organic & cheeses', desc: "Les rouges et blancs bio de Caldas da Rainha en accord avec une planche de fromages québécois.", descEn: 'The organic reds and whites of Caldas da Rainha paired with a board of Québec cheeses.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Québec', badge: this.lang === 'en' ? '25 spots left' : '25 places', badgeColor: 'var(--olive)', soldOut: false },
+      { date: this.lang === 'en' ? 'LATE NOV' : 'FIN NOV', title: 'Alvarinho sur le pouce', titleEn: 'Alvarinho on the go', desc: 'Atelier découverte autour des blancs portugais. Format apéro, une heure.', descEn: 'A discovery workshop on Portuguese whites. Aperitif format, one hour.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Laval', badge: this.lang === 'en' ? '30 spots left' : '30 places', badgeColor: 'var(--wine)', soldOut: false },
+      { date: this.lang === 'en' ? 'DECEMBER' : 'DÉCEMBRE', title: 'Soirée vignerons', titleEn: 'Winemakers\u2019 evening', desc: 'Les trois domaines réunis. Grand tour du Portugal en douze verres.', descEn: 'All three estates together. A grand tour of Portugal in twelve glasses.', price: this.lang === 'en' ? 'Price TBD' : 'Prix à confirmer', city: 'Montréal', badge: this.lang === 'en' ? '45 spots left' : '45 places', badgeColor: 'var(--olive)', soldOut: false },
     ].map((ev) => ({
       ...ev,
       title: this.lang === 'en' ? ev.titleEn : ev.title,
@@ -1288,7 +1587,53 @@ class Component extends DCLogic {
         }
         this.setState({ notifyDone: true, reserveTag: '' });
       },
+      revNamePh: this.lang === 'en' ? 'Your name' : 'Votre nom',
+      revEmailPh: this.lang === 'en' ? 'Your email' : 'Votre courriel',
+      revOptPart: this.lang === 'en' ? 'Individual customer' : 'Particulier',
+      revOptResto: this.lang === 'en' ? 'Restaurant' : 'Restaurant',
+      revTextPh: this.lang === 'en' ? 'Tell us about your experience…' : 'Racontez-nous votre expérience…',
+      revConsent: this.lang === 'en' ? 'I agree that BEMVINHOS may publish my review (first name and city only) on the site.' : "J'accepte que BEMVINHOS publie mon avis (prénom et ville seulement) sur le site.",
+      revBtn: this.lang === 'en' ? 'Send my review' : 'Envoyer mon avis',
+      revDoneMsg: this.lang === 'en' ? '✓ Thank you — your review has been sent to us.' : '✓ Merci — votre avis nous a été envoyé.',
+      reviewDone: this.state.reviewDone,
+      submitReview: (e) => {
+        e.preventDefault();
+        const g = (id) => { const el = document.getElementById(id); return el ? el.value : ''; };
+        const consent = document.getElementById('bm-rev-consent');
+        if (this.FORMSPREE_URL) {
+          fetch(this.FORMSPREE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              _subject: 'BEMVINHOS — nouvel avis client',
+              type: 'AVIS / REVIEW',
+              name: g('bm-rev-name'),
+              email: g('bm-rev-email'),
+              customerType: g('bm-rev-type'),
+              review: g('bm-rev-text'),
+              consentToPublish: consent && consent.checked ? 'OUI' : 'non',
+              lang: this.lang,
+            }),
+          }).catch(() => {});
+        }
+        this.setState({ reviewDone: true });
+      },
+      reviewsOpen: this.state.reviewsOpen,
+      reviewsArrowDeg: this.state.reviewsOpen ? 180 : 0,
+      toggleReviews: () => this.setState((s) => ({ reviewsOpen: !s.reviewsOpen })),
       toggleLang: this.toggleLang,
+      galleryOpen: this.state.galleryOpen,
+      toggleGallery: () => this.setState((s) => ({ galleryOpen: !s.galleryOpen })),
+      gal: ['folg1', 'folg2', 'folg3', 'cortem1', 'cortem2', 'cortem3', 'vd91', 'vd92', 'vd93', 'folgW', 'cortemW', 'vd9W'].reduce((acc, k) => {
+        const open = this.state.galStory === k;
+        acc[k] = {
+          open,
+          openStory: (e) => { if (e) e.stopPropagation(); this.setState({ galStory: k }); },
+          closeStory: (e) => { if (e) e.stopPropagation(); this.setState({ galStory: null }); },
+          flipStyle: 'position:absolute;inset:0;z-index:9;background:linear-gradient(158deg,var(--wine),var(--wine-deep));color:#F5EFE6;border-radius:6px;padding:20px 18px;display:flex;flex-direction:column;cursor:pointer;overflow:auto;transform-origin:left center;transition:transform .5s cubic-bezier(.3,.7,.3,1),opacity .3s ease;transform:rotateY(' + (open ? '0deg' : '108deg') + ');opacity:' + (open ? '1' : '0') + ';pointer-events:' + (open ? 'auto' : 'none') + ';',
+        };
+        return acc;
+      }, {}),
       stop: (e) => e.stopPropagation(),
       ageGateOpen: this.state.ageGateOpen,
       ageDenied: this.state.ageDenied,
