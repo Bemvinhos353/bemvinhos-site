@@ -439,7 +439,7 @@
           </div>
         </sc-for>
         <div style="display:flex;justify-content:space-between;margin-top:18px;font-size:13px;color:var(--ink-soft);">
-          <span id="t-cart-count">Caisses</span><span style="font-variant-numeric:tabular-nums;">{{ caseCount }} · {{ bottleCount }} <span data-en="bottles">bouteilles</span></span>
+          <span id="t-cart-count">Caisses</span><span style="font-variant-numeric:tabular-nums;">{{ caseCount }} · {{ bottleCount }} {{ bottlesWord }}</span>
         </div>
         <div id="t-case-note" style="font-size:12px;color:var(--olive);margin-top:8px;">Vente par caisse de 6, ou de 3 pour les mousseux Vinha dos 9 — minimum d'importation SAQ.</div>
         <div id="t-tax-note" style="font-size:11.5px;color:var(--ink-soft);margin-top:4px;font-style:italic;">Taxes sur les frais d'agence non incluses dans les totaux ci-dessus.</div>
@@ -452,7 +452,7 @@
               <span style="width:9px;height:9px;background:var(--wine);transform:rotate(45deg);"></span>
               <span id="bm-branch-label" style="font-size:15px;font-weight:500;">{{ selectedBranchName }}</span>
             </span>
-            <span style="font-family:'Courier Prime',monospace;font-size:11px;color:var(--wine);">CHANGER</span>
+            <span id="t-branch-change" style="font-family:'Courier Prime',monospace;font-size:11px;color:var(--wine);">CHANGER</span>
           </button>
           <sc-if value="{{ hasDefaultBranchNote }}" hint-placeholder-val="{{ false }}">
             <div style="font-size:11.5px;color:var(--ink-soft);margin-top:8px;line-height:1.4;">{{ defaultBranchHint }}</div>
@@ -471,7 +471,7 @@
           <sc-if value="{{ promoNotApplied }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;gap:10px;">
               <input value="{{ promoInput }}" onInput="{{ onPromoInput }}" placeholder="{{ promoPlaceholder }}" style="flex:1;min-width:0;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--panel);color:var(--ink);outline:none;text-transform:uppercase;letter-spacing:.06em;" />
-              <button onClick="{{ applyPromo }}" style="flex-shrink:0;background:var(--ink);color:var(--bg);border:none;border-radius:8px;padding:0 20px;font-size:13px;font-weight:600;letter-spacing:.02em;cursor:pointer;">Appliquer</button>
+              <button onClick="{{ applyPromo }}" style="flex-shrink:0;background:var(--ink);color:var(--bg);border:none;border-radius:8px;padding:0 20px;font-size:13px;font-weight:600;letter-spacing:.02em;cursor:pointer;">{{ promoApplyBtn }}</button>
             </div>
             <sc-if value="{{ promoInvalid }}" hint-placeholder-val="{{ false }}">
               <div style="font-size:12.5px;color:var(--wine);margin-top:9px;">{{ promoMsg }}</div>
@@ -484,7 +484,7 @@
       <div style="display:flex;flex-direction:column;gap:18px;">
         <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;">
           <div style="background:var(--ink);color:var(--bg);padding:16px 22px;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;">Facture 1 — <span id="t-f1">BEMVINHOS</span></span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;"><span id="t-f1-lbl">Facture 1</span> — <span id="t-f1">BEMVINHOS</span></span>
             <span id="t-f1tag" style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;background:var(--wine);padding:4px 9px;border-radius:20px;">EN LIGNE</span>
           </div>
           <div style="padding:18px 22px;">
@@ -506,7 +506,7 @@
 
         <div style="background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;">
           <div style="background:var(--panel2);color:var(--ink);padding:16px 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;">Facture 2 — SAQ</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;"><span id="t-f2-lbl">Facture 2</span> — SAQ</span>
             <span id="t-f2tag" style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;background:var(--gold);color:#fff;padding:4px 9px;border-radius:20px;">À LA CUEILLETTE</span>
           </div>
           <div style="padding:18px 22px;">
@@ -525,11 +525,11 @@
       <div onClick="{{ stop }}" style="background:var(--bg);border-radius:14px;width:560px;max-width:100%;max-height:82vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);">
         <div style="padding:24px 26px 16px;border-bottom:1px solid var(--line);">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-            <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin:0;">Choisir une succursale</h3>
+            <h3 id="t-pick-title" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;margin:0;">Choisir une succursale</h3>
             <button onClick="{{ closePicker }}" style="background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink-soft);line-height:1;">×</button>
           </div>
-          <input onInput="{{ onBranchInput }}" placeholder="Rechercher par ville ou succursale…" style="width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:15px;background:var(--panel);color:var(--ink);outline:none;">
-          <div style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-soft);margin-top:10px;">SUCCURSALES DÉSIGNÉES POUR L'IMPORTATION PRIVÉE</div>
+          <input onInput="{{ onBranchInput }}" placeholder="{{ branchSearchPh }}" style="width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:8px;font-size:15px;background:var(--panel);color:var(--ink);outline:none;">
+          <div id="t-pick-sub" style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-soft);margin-top:10px;">SUCCURSALES DÉSIGNÉES POUR L'IMPORTATION PRIVÉE</div>
         </div>
         <div style="overflow-y:auto;padding:8px 14px 16px;">
           <sc-for list="{{ branchesFiltered }}" as="b" hint-placeholder-count="6">
@@ -558,7 +558,7 @@
         <sc-if value="{{ payNotDone }}" hint-placeholder-val="{{ true }}">
           <div style="padding:24px 26px;">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px;">
-              <span style="font-size:14px;color:var(--ink-soft);">BEMVINHOS · Facture 1</span>
+              <span id="t-pay-f1" style="font-size:14px;color:var(--ink-soft);">BEMVINHOS · Facture 1</span>
               <span style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--wine);">{{ onlineTotalStr }}</span>
             </div>
             <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
@@ -1091,6 +1091,12 @@ class Component extends DCLogic {
     't-av-resto': { fr: 'Restaurants', en: 'Restaurants' },
     't-av-q1': { fr: "« Première fois que je commandais du vin d'importation privée : le processus a été simple et rassurant. Le vin est arrivé dans une belle boîte et il est délicieux. Ça valait vraiment le prix. »", en: '"First time ordering privately imported wine: the process was easy and trustworthy. The wine came in a beautiful box and tastes amazing. Well worth the price."' },
     't-av-soon': { fr: 'Les premiers avis de restaurateurs arrivent bientôt. Vous nous avez reçus pour une dégustation ? Partagez votre expérience ci-dessous.', en: 'The first restaurant reviews are coming soon. Hosted us for a tasting? Share your experience below.' },
+    't-pick-title': { fr: 'Choisir une succursale', en: 'Choose a branch' },
+    't-pick-sub': { fr: "SUCCURSALES DÉSIGNÉES POUR L'IMPORTATION PRIVÉE", en: 'DESIGNATED BRANCHES FOR PRIVATE IMPORT' },
+    't-branch-change': { fr: 'CHANGER', en: 'CHANGE' },
+    't-f1-lbl': { fr: 'Facture 1', en: 'Invoice 1' },
+    't-f2-lbl': { fr: 'Facture 2', en: 'Invoice 2' },
+    't-pay-f1': { fr: 'BEMVINHOS · Facture 1', en: 'BEMVINHOS · Invoice 1' },
     't-av-toggle': { fr: 'Voir les avis', en: 'See the reviews' },
     't-av-form-title': { fr: 'Laissez-nous un mot', en: 'Leave us a word' },
     't-av-form-lead': { fr: 'Votre avis nous est envoyé par courriel. Nous le publions sur le site seulement avec votre accord.', en: 'Your review is emailed to us. We publish it on the site only with your consent.' },
@@ -1618,6 +1624,9 @@ class Component extends DCLogic {
         }
         this.setState({ reviewDone: true });
       },
+      branchSearchPh: this.lang === 'en' ? 'Search by city or branch…' : 'Rechercher par ville ou succursale…',
+      promoApplyBtn: this.lang === 'en' ? 'Apply' : 'Appliquer',
+      bottlesWord: this.lang === 'en' ? 'bottles' : 'bouteilles',
       reviewsOpen: this.state.reviewsOpen,
       reviewsArrowDeg: this.state.reviewsOpen ? 180 : 0,
       toggleReviews: () => this.setState((s) => ({ reviewsOpen: !s.reviewsOpen })),
