@@ -1300,7 +1300,7 @@ class Component extends DCLogic {
     const items = this.catalogue()
       .filter((w) => (cart[w.id] || 0) > 0)
       .map((w) => ({
-        id: w.id, name: w.name, winery: w.winery, cases: cart[w.id],
+        id: w.id, name: w.name, winery: w.winery, cases: cart[w.id], boxSize: w.boxSize || 6,
         feeCents: Math.round((w.feeCaseNum != null ? w.feeCaseNum : 21.00) * 100),
       }));
     const bottles = items.reduce((a, it) => a + it.cases, 0) * 6;
