@@ -920,9 +920,18 @@ class Component extends DCLogic {
   };
   clearPromo = () => this.setState({ promoCode: null, promoInput: '' });
 
+  // ===========================================================================
+  //  NOT YET IN INVENTORY — wineries listed here are shown on the site but
+  //  CANNOT be ordered ("Bientôt disponible"). Remove a name once its wines
+  //  arrive at the SAQ, e.g.  COMING_SOON_WINERIES = [];
+  // ===========================================================================
+  COMING_SOON_WINERIES = ['Vinha dos 9'];
+  isComingSoon(wineryName) { return this.COMING_SOON_WINERIES.includes(wineryName); }
+
   // Available cases for a wine. null/undefined stock = unlimited (no cap).
   stockFor(id) {
     const w = this.findWine(id);
+    if (w && this.isComingSoon(w.winery)) return 0;
     const s = w ? w.stockCases : undefined;
     return (s === null || s === undefined) ? Infinity : s;
   }
@@ -1417,10 +1426,12 @@ class Component extends DCLogic {
       wines: wn.wines.map((v) => {
         const n = (v.id && cart[v.id]) || 0;
         const stock = (v.stockCases === null || v.stockCases === undefined) ? null : v.stockCases;
-        const soldOut = stock === 0;
+        const comingSoon = this.isComingSoon(wn.name);
+        const soldOut = stock === 0 && !comingSoon;
         const atMax = stock !== null && n >= stock;
-        const lowStock = stock !== null && stock > 0 && stock <= 3;
-        const addDisabled = soldOut || atMax;
+        const lowStock = !comingSoon && stock !== null && stock > 0 && stock <= 3;
+        const addDisabled = comingSoon || soldOut || atMax;
+        const greyBtn = comingSoon || soldOut;
         const en = this.lang === 'en';
         const noteVal = (en && v.noteEn) ? v.noteEn : v.note;
         const pairingVal = (en && v.pairingEn) ? v.pairingEn : v.pairing;
@@ -1459,14 +1470,15 @@ class Component extends DCLogic {
             : "flex:1;width:100%;min-height:0;background-image:url('" + v.img + "');background-size:contain;background-position:center;background-repeat:no-repeat;filter:drop-shadow(0 20px 32px rgba(35,32,27,.32));") : '',
           closeHint: this.lang === 'en' ? 'Click to close' : 'Cliquez pour fermer',
           inCart: n > 0,
-          addBtnLabel: soldOut ? (en ? 'Unavailable' : 'Indisponible')
+          addBtnLabel: comingSoon ? (en ? 'Coming soon' : 'Bientôt disponible')
+            : soldOut ? (en ? 'Unavailable' : 'Indisponible')
             : (atMax ? (en ? '✓ Max in cart · ' + n : '✓ Max au panier · ' + n)
             : (n > 0 ? inCartLabel(n) : addLabel)),
-          addBtnBg: soldOut ? 'var(--panel2)' : (n > 0 ? 'var(--wine)' : 'transparent'),
-          addBtnColor: soldOut ? 'var(--ink-soft)' : (n > 0 ? '#F5F0E6' : 'var(--wine)'),
-          addBtnBorder: soldOut ? 'var(--line)' : 'var(--wine)',
+          addBtnBg: greyBtn ? 'var(--panel2)' : (n > 0 ? 'var(--wine)' : 'transparent'),
+          addBtnColor: greyBtn ? 'var(--ink-soft)' : (n > 0 ? '#F5F0E6' : 'var(--wine)'),
+          addBtnBorder: greyBtn ? 'var(--line)' : 'var(--wine)',
           caseHint: this.lang === 'en' ? ('1 box = ' + (v.boxSize || 6) + ' bottles') : ('1 caisse = ' + (v.boxSize || 6) + ' bouteilles'),
-          comingToSaq: wn.name === 'Vinha dos 9',
+          comingToSaq: comingSoon,
           comingToSaqText: this.lang === 'en' ? 'Arriving soon in SAQ inventory' : 'Bientôt en inventaire à la SAQ',
           add: (v.id && !addDisabled) ? () => this.addToCart(v.id) : () => {},
         };
