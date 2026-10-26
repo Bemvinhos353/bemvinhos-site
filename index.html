@@ -605,39 +605,48 @@
     <!-- featured next event -->
     <div style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;margin-bottom:24px;">
       <div style="text-align:center;border-right:1px solid rgba(245,240,230,.2);padding-right:36px;">
-        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">OCT</div>
-        <div id="t-feat-day" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;line-height:1.1;white-space:pre-line;">mi-
-octobre</div>
-        <div style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;opacity:.7;">2026</div>
+        <div id="t-feat-wd" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">JEUDI</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;">26</div>
+        <div id="t-feat-mon" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;opacity:.7;">NOV 2026</div>
       </div>
       <div>
-        <div id="t-feat-eye" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px;">PROCHAIN RENDEZ-VOUS · PORTO MAR, MONTRÉAL</div>
-        <h3 id="t-feat-title" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin:0 0 8px;">Folgorosa, verticale de la Lusitanie</h3>
-        <p style="font-size:14.5px;line-height:1.6;color:rgba(245,240,230,.75);margin:0;"><span id="t-feat-desc">Six cuvées, le récit de la famille Folgorosa, planches portugaises. Chez</span> <a href="https://www.quaiouest.ca/" target="_blank" rel="noopener" style="color:var(--gold);">Porto Mar</a> <span id="t-feat-desc2">· date exacte à confirmer.</span></p>
+        <div id="t-feat-eye" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px;">DÎNER-DÉGUSTATION · PORTO MAR, VIEUX-MONTRÉAL</div>
+        <h3 id="t-feat-title" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin:0 0 8px;">Six vins, six plats</h3>
+        <p style="font-size:14.5px;line-height:1.6;color:rgba(245,240,230,.75);margin:0;"><span id="t-feat-desc">19 h 15 au</span> <a href="https://www.quaiouest.ca/" target="_blank" rel="noopener" style="color:var(--gold);">Porto Mar</a>, <span id="t-feat-desc2">201, place d'Youville. Servis du plus léger au plus riche.</span></p>
       </div>
       <div style="text-align:center;">
-        <div id="t-feat-price" style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;">Prix à confirmer</div>
-        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:14px;">18 places restantes</div>
-        <button onClick="{{ reserveFeatured }}" style="background:var(--wine);color:#F5F0E6;border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;">{{ reserveLabel }}</button>
+        <div id="t-feat-price" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;">85 $</div>
+        <div id="t-feat-incl" style="font-size:11.5px;color:rgba(245,240,230,.75);margin-bottom:6px;">par personne · taxes et pourboire inclus</div>
+        <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:4px;">30 places assises</div>
+        <div id="t-feat-close" style="font-size:12px;color:rgba(245,240,230,.7);margin-bottom:14px;">Réservez avant le 19 novembre</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;">
+          <button onClick="{{ seatDec }}" style="width:30px;height:30px;border:1px solid rgba(245,240,230,.4);background:transparent;color:#F5F0E6;border-radius:50%;cursor:pointer;font-size:16px;line-height:1;">−</button>
+          <span style="font-size:14px;min-width:70px;">{{ seatLabel }}</span>
+          <button onClick="{{ seatInc }}" style="width:30px;height:30px;border:1px solid rgba(245,240,230,.4);background:transparent;color:#F5F0E6;border-radius:50%;cursor:pointer;font-size:16px;line-height:1;">+</button>
+        </div>
+        <button onClick="{{ payTasting }}" style="display:block;width:100%;background:#F5F0E6;color:var(--wine);border:none;border-radius:40px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;margin-bottom:8px;">{{ payTastingLabel }}</button>
+        <sc-if value="{{ tastingErr }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#F2B8A8;margin-bottom:8px;">{{ tastingErrMsg }}</div></sc-if>
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;margin-bottom:48px;">
-      <sc-for list="{{ events }}" as="e" hint-placeholder-count="3">
-        <div style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:26px;display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.14em;color:var(--wine);">{{ e.date }}</span>
-            <span style="font-family:'Courier Prime',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:{{ e.badgeColor }};padding:3px 9px;border-radius:20px;">{{ e.badge }}</span>
+    <!-- pairing menu -->
+    <div style="background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:34px 38px;margin-bottom:48px;">
+      <div id="t-menu-eye" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;">Le menu, dans l'ordre du service</div>
+      <div style="display:flex;flex-direction:column;">
+        <sc-for list="{{ pairings }}" as="p" hint-placeholder-count="6">
+          <div style="display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:18px 0;border-bottom:1px solid var(--line);">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;line-height:1;color:var(--wine);">{{ p.n }}</div>
+            <div style="min-width:0;">
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;">
+                <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;line-height:1.15;">{{ p.wine }}</span>
+                <span style="color:var(--gold);font-size:13px;">✦</span>
+                <span style="font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;line-height:1.15;color:var(--ink-soft);">{{ p.dish }}</span>
+              </div>
+              <div style="font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin-top:5px;text-wrap:pretty;">{{ p.why }}</div>
+            </div>
           </div>
-          <h3 style="font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;margin:6px 0 0;line-height:1.1;">{{ e.title }}</h3>
-          <p style="font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:0;flex:1;">{{ e.desc }}</p>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:14px;border-top:1px solid var(--line);">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;">{{ e.price }}</span>
-            <span style="font-size:12px;color:var(--ink-soft);">{{ e.city }}</span>
-          </div>
-          <button onClick="{{ e.reserve }}" disabled="{{ e.soldOut }}" style="width:100%;border:1px solid var(--wine);background:{{ e.reserveBg }};color:{{ e.reserveColor }};border-radius:40px;padding:10px 14px;font-size:13px;font-weight:600;cursor:{{ e.reserveCursor }};opacity:{{ e.reserveOpacity }};margin-top:4px;">{{ e.reserveLabel }}</button>
-        </div>
-      </sc-for>
+        </sc-for>
+      </div>
     </div>
 
     <!-- registry -->
@@ -1083,13 +1092,17 @@ class Component extends DCLogic {
     't-deg-eye': { fr: 'Dégustations', en: 'Tastings' },
     't-deg-title': { fr: 'Goûtez avant de raconter.', en: 'Taste before you tell.' },
     't-deg-lead': { fr: "Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.", en: 'Intimate evenings where we open the bottles and the winemaker\u2019s notebook. For restaurateurs and gem-hunting enthusiasts alike.' },
-    't-feat-title': { fr: 'Folgorosa, verticale de la Lusitanie', en: 'Folgorosa, a Lusitania vertical' },
-    't-feat-eye': { fr: 'PROCHAIN RENDEZ-VOUS · PORTO MAR, MONTRÉAL', en: 'NEXT GATHERING · PORTO MAR, MONTRÉAL' },
-    't-feat-price': { fr: 'Prix à confirmer', en: 'Price TBD' },
-    't-feat-day': { fr: 'mi-\noctobre', en: 'mid-\nOctober' },
-    't-feat-desc': { fr: 'Six cuvées, le récit de la famille Folgorosa, planches portugaises. Chez', en: 'Six cuvées, the Folgorosa family story, Portuguese boards. At' },
-    't-feat-desc2': { fr: '· date exacte à confirmer.', en: '· exact date to be confirmed.' },
-    't-feat-spots': { fr: '18 places restantes', en: '18 spots left' },
+    't-feat-title': { fr: 'Six vins, six plats', en: 'Six wines, six dishes' },
+    't-feat-eye': { fr: 'DÎNER-DÉGUSTATION · PORTO MAR, VIEUX-MONTRÉAL', en: 'TASTING DINNER · PORTO MAR, OLD MONTREAL' },
+    't-feat-price': { fr: '85 $', en: '$85' },
+    't-feat-incl': { fr: 'par personne · taxes et pourboire inclus', en: 'per person · tax and tip included' },
+    't-feat-wd': { fr: 'JEUDI', en: 'THURSDAY' },
+    't-feat-mon': { fr: 'NOV 2026', en: 'NOV 2026' },
+    't-feat-desc': { fr: '19 h 15 au', en: '7:15 pm at' },
+    't-feat-desc2': { fr: "201, place d'Youville. Servis du plus léger au plus riche.", en: "201 Place d'Youville. Served lightest to richest." },
+    't-feat-spots': { fr: '30 places assises', en: '30 seats' },
+    't-feat-close': { fr: 'Réservez avant le 19 novembre', en: 'Reservations close November 19' },
+    't-menu-eye': { fr: "Le menu, dans l'ordre du service", en: 'The menu, in order of service' },
     't-notify-title': { fr: 'Soyez au courant des prochaines dégustations', en: 'Be first to know about upcoming tastings' },
     't-notify-lead': { fr: "Inscrivez-vous au registre. On vous écrit en primeur dès qu'une date s'ouvre, avant l'annonce publique.", en: 'Join the registry. We write you first the moment a date opens, before any public announcement.' },
     't-notify-btn': { fr: "M'inscrire", en: 'Sign me up' },
@@ -1300,6 +1313,18 @@ class Component extends DCLogic {
     // renderVals so wine-catalogue content (tag/note/pairing/buttons) re-localizes.
     // langTick is a dummy counter — its only job is to make this a real state change.
     this.setState((s) => ({ langTick: (s.langTick || 0) + 1 }), () => this.applyLang());
+  };
+
+  payTasting = () => {
+    if (this.state.tastingPaying) return;
+    const seats = this.state.seats || 1;
+    this.setState({ tastingPaying: true, tastingErr: false });
+    fetch(this.STRIPE_CHECKOUT_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'tasting', seats, lang: this.lang }),
+    }).then((r) => r.json()).then((d) => {
+      if (d && d.url) window.location.href = d.url; else throw new Error('no_url');
+    }).catch(() => this.setState({ tastingPaying: false, tastingErr: true }));
   };
 
   // ---------- Stripe Checkout (Route B) ----------
@@ -1585,7 +1610,22 @@ class Component extends DCLogic {
       paying: this.state.paying,
       payError: this.state.payError,
       hasError: !!this.state.payError,
-      reserveFeatured: () => this.reserveTasting(this.lang === 'en' ? 'Folgorosa, a Lusitania vertical — mid-October, Porto Mar' : 'Folgorosa, verticale de la Lusitanie — mi-octobre, Porto Mar'),
+      seatLabel: (() => { const s = this.state.seats || 1; return this.lang === 'en' ? s + (s > 1 ? ' guests' : ' guest') : s + (s > 1 ? ' personnes' : ' personne'); })(),
+      seatInc: () => this.setState((s) => ({ seats: Math.min(10, (s.seats || 1) + 1) })),
+      seatDec: () => this.setState((s) => ({ seats: Math.max(1, (s.seats || 1) - 1) })),
+      payTasting: this.payTasting,
+      payTastingLabel: this.state.tastingPaying ? '…' : (this.lang === 'en' ? 'Pay ' : 'Payer ') + this.money(85 * (this.state.seats || 1)),
+      tastingErr: !!this.state.tastingErr,
+      tastingErrMsg: this.lang === 'en' ? 'Payment could not start. Please try again.' : "Le paiement n'a pas pu démarrer. Réessayez.",
+      reserveFeatured: () => this.reserveTasting(this.lang === 'en' ? 'Porto Mar tasting dinner — Thu Nov 26, 7:15 pm' : 'Dîner-dégustation Porto Mar — jeu. 26 nov., 19 h 15'),
+      pairings: [
+        ['Folgorosa Branco 2021', 'Croquettes de morue', 'Cod croquettes', 'Un blanc de quelques années tient tête à la morue frite et salée.', "A white with a few years' age stands up to fried, salty bacalhau."],
+        ['Folgorosa Alvarinho 2024', 'Crevettes Porto Mar', 'Porto Mar shrimp', "Frais, citronné et salin : l'accord classique avec les fruits de mer.", 'Fresh, citrusy, saline — the classic seafood match.'],
+        ['Cortém Blanc', 'Crevettes épicées', 'Spicy shrimp', "De la texture sans tannin lourd : le piquant ne tourne pas à l'amertume.", "Texture and no heavy tannin, so the heat doesn't turn bitter."],
+        ['Folgorosa Tinto', 'Poulet grillé', 'Grilled chicken', 'Un rouge léger et fruité pour une viande maigre grillée.', 'Light, fruity red for a lean grilled meat.'],
+        ['Folgorosa Castelão', 'Chorizo grillé', 'Grilled chorizo', 'Le fruit rouge et les épices du Castelão rencontrent le paprika et la fumée.', "Castelão's red fruit and spice meet the paprika and smoke."],
+        ['Cortém Tinto', 'Fromages portugais', 'Portuguese cheeses', 'Le vin le plus puissant clôt la soirée avec la bouchée la plus riche.', 'The biggest wine closes the evening with the richest bite.'],
+      ].map((r, i) => ({ n: String(i + 1), wine: r[0], dish: this.lang === 'en' ? r[2] : r[1], why: this.lang === 'en' ? r[4] : r[3] })),
       reserveLabel: this.lang === 'en' ? 'Reserve' : 'Réserver',
       hasReserveTag: !!this.state.reserveTag,
       reserveTagLabel: (this.lang === 'en' ? 'Selected: ' : 'Sélectionné : ') + this.state.reserveTag,
