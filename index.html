@@ -911,7 +911,7 @@ class Component extends DCLogic {
       localStorage.setItem('bm_promo_used', list.join(','));
     } catch (e) {}
   }
-  ageYes = () => { try { localStorage.setItem('bm_age_ok', '1'); } catch (e) {} this.setState({ ageGateOpen: false, ageDenied: false }); };
+  ageYes = () => { try { localStorage.setItem('bm_age_ok', '1'); } catch (e) {} this.setState({ ageGateOpen: false, ageDenied: false }, () => setTimeout(() => this.scrollToHash(false), 50)); };
   ageNo = () => this.setState({ ageDenied: true });
   ageSetFr = () => { this.lang = 'fr'; this.applyLang(); this.forceUpdate(); };
   ageSetEn = () => { this.lang = 'en'; this.applyLang(); this.forceUpdate(); };
@@ -1147,6 +1147,45 @@ class Component extends DCLogic {
       .then((list) => { this.branches = list; this.forceUpdate(); })
       .catch(() => {});
     this.loadWineSheet();
+    this.setupHashScroll();
+  }
+
+  // ---------- deep links: bemvinhos.com/#degustations etc. ----------
+  // Content (wine list, photos, fonts) loads after first paint and shifts the
+  // layout, so we jump once the page is ready and re-check a few times until
+  // the target has settled. Works for any section id in the URL hash.
+  scrollToHash(smooth) {
+    const id = decodeURIComponent((window.location.hash || '').slice(1));
+    if (!id) return false;
+    const el = document.getElementById(id);
+    if (!el) return false;
+    const nav = document.querySelector('nav');
+    const offset = nav ? nav.getBoundingClientRect().height + 8 : 80;
+    const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: smooth ? 'smooth' : 'instant' });
+    return true;
+  }
+  setupHashScroll() {
+    if (!window.location.hash) return;
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    let lastTop = null, stable = 0, tries = 0;
+    const settle = () => {
+      tries++;
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const el = id && document.getElementById(id);
+      if (el) {
+        this.scrollToHash(false);
+        const t = Math.round(el.getBoundingClientRect().top);
+        stable = (lastTop !== null && Math.abs(t - lastTop) < 2) ? stable + 1 : 0;
+        lastTop = t;
+      }
+      if (stable < 3 && tries < 40) setTimeout(settle, 150);
+    };
+    const start = () => setTimeout(settle, 60);
+    if (document.readyState === 'complete') start();
+    else window.addEventListener('load', start, { once: true });
+    setTimeout(settle, 400);
+    window.addEventListener('hashchange', () => this.scrollToHash(true));
   }
 
   // ---------- wine spreadsheet loader ----------
