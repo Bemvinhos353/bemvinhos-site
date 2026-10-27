@@ -918,7 +918,7 @@ class Component extends DCLogic {
       localStorage.setItem('bm_promo_used', list.join(','));
     } catch (e) {}
   }
-  ageYes = () => { try { localStorage.setItem('bm_age_ok', '1'); } catch (e) {} this.setState({ ageGateOpen: false, ageDenied: false }, () => setTimeout(() => this.scrollToHash(false), 50)); };
+  ageYes = () => { try { localStorage.setItem('bm_age_ok', '1'); } catch (e) {} this.setState({ ageGateOpen: false, ageDenied: false }, () => setTimeout(() => this.startHashLoop(), 50)); };
   ageNo = () => this.setState({ ageDenied: true });
   ageSetFr = () => { this.lang = 'fr'; this.applyLang(); this.forceUpdate(); };
   ageSetEn = () => { this.lang = 'en'; this.applyLang(); this.forceUpdate(); };
@@ -1176,20 +1176,31 @@ class Component extends DCLogic {
   setupHashScroll() {
     if (!window.location.hash) return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('hashchange', () => this.scrollToHash(true));
+    const begin = () => setTimeout(() => this.startHashLoop(), 60);
+    if (document.readyState === 'complete') begin();
+    else window.addEventListener('load', begin, { once: true });
+    setTimeout(() => this.startHashLoop(), 400);
+  }
+  // Keeps the target in place for ~5 s while photos/fonts load. Waits while the
+  // 18+ screen is open, and only stops when the visitor actually scrolls
+  // (a tap on "OUI" is not a scroll — that was what broke it on phones).
+  startHashLoop() {
+    if (!window.location.hash || this._hashLoopOn) return;
+    if (this.state.ageGateOpen) return; // ageYes() restarts the loop
+    this._hashLoopOn = true;
     let userMoved = false;
     const stop = () => { userMoved = true; };
-    ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true }));
+    const evs = ['wheel', 'touchmove', 'keydown'];
+    setTimeout(() => evs.forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true })), 300);
     const t0 = Date.now();
     const tick = () => {
-      if (userMoved || this.state.ageGateOpen) { if (!userMoved && Date.now() - t0 < 20000) setTimeout(tick, 250); return; }
+      if (userMoved) { this._hashLoopOn = false; return; }
       this.scrollToHash(false);
       if (Date.now() - t0 < 5000) setTimeout(tick, 200);
+      else { this._hashLoopOn = false; evs.forEach((ev) => window.removeEventListener(ev, stop)); }
     };
-    const start = () => setTimeout(tick, 60);
-    if (document.readyState === 'complete') start();
-    else window.addEventListener('load', start, { once: true });
-    setTimeout(tick, 400);
-    window.addEventListener('hashchange', () => this.scrollToHash(true));
+    tick();
   }
 
   // ---------- wine spreadsheet loader ----------
