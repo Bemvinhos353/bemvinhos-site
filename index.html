@@ -49,7 +49,7 @@
     #degustations{ padding-top:84px !important; }
     #t-deg-title{ font-size:40px !important; }
     .bm-feat{ grid-template-columns:1fr !important; gap:22px !important; padding:26px 22px !important; }
-    .bm-feat-date{ display:flex !important; align-items:baseline; justify-content:flex-start; gap:12px; text-align:left !important; border-right:none !important; padding-right:0 !important; padding-bottom:16px; border-bottom:1px solid rgba(245,240,230,.2); }
+    .bm-feat-date{ display:flex !important; align-items:baseline; justify-content:center; gap:12px; text-align:center !important; border-right:none !important; padding-right:0 !important; padding-bottom:16px; border-bottom:1px solid rgba(245,240,230,.2); }
     .bm-feat-date > div:nth-child(2){ font-size:40px !important; }
     .bm-feat-pay{ border-top:1px solid rgba(245,240,230,.2); padding-top:20px; }
     .bm-feat-pay button{ white-space:normal !important; }
@@ -610,7 +610,7 @@
     </div>
 
     <!-- featured next event -->
-    <div class="bm-feat" style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:36px;align-items:center;margin-bottom:24px;">
+    <div id="billet" class="bm-feat" style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:36px;align-items:center;margin-bottom:24px;">
       <div class="bm-feat-date" style="text-align:center;border-right:1px solid rgba(245,240,230,.2);padding-right:36px;">
         <div id="t-feat-wd" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">JEUDI</div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;">26</div>
@@ -1164,7 +1164,8 @@ class Component extends DCLogic {
   scrollToHash(smooth) {
     const id = decodeURIComponent((window.location.hash || '').slice(1));
     if (!id) return false;
-    const el = document.getElementById(id);
+    // #degustations lands on the ticket card itself (date, title, price, Pay)
+    const el = (id === 'degustations' && document.getElementById('billet')) || document.getElementById(id);
     if (!el) return false;
     const nav = document.querySelector('nav');
     const offset = nav ? nav.getBoundingClientRect().height + 8 : 80;
