@@ -46,6 +46,13 @@
     section{ padding-left:20px !important; padding-right:20px !important; }
     .bm-winerow{ grid-template-columns:1fr !important; }
     .bm-winegrid{ grid-template-columns:1fr !important; }
+    #degustations{ padding-top:84px !important; }
+    #t-deg-title{ font-size:40px !important; }
+    .bm-feat{ grid-template-columns:1fr !important; gap:22px !important; padding:26px 22px !important; }
+    .bm-feat-date{ display:flex !important; align-items:baseline; justify-content:flex-start; gap:12px; text-align:left !important; border-right:none !important; padding-right:0 !important; padding-bottom:16px; border-bottom:1px solid rgba(245,240,230,.2); }
+    .bm-feat-date > div:nth-child(2){ font-size:40px !important; }
+    .bm-feat-pay{ border-top:1px solid rgba(245,240,230,.2); padding-top:20px; }
+    .bm-feat-pay button{ white-space:normal !important; }
   }
 </style>
 </helmet>
@@ -596,25 +603,25 @@
   <div style="max-width:1160px;margin:0 auto;">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:60px;align-items:end;margin-bottom:56px;">
       <div>
-        <div id="t-deg-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Dégustations</div>
+        <div id="t-deg-eye" style="font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Dégustations · jeudi 26 novembre</div>
         <h2 id="t-deg-title" style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:54px;line-height:1.02;margin:0;">Goûtez avant de raconter.</h2>
       </div>
       <p id="t-deg-lead" style="font-size:16px;line-height:1.65;color:var(--ink-soft);margin:0;">Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.</p>
     </div>
 
     <!-- featured next event -->
-    <div style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;margin-bottom:24px;">
-      <div style="text-align:center;border-right:1px solid rgba(245,240,230,.2);padding-right:36px;">
+    <div class="bm-feat" style="background:var(--ink);color:var(--bg);border-radius:12px;padding:38px 40px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:36px;align-items:center;margin-bottom:24px;">
+      <div class="bm-feat-date" style="text-align:center;border-right:1px solid rgba(245,240,230,.2);padding-right:36px;">
         <div id="t-feat-wd" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);">JEUDI</div>
         <div style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;">26</div>
         <div id="t-feat-mon" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.1em;opacity:.7;">NOV 2026</div>
       </div>
       <div>
         <div id="t-feat-eye" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.16em;color:var(--gold);margin-bottom:8px;">DÎNER-DÉGUSTATION · PORTO MAR, VIEUX-MONTRÉAL</div>
-        <h3 id="t-feat-title" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin:0 0 8px;">Six vins, six plats</h3>
+        <h3 id="t-feat-title" style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin:0 0 8px;">Six accords pour repartir comblé</h3>
         <p style="font-size:14.5px;line-height:1.6;color:rgba(245,240,230,.75);margin:0;"><span id="t-feat-desc">19 h 15 au</span> <a href="https://www.quaiouest.ca/" target="_blank" rel="noopener" style="color:var(--gold);">Porto Mar</a>, <span id="t-feat-desc2">201, place d'Youville. Servis du plus léger au plus riche.</span></p>
       </div>
-      <div style="text-align:center;">
+      <div class="bm-feat-pay" style="text-align:center;min-width:0;">
         <div id="t-feat-price" style="font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;">85 $</div>
         <div id="t-feat-incl" style="font-size:11.5px;color:rgba(245,240,230,.75);margin-bottom:6px;">par personne · taxes et pourboire inclus</div>
         <div id="t-feat-spots" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:.08em;color:var(--gold);margin-bottom:4px;">30 places assises</div>
@@ -1089,10 +1096,10 @@ class Component extends DCLogic {
     't-f2-wine': { fr: 'Vins (prix SAQ, taxes incluses)', en: 'Wines (SAQ price, taxes incl.)' },
     't-f2-total': { fr: 'Payable en succursale', en: 'Payable in branch' },
     't-f2-note': { fr: 'Réglé directement à la SAQ au moment de la cueillette. Nous y déposons votre commande dès réception des frais d\u2019agence.', en: 'Paid directly to the SAQ at pickup. We place your order there as soon as the agency fee is received.' },
-    't-deg-eye': { fr: 'Dégustations', en: 'Tastings' },
+    't-deg-eye': { fr: 'Dégustations · jeudi 26 novembre', en: 'Tastings · Thursday, November 26' },
     't-deg-title': { fr: 'Goûtez avant de raconter.', en: 'Taste before you tell.' },
     't-deg-lead': { fr: "Des soirées intimes où l'on ouvre les bouteilles et le carnet du vigneron. Pour restaurateurs comme pour amateurs en quête de pépites.", en: 'Intimate evenings where we open the bottles and the winemaker\u2019s notebook. For restaurateurs and gem-hunting enthusiasts alike.' },
-    't-feat-title': { fr: 'Six vins, six plats', en: 'Six wines, six dishes' },
+    't-feat-title': { fr: 'Six accords pour repartir comblé', en: 'Six pairings that leave you satisfied' },
     't-feat-eye': { fr: 'DÎNER-DÉGUSTATION · PORTO MAR, VIEUX-MONTRÉAL', en: 'TASTING DINNER · PORTO MAR, OLD MONTREAL' },
     't-feat-price': { fr: '85 $', en: '$85' },
     't-feat-incl': { fr: 'par personne · taxes et pourboire inclus', en: 'per person · tax and tip included' },
@@ -1168,23 +1175,19 @@ class Component extends DCLogic {
   setupHashScroll() {
     if (!window.location.hash) return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    let lastTop = null, stable = 0, tries = 0;
-    const settle = () => {
-      tries++;
-      const id = decodeURIComponent(window.location.hash.slice(1));
-      const el = id && document.getElementById(id);
-      if (el) {
-        this.scrollToHash(false);
-        const t = Math.round(el.getBoundingClientRect().top);
-        stable = (lastTop !== null && Math.abs(t - lastTop) < 2) ? stable + 1 : 0;
-        lastTop = t;
-      }
-      if (stable < 3 && tries < 40) setTimeout(settle, 150);
+    let userMoved = false;
+    const stop = () => { userMoved = true; };
+    ['wheel', 'touchstart', 'keydown'].forEach((ev) => window.addEventListener(ev, stop, { once: true, passive: true }));
+    const t0 = Date.now();
+    const tick = () => {
+      if (userMoved || this.state.ageGateOpen) { if (!userMoved && Date.now() - t0 < 20000) setTimeout(tick, 250); return; }
+      this.scrollToHash(false);
+      if (Date.now() - t0 < 5000) setTimeout(tick, 200);
     };
-    const start = () => setTimeout(settle, 60);
+    const start = () => setTimeout(tick, 60);
     if (document.readyState === 'complete') start();
     else window.addEventListener('load', start, { once: true });
-    setTimeout(settle, 400);
+    setTimeout(tick, 400);
     window.addEventListener('hashchange', () => this.scrollToHash(true));
   }
 
